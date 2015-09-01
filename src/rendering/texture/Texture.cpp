@@ -16,7 +16,7 @@ void Texture::bind() const {
 }
 
 void Texture::load() {
-	SDL_Surface* surface = IMG_Load(m_fileName.c_str());
+	SDL_Surface* surface = IMG_Load(("res/textures/" + m_fileName).c_str());
 	if (surface == nullptr) {
 		std::cerr << "Unable to load image from " << m_fileName << ", SDL_image Error: " << IMG_GetError() << "\n";
 		return;

@@ -6,7 +6,8 @@
 #include "../core/Time.hpp"
 
 Renderer::Renderer(const Window& window) : m_window(&window),
-										   m_cameraProjection(70.0f, (float)m_window->getWidth() / (float)m_window->getHeight(), 0.1f, 10.0f) {
+										   m_cameraProjection(70.0f, (float)m_window->getWidth() / (float)m_window->getHeight(), 0.1f, 10.0f),
+										   m_testMaterial("test.png", glm::vec4(1.0f, 1.0f, 1.0f, 0.5f)) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
@@ -16,9 +17,8 @@ Renderer::Renderer(const Window& window) : m_window(&window),
 	//glEnable(GL_MULTISAMPLE);
 	glEnable(GL_FRAMEBUFFER_SRGB);
 
-	m_meshes.add("cube.obj", "res/models/cube.obj");
-
-	m_textures.add("test.png", "res/textures/test.png");
+	m_meshes.add("cube.obj");
+	m_textures.add("test.png");
 
 	m_basicTextureShader.useShader();
 }

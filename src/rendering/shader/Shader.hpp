@@ -7,7 +7,7 @@
 
 class Shader {
 public:
-	Shader(const std::string &vertexShader, const std::string& fragmentShader) : m_shaderData(vertexShader, fragmentShader) {}
+	Shader(const std::string &vertexShader, const std::string& fragmentShader) : m_shaderData("res/shaders/" + vertexShader, "res/shaders/" + fragmentShader) {}
 
 	void useShader() const;
 

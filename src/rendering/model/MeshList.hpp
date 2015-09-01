@@ -7,7 +7,7 @@
 
 class MeshList {
 public:
-	void add(std::string identifier, const std::string& fileName) { m_meshes.emplace(std::make_pair(identifier, Mesh(fileName))); }
+	void add(const std::string& fileName) { m_meshes.emplace(std::make_pair(fileName, Mesh(fileName))); }
 
 	void draw(const std::string& identifier) const { getMesh(identifier).draw(); }
 

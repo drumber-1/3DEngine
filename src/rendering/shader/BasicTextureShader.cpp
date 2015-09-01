@@ -1,6 +1,6 @@
 #include "BasicTextureShader.hpp"
 
-BasicTextureShader::BasicTextureShader() : Shader("res/shaders/basicTexture_vert.glsl", "res/shaders/basicTexture_frag.glsl") {
+BasicTextureShader::BasicTextureShader() : Shader("basicTexture_vert.glsl", "basicTexture_frag.glsl") {
 	addUniform("modelToProjectionMatrix");
 	addUniform("modColour");
 }

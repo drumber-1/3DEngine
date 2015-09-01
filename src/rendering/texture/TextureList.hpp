@@ -7,7 +7,7 @@
 
 class TextureList {
 public:
-	void add(std::string identifier, const std::string& fileName) { m_textures.emplace(std::make_pair(identifier, Texture(fileName))); }
+	void add(const std::string& fileName) { m_textures.emplace(std::make_pair(fileName, Texture(fileName))); }
 
 	void bind(const std::string& identifier) const { getTexture(identifier).bind(); }
 
@@ -17,6 +17,8 @@ public:
 
 	const Texture& getTexture(const std::string& identifier) const { return m_textures.find(identifier)->second; }
 	Texture& getTexture(const std::string& identifier) { return m_textures.find(identifier)->second; }
+
+	static TextureList g_textureList;
 private:
 	std::unordered_map<std::string, Texture> m_textures;
 };

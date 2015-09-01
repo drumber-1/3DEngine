@@ -27,7 +27,7 @@ void Mesh::load() {
 
 	Assimp::Importer importer;
 
-	const aiScene* scene = importer.ReadFile((m_fileName).c_str(),
+	const aiScene* scene = importer.ReadFile(("res/models/" + m_fileName).c_str(),
 											 aiProcess_Triangulate |
 											 aiProcess_GenSmoothNormals |
 											 aiProcess_FlipUVs |

@@ -7,6 +7,7 @@
 #include "Camera.hpp"
 #include "CameraProjection.hpp"
 #include "shader/BasicTextureShader.hpp"
+#include "Material.hpp"
 
 class Renderer {
 public:
@@ -21,7 +22,9 @@ private:
 	TextureList m_textures;
 
 	CameraProjection m_cameraProjection;
+
 	ModelToWorldTransform m_testTransform;
+	Material m_testMaterial;
 
 	BasicTextureShader m_basicTextureShader;
 };
