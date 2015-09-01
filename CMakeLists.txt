@@ -27,9 +27,6 @@ include(FindPkgConfig)
 pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 
-#find_package(OpenGL REQUIRED)
-#include(${3DEngine_CMAKE_DIR}/FindGLEW.cmake)
-#include(${3DEngine_CMAKE_DIR}/FindSDL2.cmake)
 include(${3DEngine_CMAKE_DIR}/FindASSIMP.cmake)
 
 include_directories(

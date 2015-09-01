@@ -3,10 +3,10 @@
 #include "Window.hpp"
 #include "model/MeshList.hpp"
 #include "texture/TextureList.hpp"
-#include "shader/Shader.hpp"
 #include "../core/ModelToWorldTransform.hpp"
 #include "Camera.hpp"
 #include "CameraProjection.hpp"
+#include "shader/BasicTextureShader.hpp"
 
 class Renderer {
 public:
@@ -23,5 +23,5 @@ private:
 	CameraProjection m_cameraProjection;
 	ModelToWorldTransform m_testTransform;
 
-	Shader m_testShader;
+	BasicTextureShader m_basicTextureShader;
 };
