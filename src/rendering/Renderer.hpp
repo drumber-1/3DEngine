@@ -19,7 +19,7 @@ private:
 	const Window* m_window;
 
 	MeshList m_meshes;
-	TextureList m_textures;
+	//TextureList m_textures;
 
 	CameraProjection m_cameraProjection;
 

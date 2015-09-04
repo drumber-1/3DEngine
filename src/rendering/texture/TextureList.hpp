@@ -17,8 +17,10 @@ public:
 
 	const Texture& getTexture(const std::string& identifier) const { return m_textures.find(identifier)->second; }
 	Texture& getTexture(const std::string& identifier) { return m_textures.find(identifier)->second; }
+	Texture* getAddTexture(const std::string& identifier);
 
 	static TextureList g_textureList;
+	static Texture* getAddTextureGlobal(const std::string& identifier) { return g_textureList.getAddTexture(identifier); }
 private:
 	std::unordered_map<std::string, Texture> m_textures;
 };

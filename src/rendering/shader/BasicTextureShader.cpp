@@ -1,4 +1,5 @@
 #include "BasicTextureShader.hpp"
+#include "../texture/Texture.hpp"
 
 BasicTextureShader::BasicTextureShader() : Shader("basicTexture_vert.glsl", "basicTexture_frag.glsl") {
 	addUniform("modelToProjectionMatrix");
@@ -11,4 +12,9 @@ void BasicTextureShader::setModelToProjectionMatrix(glm::mat4 matrix) {
 
 void BasicTextureShader::setModColour(glm::vec4 colour) {
 	setUniform("modColour", colour);
+}
+
+void BasicTextureShader::setMaterial(const Material &material) {
+	setModColour(material.getModColour());
+	material.getTexture()->bind();
 }

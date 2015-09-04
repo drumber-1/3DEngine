@@ -3,11 +3,14 @@
 #include <GL/glew.h>
 
 #include "Window.hpp"
+#include "texture/TextureList.hpp"
 #include "../core/Time.hpp"
+
+#include <iostream>
 
 Renderer::Renderer(const Window& window) : m_window(&window),
 										   m_cameraProjection(70.0f, (float)m_window->getWidth() / (float)m_window->getHeight(), 0.1f, 10.0f),
-										   m_testMaterial("test.png", glm::vec4(1.0f, 1.0f, 1.0f, 0.5f)) {
+										   m_testMaterial(TextureList::getAddTextureGlobal("test.png"), glm::vec4(1.0f, 1.0f, 1.0f, 0.5f)) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
@@ -18,7 +21,7 @@ Renderer::Renderer(const Window& window) : m_window(&window),
 	glEnable(GL_FRAMEBUFFER_SRGB);
 
 	m_meshes.add("cube.obj");
-	m_textures.add("test.png");
+	//m_textures.add("test.png");
 
 	m_basicTextureShader.useShader();
 }
@@ -28,7 +31,8 @@ void Renderer::render(const Camera& camera) {
 
 	m_testTransform.setTranslation(glm::vec3(0.0f, 0.0f, 3.0f));
 	m_basicTextureShader.setModelToProjectionMatrix(m_cameraProjection.getViewToProjection() * camera.getWorldToViewMatrix() * m_testTransform.getTransformationMatrix());
-	m_textures.bind("test.png");
+	m_basicTextureShader.setMaterial(m_testMaterial);
+	//m_textures.bind("test.png");
 	m_meshes.draw("cube.obj");
 
 	Time::sleep(1);
