@@ -9,7 +9,7 @@
 Renderer::Renderer(const Window& window) : m_window(&window),
 										   m_cameraProjection(70.0f, (float)m_window->getWidth() / (float)m_window->getHeight(), 0.01f, 10.0f),
 										   m_testMaterial(TextureList::getAddTextureGlobal("test.png"), glm::vec4(1.0f, 1.0f, 1.0f, 0.5f)),
-										   m_testDLight(glm::vec3(1.0, 1.0, 1.0), 0.8f, glm::vec3(-0.5, -0.5, -0.5)) {
+										   m_testDLight(glm::vec3(1.0, 1.0, 1.0), 0.8f, glm::vec3(1.0, -0.2, 0.0)) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
@@ -27,15 +27,17 @@ Renderer::Renderer(const Window& window) : m_window(&window),
 
 	//m_basicTextureShader.useShader();
 	m_phongShader.useShader();
-	m_phongShader.setAmbientLight(glm::vec3(0.2f, 0.2f, 0.2f));
+	m_phongShader.setAmbientLight(glm::vec3(0.1f, 0.1f, 0.1f));
 	m_phongShader.setDirectiobalLight(m_testDLight);
 }
 
 void Renderer::render(const Camera& camera) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	m_testDLight.setDirection(camera.getViewDirection());
-	m_phongShader.setDirectiobalLight(m_testDLight);
+	m_phongShader.setEyePositionWorld(camera.getPosition());
+
+	//m_testDLight.setDirection(camera.getViewDirection());
+	//m_phongShader.setDirectiobalLight(m_testDLight);
 
 	m_testTransform.setTranslation(glm::vec3(0.0f, 1.1f, 3.0f));
 	m_phongShader.setModelToProjectionMatrix(m_cameraProjection.getViewToProjection() * camera.getWorldToViewMatrix() * m_testTransform.getTransformationMatrix());
