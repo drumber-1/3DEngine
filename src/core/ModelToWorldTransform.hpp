@@ -6,15 +6,15 @@
 
 class ModelToWorldTransform {
 public:
-	inline void translate(glm::vec3 translation) { m_translation = glm::translate(m_translation, translation); }
-	inline void setTranslation(glm::vec3 translation) { m_translation = glm::translate(glm::mat4(), translation); }
+	inline void translate(const glm::vec3& translation) { m_translation = glm::translate(m_translation, translation); }
+	inline void setTranslation(const glm::vec3& translation) { m_translation = glm::translate(glm::mat4(), translation); }
 
-	inline void rotate(float angle, const glm::vec3 axis) { m_rotation = glm::rotate(m_rotation, angle, axis); }
-	inline void setRotation(float angle, const glm::vec3 axis) { m_rotation = glm::rotate(glm::mat4(), angle, axis); }
-	inline void setRotation(glm::mat4 rotation) { m_rotation = rotation; }
+	inline void rotate(float angle, const glm::vec3& axis) { m_rotation = glm::rotate(m_rotation, angle, axis); }
+	inline void setRotation(float angle, const glm::vec3& axis) { m_rotation = glm::rotate(glm::mat4(), angle, axis); }
+	inline void setRotation(const glm::mat4& rotation) { m_rotation = rotation; }
 
-	inline void scale(glm::vec3 scale) { m_scale = glm::scale(m_scale, scale); }
-	inline void setScale(glm::vec3 scale) { m_scale = glm::scale(glm::mat4(), scale); }
+	inline void scale(const glm::vec3& scale) { m_scale = glm::scale(m_scale, scale); }
+	inline void setScale(const glm::vec3& scale) { m_scale = glm::scale(glm::mat4(), scale); }
 
 	inline glm::mat4 getTransformationMatrix() { return m_translation * m_rotation * m_scale; }
 private:

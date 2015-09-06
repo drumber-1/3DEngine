@@ -8,8 +8,8 @@ class Camera {
 public:
 	Camera();
 
-	inline void move(glm::vec3 delta) { m_position += delta; }
-	inline void move(glm::vec3 dir, float distance) { move(dir * distance); }
+	inline void move(const glm::vec3& delta) { m_position += delta; }
+	inline void move(const glm::vec3& dir, float distance) { move(dir * distance); }
 	inline void moveForward(float distance) { move(m_viewDirection, distance); }
 	inline void moveLeft(float distance) { move(m_left, distance); }
 	inline void moveUp(float distance) { move(m_UP, distance); }
@@ -21,8 +21,8 @@ public:
 	inline const glm::vec3& getPosition() const { return m_position; }
 	inline const glm::vec3& getViewDirection() const { return m_viewDirection; }
 
-	inline void setPosition(glm::vec3 pos) { m_position = pos; }
-	inline void setViewDirection(glm::vec3 dir) { m_viewDirection = glm::normalize(dir); }
+	inline void setPosition(const glm::vec3& pos) { m_position = pos; }
+	inline void setViewDirection(const glm::vec3& dir) { m_viewDirection = glm::normalize(dir); }
 private:
 	glm::vec3 m_position;
 	glm::vec3 m_viewDirection;

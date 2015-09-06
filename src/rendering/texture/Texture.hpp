@@ -8,11 +8,12 @@
 class Texture {
 public:
 	Texture(const std::string& fileName, bool loadNow = true);
-	void bind() const;
+
+	inline void bind() const { m_textureData->bind(); }
 
 	void load();
-	void unload();
-	bool isLoaded() const;
+	inline void unload() { m_textureData.reset(); }
+	inline bool isLoaded() const { return m_textureData.get() == nullptr; }
 private:
 	std::unique_ptr<TextureData> m_textureData;
 	std::string m_fileName;

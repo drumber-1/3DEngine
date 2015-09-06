@@ -7,8 +7,8 @@ class BasicTextureShader : public Shader {
 public:
 	BasicTextureShader();
 
-	void setModelToProjectionMatrix(glm::mat4 matrix);
-	void setModColour(glm::vec4 colour);
+	inline void setModelToProjectionMatrix(const glm::mat4& matrix) { setUniform("modelToProjectionMatrix", matrix); }
+	inline void setModColour(const glm::vec4& colour) { setUniform("modColour", colour); }
 	void setMaterial(const Material& material);
 };
 

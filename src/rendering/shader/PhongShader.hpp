@@ -8,10 +8,11 @@ class PhongShader : public Shader {
 public:
 	PhongShader();
 
-	void setModelToProjectionMatrix(glm::mat4 matrix);
-	void setModelToWorldMatrix(glm::mat4 matrix);
-	void setModColour(glm::vec4 colour);
+	inline void setModelToProjectionMatrix(glm::mat4 matrix) { setUniform("modelToProjectionMatrix", matrix); }
+	inline void setModelToWorldMatrix(glm::mat4 matrix) { setUniform("modelToWorldMatrix", matrix); }
+	inline void setModColour(glm::vec4 colour) { setUniform("modColour", colour); }
+	inline void setAmbientLight(glm::vec3 ambientLight) { setUniform("ambientLight", ambientLight); }
+
 	void setMaterial(const Material& material);
-	void setAmbientLight(glm::vec3 ambientLight);
 	void setDirectiobalLight(const DirectionalLight& directionalLight);
 };

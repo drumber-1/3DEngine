@@ -11,10 +11,6 @@ Texture::Texture(const std::string &fileName, bool loadNow) : m_fileName(fileNam
 	}
 }
 
-void Texture::bind() const {
-	m_textureData->bind();
-}
-
 void Texture::load() {
 	SDL_Surface* surface = IMG_Load(("res/textures/" + m_fileName).c_str());
 	if (surface == nullptr) {
@@ -23,12 +19,4 @@ void Texture::load() {
 	}
 	m_textureData.reset(new TextureData(surface->w, surface->h, surface->pixels));
 	SDL_FreeSurface(surface);
-}
-
-void Texture::unload() {
-	m_textureData.reset();
-}
-
-bool Texture::isLoaded() const {
-	return m_textureData.get() == nullptr;
 }

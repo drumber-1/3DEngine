@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
+
 #include <string>
 #include <vector>
 #include <map>
@@ -10,7 +11,7 @@ public:
 	ShaderData(const std::string &vertexShader, const std::string& fragmentShader);
 	virtual ~ShaderData();
 
-	void useProgram() const { glUseProgram(m_programID); }
+	inline void useProgram() const { glUseProgram(m_programID); }
 
 	inline GLuint getProgramID() const { return m_programID; }
 private:
