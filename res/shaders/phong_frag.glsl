@@ -35,16 +35,16 @@ vec4 calculateLight(BaseLight base, vec3 lightDirection, vec3 normal) {
 	float lightCoefficient;
 
 	//Diffuse
-	lightCoefficient += clamp(dot(lightVector, normal), 0, 1);
+	lightCoefficient += max(dot(lightVector, normal), 0);
 
+	//Specular
 	if (reflectivity > 0) {
 		vec3 reflectVector = reflect(-lightVector, fragNormalWorld);
 		vec3 eyeVector = normalize(eyePositionWorld - fragPositionWorld);
-		lightCoefficient += clamp(pow(dot(reflectVector, eyeVector), specularIndex), 0, 1);
+		lightCoefficient += reflectivity * max(pow(dot(reflectVector, eyeVector), specularIndex), 0);
 	}
 
-	lightCoefficient = clamp(lightCoefficient, 0.0, 1.0);
-	return vec4(lightCoefficient * base.luminosity * base.colour, 1.0);
+	return vec4(clamp(lightCoefficient * base.luminosity * base.colour, 0, 1), 1.0);
 }
 
 void main() {

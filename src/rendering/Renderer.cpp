@@ -20,6 +20,7 @@ Renderer::Renderer(const Window& window) : m_window(&window),
 	glEnable(GL_FRAMEBUFFER_SRGB);
 
 	m_meshes.add("cube.obj");
+	m_meshes.add("monkey3.obj");
 	Model modelPlane;
 	modelPlane.makePlane(10, 10, 1);
 	modelPlane.finalize();
@@ -44,6 +45,12 @@ void Renderer::render(const Camera& camera) {
 	m_phongShader.setModelToWorldMatrix(m_testTransform.getTransformationMatrix());
 	m_phongShader.setMaterial(m_testMaterial);
 	m_meshes.draw("cube.obj");
+
+	m_testTransform.setTranslation(glm::vec3(0.0f, 1.1f, -3.0f));
+	m_phongShader.setModelToProjectionMatrix(m_cameraProjection.getViewToProjection() * camera.getWorldToViewMatrix() * m_testTransform.getTransformationMatrix());
+	m_phongShader.setModelToWorldMatrix(m_testTransform.getTransformationMatrix());
+	m_phongShader.setMaterial(m_testMaterial);
+	m_meshes.draw("monkey3.obj");
 
 	m_testTransform.setTranslation(glm::vec3(0.0f, 0.0f, 0.0f));
 	m_phongShader.setModelToProjectionMatrix(m_cameraProjection.getViewToProjection() * camera.getWorldToViewMatrix() * m_testTransform.getTransformationMatrix());

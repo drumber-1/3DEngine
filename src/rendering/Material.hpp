@@ -10,7 +10,7 @@ public:
 	Material(const Texture* m_texture,
 			 glm::vec4 modColour = glm::vec4(1.0, 1.0, 1.0, 1.0),
 			 float reflectivity = 2,
-			 float specularIndex = 64) : m_texture(m_texture),
+			 float specularIndex = 32) : m_texture(m_texture),
 									    m_modColour(modColour),
 									    m_reflectivity(reflectivity),
 									    m_specularIndex(specularIndex) {}
