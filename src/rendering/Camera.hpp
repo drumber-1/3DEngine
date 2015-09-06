@@ -18,6 +18,8 @@ public:
 	void turnLeft(float angle);
 
 	inline glm::mat4 getWorldToViewMatrix() const { return glm::lookAt(m_position, m_position + m_viewDirection, m_UP); }
+	inline const glm::vec3& getPosition() const { return m_position; }
+	inline const glm::vec3& getViewDirection() const { return m_viewDirection; }
 
 	inline void setPosition(glm::vec3 pos) { m_position = pos; }
 	inline void setViewDirection(glm::vec3 dir) { m_viewDirection = glm::normalize(dir); }

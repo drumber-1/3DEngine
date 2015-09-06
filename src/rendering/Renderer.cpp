@@ -34,6 +34,9 @@ Renderer::Renderer(const Window& window) : m_window(&window),
 void Renderer::render(const Camera& camera) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	m_testDLight.setDirection(camera.getViewDirection());
+	m_phongShader.setDirectiobalLight(m_testDLight);
+
 	m_testTransform.setTranslation(glm::vec3(0.0f, 1.1f, 3.0f));
 	m_phongShader.setModelToProjectionMatrix(m_cameraProjection.getViewToProjection() * camera.getWorldToViewMatrix() * m_testTransform.getTransformationMatrix());
 	m_phongShader.setModelToWorldMatrix(m_testTransform.getTransformationMatrix());
