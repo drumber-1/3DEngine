@@ -22,7 +22,8 @@ public:
 	void calcNormals();
 	void calcTangents();
 
-	Model finalize();
+	void finalize();
+	void clearAll();
 
 	inline void addVertex(const glm::vec3& vert) { m_positions.push_back(vert); }
 	inline void addVertex(float x, float y, float z) { addVertex(glm::vec3(x, y, z)); }
@@ -43,6 +44,8 @@ public:
 	inline const std::vector<glm::vec2>& getTexCoords() const { return m_texCoords; }
 	inline const std::vector<glm::vec3>& getNormals() const { return m_normals; }
 	inline const std::vector<glm::vec3>& getTangents() const { return m_tangents; }
+
+	void makePlane(unsigned int nx, unsigned int ny, float scale);
 private:
 	std::vector<unsigned int> m_indices;
 	std::vector<glm::vec3> m_positions;

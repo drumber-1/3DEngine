@@ -14,7 +14,7 @@ Mesh::Mesh(const std::string &fileName, bool loadNow) : m_fileName(fileName), m_
 	}
 }
 
-Mesh::Mesh(const Model &model, bool loadNow) : m_model(model), m_hasModel(false) {
+Mesh::Mesh(const Model &model, bool loadNow) : m_model(model), m_fileName(""), m_hasModel(false) {
 	if (loadNow) {
 		load();
 	}
@@ -23,6 +23,7 @@ Mesh::Mesh(const Model &model, bool loadNow) : m_model(model), m_hasModel(false)
 void Mesh::load() {
 	if (m_fileName == "") {
 		m_meshData.reset(new MeshData(m_model));
+		return;
 	}
 
 	Assimp::Importer importer;

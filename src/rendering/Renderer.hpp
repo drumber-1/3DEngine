@@ -8,6 +8,7 @@
 #include "CameraProjection.hpp"
 #include "shader/BasicTextureShader.hpp"
 #include "Material.hpp"
+#include "shader/PhongShader.hpp"
 
 class Renderer {
 public:
@@ -19,7 +20,6 @@ private:
 	const Window* m_window;
 
 	MeshList m_meshes;
-	//TextureList m_textures;
 
 	CameraProjection m_cameraProjection;
 
@@ -27,4 +27,7 @@ private:
 	Material m_testMaterial;
 
 	BasicTextureShader m_basicTextureShader;
+	PhongShader m_phongShader;
+
+	DirectionalLight m_testDLight;
 };

@@ -4,10 +4,12 @@
 #include <unordered_map>
 
 #include "Mesh.hpp"
+#include "Model.hpp"
 
 class MeshList {
 public:
 	void add(const std::string& fileName) { m_meshes.emplace(std::make_pair(fileName, Mesh(fileName))); }
+	void add(const std::string& name, const Model& model) { m_meshes.emplace(std::make_pair(name, Mesh(model))); }
 
 	void draw(const std::string& identifier) const { getMesh(identifier).draw(); }
 

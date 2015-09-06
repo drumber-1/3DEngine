@@ -15,10 +15,10 @@ void Model::calcNormals() {
 		unsigned int i1 = m_indices[i + 1];
 		unsigned int i2 = m_indices[i + 2];
 
-		glm::vec3 v1 = m_positions[i1] - m_positions[i0];
-		glm::vec3 v2 = m_positions[i2] - m_positions[i0];
+		glm::vec3 side1 = m_positions[i1] - m_positions[i0];
+		glm::vec3 side2 = m_positions[i2] - m_positions[i0];
 
-		glm::vec3 normal = glm::normalize(glm::cross(v2, v1));
+		glm::vec3 normal = glm::normalize(glm::cross(side2, side1));
 
 		m_normals[i0] += normal;
 		m_normals[i1] += normal;
@@ -71,9 +71,9 @@ void Model::calcTangents() {
 
 }
 
-Model Model::finalize() {
+void Model::finalize() {
 	if (isValid()) {
-		return *this;
+		return;
 	}
 
 	if (m_texCoords.size() == 0) {
@@ -90,11 +90,86 @@ Model Model::finalize() {
 
 	assert(isValid());
 
-	return *this;
+	return;
+}
+
+void Model::clearAll() {
+	m_positions.clear();
+	m_indices.clear();
+	m_texCoords.clear();
+	m_normals.clear();
+	m_tangents.clear();
 }
 
 void Model::addTri(unsigned int index0, unsigned int index1, unsigned int index2) {
 	m_indices.push_back(index0);
 	m_indices.push_back(index1);
 	m_indices.push_back(index2);
+}
+
+void Model::makePlane(unsigned int nx, unsigned int ny, float scale) {
+	clearAll();
+
+	float xCellOffset = nx / 2.0f;
+	float yCellOffset = ny / 2.0f;
+
+	m_positions.resize(4 * nx * ny);
+	m_texCoords.resize(4 * nx * ny);
+	m_normals.resize(4 * nx * ny);
+	for (unsigned int i = 0; i < nx; ++i) {
+		for (unsigned int j = 0; j < ny; ++j) {
+			int cellIndex = 4 * (i * ny + j);
+			m_positions[cellIndex + 0].x = (i - xCellOffset) * scale;
+			m_positions[cellIndex + 0].y = 0.0f;
+			m_positions[cellIndex + 0].z = (j - yCellOffset) * scale;
+			m_texCoords[cellIndex + 0].x = 0.0f;
+			m_texCoords[cellIndex + 0].y = 0.0f;
+			m_normals[cellIndex + 0].x = 0.0f;
+			m_normals[cellIndex + 0].y = 1.0f;
+			m_normals[cellIndex + 0].z = 0.0f;
+
+			m_positions[cellIndex + 1].x = (i - xCellOffset) * scale;
+			m_positions[cellIndex + 1].y = 0.0f;
+			m_positions[cellIndex + 1].z = (j - yCellOffset + 1) * scale;
+			m_texCoords[cellIndex + 1].x = 0.0f;
+			m_texCoords[cellIndex + 1].y = 1.0f;
+			m_normals[cellIndex + 1].x = 0.0f;
+			m_normals[cellIndex + 1].y = 1.0f;
+			m_normals[cellIndex + 1].z = 0.0f;
+
+			m_positions[cellIndex + 2].x = (i - xCellOffset + 1) * scale;
+			m_positions[cellIndex + 2].y = 0.0f;
+			m_positions[cellIndex + 2].z = (j - yCellOffset + 1) * scale;
+			m_texCoords[cellIndex + 2].x = 1.0f;
+			m_texCoords[cellIndex + 2].y = 1.0f;
+			m_normals[cellIndex + 2].x = 0.0f;
+			m_normals[cellIndex + 2].y = 1.0f;
+			m_normals[cellIndex + 2].z = 0.0f;
+
+			m_positions[cellIndex + 3].x = (i - xCellOffset + 1) * scale;
+			m_positions[cellIndex + 3].y = 0.0f;
+			m_positions[cellIndex + 3].z = (j - yCellOffset) * scale;
+			m_texCoords[cellIndex + 3].x = 1.0f;
+			m_texCoords[cellIndex + 3].y = 0.0f;
+			m_normals[cellIndex + 3].x = 0.0f;
+			m_normals[cellIndex + 3].y = 1.0f;
+			m_normals[cellIndex + 3].z = 0.0f;
+		}
+	}
+
+	m_indices.resize(6 * nx * ny);
+	unsigned int count = 0;
+	for (unsigned int i = 0; i < nx; ++i) {
+		for (unsigned int j = 0; j < ny; ++j) {
+			unsigned int cellIndex = 4 * (i * ny + j);
+			m_indices[count++] = cellIndex;
+			m_indices[count++] = cellIndex + 1;
+			m_indices[count++] = cellIndex + 2;
+
+			m_indices[count++] = cellIndex;
+			m_indices[count++] = cellIndex + 2;
+			m_indices[count++] = cellIndex + 3;
+		}
+	}
+
 }

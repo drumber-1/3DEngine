@@ -5,6 +5,7 @@
 #include "../rendering/Renderer.hpp"
 
 Game::Game() : m_CAMERA_SPEED(0.5f) {
+	m_camera.moveUp(0.5f);
 }
 
 void Game::update(const Input& input, float delta) {
