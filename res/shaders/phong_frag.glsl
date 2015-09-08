@@ -32,7 +32,7 @@ vec4 calculateLight(BaseLight base, vec3 lightDirection, vec3 normal) {
 
 	vec3 lightVector = normalize(lightDirection);
 
-	float lightCoefficient;
+	float lightCoefficient = 0;
 
 	//Diffuse
 	lightCoefficient += max(dot(lightVector, normal), 0);
@@ -52,6 +52,7 @@ void main() {
 
 	vec4 totalLight = calculateLight(directionalLight.base, -directionalLight.direction, fragNormalWorld) + vec4(ambientLight, 1.0);
 
+	//finalColour = calculateLight(directionalLight.base, -directionalLight.direction, fragNormalWorld);
 	finalColour = textureColour * totalLight;
 	//finalColour = vec4(fragNormalWorld, 1.0);
 }

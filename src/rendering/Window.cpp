@@ -14,8 +14,8 @@ Window::Window(int width, int height, const std::string &title) : m_width(width)
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 
-	SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
-	SDL_GL_SetSwapInterval(1);
+	//SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1");
+	SDL_GL_SetSwapInterval(0);
 
 	glewExperimental = GL_TRUE;
 
@@ -42,7 +42,7 @@ void Window::update() {
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
 
-		if (e.type ==  SDL_QUIT) {
+		if (e.type == SDL_QUIT) {
 			m_isCloseRequested = true;
 		} else {
 			m_input.handle_event(e);
