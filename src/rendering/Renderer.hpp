@@ -32,4 +32,5 @@ private:
 
 	DirectionalLight m_testDLight;
 	PointLight m_testPLight;
+	SpotLight m_testSLight;
 };

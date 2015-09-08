@@ -2,6 +2,7 @@
 
 const int MAX_DIRECTIONAL_LIGHTS = 4;
 const int MAX_POINT_LIGHTS = 4;
+const int MAX_SPOT_LIGHTS = 4;
 
 in vec3 fragPositionWorld;
 in vec2 fragTexCoord;
@@ -25,6 +26,12 @@ struct PointLight {
 	float range;
 };
 
+struct SpotLight {
+	PointLight pointLight;
+	vec3 direction;
+	float cosineFov;
+};
+
 uniform vec3 eyePositionWorld;
 
 uniform sampler2D theTexture;
@@ -34,6 +41,7 @@ uniform vec3 ambientLight = vec3(1.0, 1.0, 1.0);
 
 uniform DirectionalLight directionalLights[MAX_DIRECTIONAL_LIGHTS];
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
+uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 uniform float reflectivity;
 uniform float specularIndex;
@@ -45,7 +53,7 @@ vec4 calculateLight(BaseLight light, vec3 lightDirection) {
 	float lightCoefficient = 0;
 
 	//Diffuse
-	lightCoefficient += max(dot(lightVector, fragNormalWorld), 0);
+	lightCoefficient += max(dot(-lightVector, fragNormalWorld), 0);
 
 	//Specular
 	if (reflectivity > 0) {
@@ -58,20 +66,29 @@ vec4 calculateLight(BaseLight light, vec3 lightDirection) {
 }
 
 vec4 calculateDirectionalLight(DirectionalLight light) {
-	return calculateLight(light.base, -light.direction);
+	return calculateLight(light.base, light.direction);
 }
 
 vec4 calculatePointLight(PointLight light) {
-	vec3 lightDirection = light.position - fragPositionWorld;
+	vec3 lightDirection = fragPositionWorld - light.position;
 	float distance = length(lightDirection);
 
-	vec4 colour = vec4(0.0, 0.0, 0.0, 1.0);
-	if (distance < light.range) {
-		colour = calculateLight(light.base, lightDirection) / (distance * distance + 0.0001);
+	if (distance > light.range) {
+		return vec4(0.0, 0.0, 0.0, 1.0);
 	}
 
-    return colour;
+	return calculateLight(light.base, lightDirection) / (distance * distance + 0.0001);
+}
 
+vec4 calculateSpotLight(SpotLight light) {
+	vec3 lightVector = normalize(fragPositionWorld - light.pointLight.position);
+	float cosAngle = dot(lightVector, normalize(light.direction));
+
+	if (cosAngle < light.cosineFov) {
+		return vec4(0.0, 0.0, 0.0, 1.0);
+	}
+
+	return calculatePointLight(light.pointLight);
 }
 
 void main() {
@@ -89,7 +106,11 @@ void main() {
     	}
     }
 
+    for (int i = 0; i < MAX_SPOT_LIGHTS; i++) {
+		if (spotLights[i].pointLight.base.luminosity > 0) {
+			totalLight += calculateSpotLight(spotLights[i]);
+		}
+	}
+
 	finalColour = textureColour * totalLight;
-	//finalColour = calculateLight(directionalLight.base, -directionalLight.direction, fragNormalWorld);
-	//finalColour = vec4(fragNormalWorld, 1.0);
 }

@@ -7,11 +7,12 @@
 #include "../core/Time.hpp"
 
 Renderer::Renderer(const Window& window) : m_window(&window),
-										   m_cameraProjection(70.0f, (float)m_window->getWidth() / (float)m_window->getHeight(), 0.01f, 10.0f),
+										   m_cameraProjection(90.0f, (float)m_window->getWidth() / (float)m_window->getHeight(), 0.01f, 10.0f),
 										   m_testMaterial(TextureList::getAddTextureGlobal("test.png"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)),
 										   m_testMaterial2(TextureList::getAddTextureGlobal("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0),
 										   m_testDLight(glm::vec3(1.0, 1.0, 1.0), 0.4f, glm::vec3(1.0, -0.2, 0.0)),
-                                           m_testPLight(glm::vec3(1.0, 1.0, 1.0), 0.8f, glm::vec3(0.0, 0.0, 0.0), 5) {
+                                           m_testPLight(glm::vec3(1.0, 1.0, 1.0), 0.4f, glm::vec3(0.0f, 3.1f, -3.0f), 5),
+                                           m_testSLight(glm::vec3(1.0, 1.0, 1.0), 0.8f, glm::vec3(0.0, 1.0, 0.0), 5, glm::vec3(0.0, 0.0, 0.0), glm::cos(glm::radians(30.0f))) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
@@ -33,6 +34,7 @@ Renderer::Renderer(const Window& window) : m_window(&window),
 	m_phongShader.setAmbientLight(glm::vec3(0.1f, 0.1f, 0.1f));
 	m_phongShader.setDirectionalLight(m_testDLight, 0);
 	m_phongShader.setPointLight(m_testPLight, 0);
+	m_phongShader.setSpotLight(m_testSLight, 0);
 }
 
 void Renderer::render(const Camera& camera) {
@@ -42,8 +44,13 @@ void Renderer::render(const Camera& camera) {
 
 	//m_testDLight.setDirection(camera.getViewDirection());
 	//m_phongShader.setDirectiobalLight(m_testDLight);
-	m_testPLight.setPosition(camera.getPosition());
-	m_phongShader.setPointLight(m_testPLight, 0);
+
+	//m_testPLight.setPosition(camera.getPosition());
+	//m_phongShader.setPointLight(m_testPLight, 0);
+
+	m_testSLight.setPosition(camera.getPosition());
+	m_testSLight.setDirection(camera.getViewDirection());
+	m_phongShader.setSpotLight(m_testSLight, 0);
 
 	m_testTransform.setTranslation(glm::vec3(0.0f, 1.1f, 3.0f));
 	m_phongShader.setModelToProjectionMatrix(m_cameraProjection.getViewToProjection() * camera.getWorldToViewMatrix() * m_testTransform.getTransformationMatrix());
