@@ -22,6 +22,7 @@ struct DirectionalLight {
 struct PointLight {
 	BaseLight base;
 	vec3 position;
+	float range;
 };
 
 uniform vec3 eyePositionWorld;
@@ -64,9 +65,13 @@ vec4 calculatePointLight(PointLight light) {
 	vec3 lightDirection = light.position - fragPositionWorld;
 	float distance = length(lightDirection);
 
-	vec4 colour = calculateLight(light.base, lightDirection);
+	vec4 colour = vec4(0.0, 0.0, 0.0, 1.0);
+	if (distance < light.range) {
+		colour = calculateLight(light.base, lightDirection) / (distance * distance + 0.0001);
+	}
 
-	return colour / (distance * distance + 0.0001);
+    return colour;
+
 }
 
 void main() {
@@ -79,7 +84,9 @@ void main() {
 	}
 
 	for (int i = 0; i < MAX_POINT_LIGHTS; i++) {
-    	totalLight += calculatePointLight(pointLights[i]);
+		if (pointLights[i].base.luminosity > 0) {
+    		totalLight += calculatePointLight(pointLights[i]);
+    	}
     }
 
 	finalColour = textureColour * totalLight;

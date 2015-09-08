@@ -22,6 +22,7 @@ PhongShader::PhongShader(): Shader("phong_vert.glsl", "phong_frag.glsl") {
 		addUniform("pointLights[" + std::to_string(i) + "].base.colour");
 		addUniform("pointLights[" + std::to_string(i) + "].base.luminosity");
 		addUniform("pointLights[" + std::to_string(i) + "].position");
+		addUniform("pointLights[" + std::to_string(i) + "].range");
 	}
 }
 
@@ -42,4 +43,5 @@ void PhongShader::setPointLight(const PointLight &pointLight, int id) {
 	setUniform("pointLights[" + std::to_string(id) + "].base.colour", pointLight.getColour());
 	setUniform("pointLights[" + std::to_string(id) + "].base.luminosity", pointLight.getLuminosity());
 	setUniform("pointLights[" + std::to_string(id) + "].position", pointLight.getPosition());
+	setUniform("pointLights[" + std::to_string(id) + "].range", pointLight.getRange());
 }

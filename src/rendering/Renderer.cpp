@@ -10,7 +10,7 @@ Renderer::Renderer(const Window& window) : m_window(&window),
 										   m_cameraProjection(70.0f, (float)m_window->getWidth() / (float)m_window->getHeight(), 0.01f, 10.0f),
 										   m_testMaterial(TextureList::getAddTextureGlobal("test.png"), glm::vec4(1.0f, 1.0f, 1.0f, 0.5f)),
 										   m_testDLight(glm::vec3(1.0, 1.0, 1.0), 0.4f, glm::vec3(1.0, -0.2, 0.0)),
-                                           m_testPLight(glm::vec3(1.0, 1.0, 1.0), 0.8f, glm::vec3(0.0, 0.0, 0.0)) {
+                                           m_testPLight(glm::vec3(1.0, 1.0, 1.0), 0.8f, glm::vec3(0.0, 0.0, 0.0), 5) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
