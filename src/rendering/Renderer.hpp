@@ -25,6 +25,7 @@ private:
 
 	ModelToWorldTransform m_testTransform;
 	Material m_testMaterial;
+	Material m_testMaterial2;
 
 	BasicTextureShader m_basicTextureShader;
 	PhongShader m_phongShader;
