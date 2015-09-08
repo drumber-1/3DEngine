@@ -30,4 +30,5 @@ private:
 	PhongShader m_phongShader;
 
 	DirectionalLight m_testDLight;
+	PointLight m_testPLight;
 };

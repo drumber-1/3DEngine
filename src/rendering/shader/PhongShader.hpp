@@ -3,6 +3,7 @@
 #include "Shader.hpp"
 #include "../Material.hpp"
 #include "../lighting/DirectionalLight.hpp"
+#include "../lighting/PointLight.hpp"
 
 class PhongShader : public Shader {
 public:
@@ -17,5 +18,9 @@ public:
 	inline void setAmbientLight(const glm::vec3& ambientLight) { setUniform("ambientLight", ambientLight); }
 
 	void setMaterial(const Material& material);
-	void setDirectiobalLight(const DirectionalLight& directionalLight);
+	void setDirectionalLight(const DirectionalLight& directionalLight, int id);
+	void setPointLight(const PointLight& pointLight, int id);
+private:
+	static const int MAX_DIRECTIONAL_LIGHTS = 4;
+	static const int MAX_POINT_LIGHTS = 4;
 };

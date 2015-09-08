@@ -8,7 +8,7 @@ public:
 
 	inline const glm::vec3& getDirection() const { return m_direction; }
 
-	inline void setDirection(glm::vec3 direction) { m_direction = direction; }
+	inline void setDirection(const glm::vec3& direction) { m_direction = direction; }
 private:
 	glm::vec3 m_direction;
 };
