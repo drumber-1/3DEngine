@@ -88,7 +88,7 @@ vec4 calculateSpotLight(SpotLight light) {
 		return vec4(0.0, 0.0, 0.0, 1.0);
 	}
 
-	return calculatePointLight(light.pointLight);
+	return calculatePointLight(light.pointLight) * (1.0 - (1.0 - cosAngle)/(1.0 - light.cosineFov));
 }
 
 void main() {
