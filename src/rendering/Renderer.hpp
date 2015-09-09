@@ -12,7 +12,7 @@
 
 class Renderer {
 public:
-	Renderer(const Window& window);
+	Renderer(Window* window);
 	virtual ~Renderer() {}
 
 	void render(const Camera& camera);

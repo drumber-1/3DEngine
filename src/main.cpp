@@ -3,8 +3,8 @@
 
 #include <iostream>
 
+#include "test_game/TestGame.hpp"
 #include "core/Engine.hpp"
-#include "core/Game.hpp"
 
 #include "rendering/Window.hpp"
 #include "rendering/Renderer.hpp"
@@ -13,8 +13,8 @@ int main() {
 	std::cout << "Let's go!\n";
 
 	Window window(800, 600, "Look, a window!");
-	Renderer renderer(window);
-	Game game;
+	Renderer renderer(&window);
+	TestGame game;
 	Engine engine(240.0, &window, &renderer, &game);
 
 	engine.start();
