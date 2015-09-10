@@ -10,7 +10,7 @@ public:
 	BaseComponent() : m_parentEntity(nullptr) {}
 
 	virtual void update(const Input& input, float delta) = 0;
-	virtual void render(const Renderer& renderer) = 0;
+	virtual void render(const Renderer& renderer) const = 0;
 protected:
 	inline const ModelToWorldTransform& getTransform() const { return m_parentEntity->getTransform(); }
 	inline ModelToWorldTransform& getTransform() { return m_parentEntity->getTransform(); }

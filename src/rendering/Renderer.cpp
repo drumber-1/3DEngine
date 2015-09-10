@@ -4,6 +4,7 @@
 
 #include "Window.hpp"
 #include "../core/Time.hpp"
+#include "texture/Texture.hpp"
 
 ResourceManager<Mesh> Renderer::meshManager;
 ResourceManager<Texture> Renderer::textureManager;
@@ -43,6 +44,7 @@ void Renderer::render(const Camera& camera) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	m_phongShader.setEyePositionWorld(camera.getPosition());
+	m_phongShader.setWorldToProjectionMatrix(m_cameraProjection.getViewToProjection() * camera.getWorldToViewMatrix());
 
 	//m_testDLight.setDirection(camera.getViewDirection());
 	//m_phongShader.setDirectiobalLight(m_testDLight);
@@ -55,19 +57,16 @@ void Renderer::render(const Camera& camera) {
 	m_phongShader.setSpotLight(m_testSLight, 0);
 
 	m_testTransform.setTranslation(glm::vec3(0.0f, 1.1f, 3.0f));
-	m_phongShader.setModelToProjectionMatrix(m_cameraProjection.getViewToProjection() * camera.getWorldToViewMatrix() * m_testTransform.getTransformationMatrix());
 	m_phongShader.setModelToWorldMatrix(m_testTransform.getTransformationMatrix());
 	m_phongShader.setMaterial(m_testMaterial2);
 	meshManager.getResource("cube.obj").draw();
 
 	m_testTransform.setTranslation(glm::vec3(0.0f, 1.1f, -3.0f));
-	m_phongShader.setModelToProjectionMatrix(m_cameraProjection.getViewToProjection() * camera.getWorldToViewMatrix() * m_testTransform.getTransformationMatrix());
 	m_phongShader.setModelToWorldMatrix(m_testTransform.getTransformationMatrix());
 	m_phongShader.setMaterial(m_testMaterial);
 	meshManager.getResource("monkey3.obj").draw();
 
 	m_testTransform.setTranslation(glm::vec3(0.0f, 0.0f, 0.0f));
-	m_phongShader.setModelToProjectionMatrix(m_cameraProjection.getViewToProjection() * camera.getWorldToViewMatrix() * m_testTransform.getTransformationMatrix());
 	m_phongShader.setModelToWorldMatrix(m_testTransform.getTransformationMatrix());
 	m_phongShader.setMaterial(m_testMaterial);
 	meshManager.getResource("plane").draw();

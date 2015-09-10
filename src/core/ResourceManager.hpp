@@ -3,6 +3,12 @@
 #include <unordered_map>
 #include <string>
 
+// T must implement the following to work with the resourcemanager:
+// T(std::string)
+// load()
+// unload()
+// isLoaded()
+
 template <typename T>
 class ResourceManager {
 public:
@@ -29,5 +35,5 @@ T* ResourceManager<T>::getAddResource(const std::string& identifier) {
 	if (n == 0) {
 		emplace(identifier);
 	}
-	return &m_resources.find(identifier)->second;
+	return &(m_resources.find(identifier)->second);
 }
