@@ -11,7 +11,7 @@ public:
 	virtual ~Game() {}
 
 	void update(const Input& input, float delta);
-	void render(Renderer * renderingEngine);
+	void render(Renderer& renderingEngine);
 
 private:
 	Camera m_camera;

@@ -48,6 +48,6 @@ void Game::update(const Input& input, float delta) {
 	}
 }
 
-void Game::render(Renderer * renderingEngine) {
-	renderingEngine->render(m_camera);
+void Game::render(Renderer& renderingEngine) {
+	renderingEngine.render(m_camera);
 }

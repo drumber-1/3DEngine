@@ -77,6 +77,6 @@ void Engine::update(double dt) {
 }
 
 void Engine::render() {
-	m_game->render(m_renderingEngine);
+	m_game->render(*m_renderingEngine);
 	m_window->swapBuffers();
 }
