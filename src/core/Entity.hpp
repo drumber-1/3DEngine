@@ -11,7 +11,7 @@ class BaseComponent;
 class Entity {
 public:
 	void update(const Input& input, float delta);
-	void render(const Renderer& renderer);
+	void render(const Renderer& renderer, const PhongShader& shader);
 
 	void addChildEntity(std::unique_ptr<Entity>& entity);
 	void addChildEntity(Entity* entity);

@@ -11,13 +11,14 @@ void Entity::update(const Input &input, float delta) {
 	}
 }
 
-void Entity::render(const Renderer &renderer) {
+// TODO Generalise shader for forward rendering
+void Entity::render(const Renderer &renderer, const PhongShader& shader) {
 	for (auto& c: m_components) {
-		c->render(renderer);
+		c->render(renderer, shader);
 	}
 
 	for (auto& e : m_children) {
-		e->render(renderer);
+		e->render(renderer, shader);
 	}
 }
 
