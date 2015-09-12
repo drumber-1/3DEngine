@@ -16,7 +16,7 @@ public:
 	inline void scale(const glm::vec3& scale) { m_scale = glm::scale(m_scale, scale); }
 	inline void setScale(const glm::vec3& scale) { m_scale = glm::scale(glm::mat4(), scale); }
 
-	inline glm::mat4 getTransformationMatrix() { return m_translation * m_rotation * m_scale; }
+	inline glm::mat4 const getTransformationMatrix() const { return m_translation * m_rotation * m_scale; }
 private:
 	glm::mat4 m_translation;
 	glm::mat4 m_rotation;

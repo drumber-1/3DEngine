@@ -1,6 +1,11 @@
 #include "Entity.hpp"
 #include "../components/BaseComponent.hpp"
 
+// Needed due to forward declaration of BaseComponent in header
+// See: http://stackoverflow.com/questions/13414652/forward-declaration-with-unique-ptr
+Entity::Entity() {}
+Entity::~Entity() = default;
+
 void Entity::update(const Input &input, float delta) {
 	for (auto& c: m_components) {
 		c->update(input, delta);
@@ -12,13 +17,13 @@ void Entity::update(const Input &input, float delta) {
 }
 
 // TODO Generalise shader for forward rendering
-void Entity::render(const Renderer &renderer, const PhongShader& shader) {
+void Entity::render(PhongShader& shader) const {
 	for (auto& c: m_components) {
-		c->render(renderer, shader);
+		c->render(shader);
 	}
 
 	for (auto& e : m_children) {
-		e->render(renderer, shader);
+		e->render(shader);
 	}
 }
 

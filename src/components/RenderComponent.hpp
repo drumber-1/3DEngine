@@ -1,12 +1,21 @@
 #pragma once
 
+#include "BaseComponent.hpp"
+
+#include "../rendering/model/Mesh.hpp"
+#include "../rendering/Material.hpp"
+
+#include <iostream>
+
 class RenderComponent : public BaseComponent {
 public:
-	RenderComponent(const Mesh* mesh, const Material material) : m_mesh(mesh), m_material(material) {}
+	RenderComponent(const Mesh* mesh, const Material& material) : m_mesh(mesh), m_material(material) {}
 
-	virtual void render(const Renderer& renderer, const PhongShader& shader) const {
+	virtual void update(const Input& input, float delta) {}
+
+	virtual void render(PhongShader& shader) const {
 		shader.setMaterial(m_material);
-		shader.setModelToWorldMatrix(getTransform());
+		shader.setModelToWorldMatrix(getTransform().getTransformationMatrix());
 		m_mesh->draw();
 	}
 private:

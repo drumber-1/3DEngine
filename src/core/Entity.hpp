@@ -4,14 +4,21 @@
 #include <vector>
 
 #include "Input.hpp"
-#include "../rendering/Renderer.hpp"
+#include "ModelToWorldTransform.hpp"
+
+#include "../rendering/shader/PhongShader.hpp"
+
+//#include "../components/BaseComponent.hpp"
 
 class BaseComponent;
 
 class Entity {
 public:
+	Entity();
+	~Entity();
+
 	void update(const Input& input, float delta);
-	void render(const Renderer& renderer, const PhongShader& shader);
+	void render(PhongShader& shaderer) const;
 
 	void addChildEntity(std::unique_ptr<Entity>& entity);
 	void addChildEntity(Entity* entity);

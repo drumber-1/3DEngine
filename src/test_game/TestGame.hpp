@@ -3,7 +3,8 @@
 #include "../core/Game.hpp"
 
 class TestGame : public Game {
-
+public:
+	TestGame();
 };
 
 

@@ -4,9 +4,7 @@
 
 #include "../rendering/Renderer.hpp"
 
-Game::Game() : m_CAMERA_SPEED(0.5f) {
-	m_camera.moveUp(0.5f);
-}
+Game::Game() : m_CAMERA_SPEED(0.5f) { }
 
 void Game::update(const Input& input, float delta) {
 	if (input.getKeyPressed(SDL_SCANCODE_W)) {
@@ -46,8 +44,10 @@ void Game::update(const Input& input, float delta) {
 		m_camera.turnUp(dy * 0.01f);
 		input.setCursorPosition(windowCenter);
 	}
+
+	m_rootEntity.update(input, delta);
 }
 
 void Game::render(Renderer& renderingEngine) {
-	renderingEngine.render(m_camera);
+	renderingEngine.render(m_camera, m_rootEntity);
 }

@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <string>
 
-class Texture;
+#include "texture/Texture.hpp"
 
 class Material {
 public:

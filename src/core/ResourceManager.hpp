@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <string>
 
-// T must implement the following to work with the resourcemanager:
+// T must implement the following to work with ResourceManager:
 // T(std::string)
 // load()
 // unload()
@@ -24,6 +24,7 @@ public:
 	inline const T& getResource(const std::string& identifier) const { return m_resources.find(identifier)->second; }
 	inline T& getResource(const std::string& identifier) { return m_resources.find(identifier)->second; }
 
+	inline T* getPointer(const std::string& identifier) { return &(m_resources.find(identifier)->second); }
 	T* getAddResource(const std::string& identifier);
 private:
 	std::unordered_map<std::string, T> m_resources;
@@ -35,5 +36,5 @@ T* ResourceManager<T>::getAddResource(const std::string& identifier) {
 	if (n == 0) {
 		emplace(identifier);
 	}
-	return &(m_resources.find(identifier)->second);
+	return getPointer(identifier);
 }
