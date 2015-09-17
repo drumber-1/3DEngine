@@ -12,7 +12,7 @@ public:
 	virtual ~Game() {}
 
 	void update(const Input& input, float delta);
-	void render(Renderer& renderingEngine);
+	void render(Renderer& renderer);
 protected:
 	Entity m_rootEntity;
 	Camera m_camera;

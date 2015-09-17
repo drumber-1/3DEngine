@@ -11,7 +11,7 @@ public:
 	void start();
 	void stop();
 
-	inline Renderer * getRenderingEngine() { return m_renderingEngine; }
+	inline Renderer* getRenderingEngine() { return m_renderingEngine; }
 private:
 	void update(double dt);
 	void render();

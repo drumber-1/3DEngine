@@ -27,6 +27,8 @@ private:
 
 	CameraProjection m_cameraProjection;
 
+	glm::vec3 m_ambientLight;
+
 	BasicTextureShader m_basicTextureShader;
 	PhongShader m_phongShader;
 };
