@@ -5,13 +5,12 @@
 #include "../lighting/DirectionalLight.hpp"
 #include "../lighting/PointLight.hpp"
 #include "../lighting/SpotLight.hpp"
+#include "Shader.hpp"
 
-class PhongShader : public BaseShader {
+class PhongShader : public Shader {
 public:
 	PhongShader();
 
-	inline void setWorldToProjectionMatrix(const glm::mat4& matrix) { setUniform("worldToProjectionMatrix", matrix); }
-	inline void setModelToWorldMatrix(const glm::mat4& matrix) { setUniform("modelToWorldMatrix", matrix); }
 	inline void setEyePositionWorld(const glm::vec3 eyePositionWorld) { setUniform("eyePositionWorld", eyePositionWorld); }
 
 	inline void setModColour(const glm::vec4& colour) { setUniform("modColour", colour); }
@@ -19,6 +18,7 @@ public:
 	inline void setSpecularIndex(float specularIndex) { setUniform("specularIndex", specularIndex); }
 
 	void setMaterial(const Material& material);
+	void setCamera(const Camera& camera);
 
 	inline void setAmbientLight(const glm::vec3& ambientLight) { setUniform("ambientLight", ambientLight); }
 	void setDirectionalLight(const DirectionalLight& directionalLight, int id);

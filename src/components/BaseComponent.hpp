@@ -9,7 +9,7 @@ public:
 	BaseComponent() : m_parentEntity(nullptr) {}
 
 	virtual void update(const Input& input, float delta) = 0;
-	virtual void render(PhongShader& shader) const = 0;
+	virtual void render(Shader& shader) const = 0;
 protected:
 	inline const ModelToWorldTransform& getTransform() const { return m_parentEntity->getTransform(); }
 	inline ModelToWorldTransform& getTransform() { return m_parentEntity->getTransform(); }

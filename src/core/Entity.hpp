@@ -18,7 +18,7 @@ public:
 	~Entity();
 
 	void update(const Input& input, float delta);
-	void render(PhongShader& shaderer) const;
+	void render(Shader &shaderer) const;
 
 	void addChildEntity(std::unique_ptr<Entity>& entity);
 	void addChildEntity(Entity* entity);

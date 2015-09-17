@@ -1,7 +1,8 @@
 #include "PhongShader.hpp"
 #include "../texture/Texture.hpp"
+#include "Shader.hpp"
 
-PhongShader::PhongShader(): BaseShader("phong_vert.glsl", "phong_frag.glsl") {
+PhongShader::PhongShader(): Shader("phong_vert.glsl", "phong_frag.glsl") {
 	addUniform("worldToProjectionMatrix");
 	addUniform("modelToWorldMatrix");
 	addUniform("eyePositionWorld");
@@ -40,6 +41,11 @@ void PhongShader::setMaterial(const Material& material) {
 	setReflectivity(material.getReflectivity());
 	setSpecularIndex(material.getSpecularIndex());
 	material.getTexture()->bind();
+}
+
+void PhongShader::setCamera(const Camera &camera) {
+	Shader::setCamera(camera);
+	setEyePositionWorld(camera.getPosition());
 }
 
 void PhongShader::setDirectionalLight(const DirectionalLight& directionalLight, int id) {

@@ -17,7 +17,7 @@ void Entity::update(const Input &input, float delta) {
 }
 
 // TODO Generalise shader for forward rendering
-void Entity::render(PhongShader& shader) const {
+void Entity::render(Shader &shader) const {
 	for (auto& c: m_components) {
 		c->render(shader);
 	}

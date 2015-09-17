@@ -13,7 +13,7 @@ public:
 
 	virtual void update(const Input& input, float delta) {}
 
-	virtual void render(PhongShader& shader) const {
+	virtual void render(Shader& shader) const {
 		shader.setMaterial(m_material);
 		shader.setModelToWorldMatrix(getTransform().getTransformationMatrix());
 		m_mesh->draw();
