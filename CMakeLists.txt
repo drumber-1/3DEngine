@@ -16,7 +16,7 @@ if (NOT 3DEngine_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
 endif()
 
 
-file(GLOB_RECURSE HDRS ${3DEngine_SOURCE_DIR}/src/*.h)
+file(GLOB_RECURSE HDRS ${3DEngine_SOURCE_DIR}/src/*.hpp)
 file(GLOB_RECURSE SRCS ${3DEngine_SOURCE_DIR}/src/*.cpp)
 add_executable(3DEngine ${HDRS} ${SRCS})
 

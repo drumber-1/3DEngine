@@ -44,7 +44,7 @@ void PhongShader::setMaterial(const Material& material) {
 }
 
 void PhongShader::setCamera(const Camera &camera) {
-	Shader::setCamera(camera);
+	setWorldToProjectionMatrix(camera.getWorldToProjectionMatrix());
 	setEyePositionWorld(camera.getPosition());
 }
 
