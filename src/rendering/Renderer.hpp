@@ -3,7 +3,6 @@
 #include "Window.hpp"
 #include "Material.hpp"
 #include "Camera.hpp"
-#include "CameraProjection.hpp"
 
 #include "model/Mesh.hpp"
 
@@ -24,8 +23,6 @@ public:
 	static ResourceManager<Texture> textureManager;
 private:
 	const Window* m_window;
-
-	CameraProjection m_cameraProjection;
 
 	glm::vec3 m_ambientLight;
 

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Shader.hpp"
+#include "BaseShader.hpp"
 #include "../Material.hpp"
 #include "../lighting/DirectionalLight.hpp"
 #include "../lighting/PointLight.hpp"
 #include "../lighting/SpotLight.hpp"
 
-class PhongShader : public Shader {
+class PhongShader : public BaseShader {
 public:
 	PhongShader();
 

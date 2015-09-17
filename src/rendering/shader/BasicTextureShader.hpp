@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Shader.hpp"
+#include "BaseShader.hpp"
 #include "../Material.hpp"
 
-class BasicTextureShader : public Shader {
+class BasicTextureShader : public BaseShader {
 public:
 	BasicTextureShader();
 

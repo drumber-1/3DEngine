@@ -1,7 +1,7 @@
 #include "PhongShader.hpp"
 #include "../texture/Texture.hpp"
 
-PhongShader::PhongShader(): Shader("phong_vert.glsl", "phong_frag.glsl") {
+PhongShader::PhongShader(): BaseShader("phong_vert.glsl", "phong_frag.glsl") {
 	addUniform("worldToProjectionMatrix");
 	addUniform("modelToWorldMatrix");
 	addUniform("eyePositionWorld");

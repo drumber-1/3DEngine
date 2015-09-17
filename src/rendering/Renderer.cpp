@@ -7,7 +7,6 @@ ResourceManager<Mesh> Renderer::meshManager;
 ResourceManager<Texture> Renderer::textureManager;
 
 Renderer::Renderer(Window* window) : m_window(window),
-									 m_cameraProjection(90.0f, (float)m_window->getWidth() / (float)m_window->getHeight(), 0.01f, 10.0f),
 									 m_ambientLight(0.4f, 0.4f, 0.4f) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glFrontFace(GL_CCW);
@@ -26,6 +25,6 @@ void Renderer::render(const Camera& camera, const Entity& root) {
 
 	m_phongShader.setAmbientLight(m_ambientLight);
 	m_phongShader.setEyePositionWorld(camera.getPosition());
-	m_phongShader.setWorldToProjectionMatrix(m_cameraProjection.getViewToProjection() * camera.getWorldToViewMatrix());
+	m_phongShader.setWorldToProjectionMatrix(camera.getWorldToProjectionMatrix());
 	root.render(m_phongShader);
 }
