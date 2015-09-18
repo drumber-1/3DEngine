@@ -6,9 +6,8 @@
 
 #include "model/Mesh.hpp"
 
-#include "shader/BasicTextureShader.hpp"
-#include "shader/PhongShader.hpp"
 #include "shader/ForwardAmbientLightShader.hpp"
+#include "shader/ForwardDirectionalShader.hpp"
 
 #include "../core/ModelToWorldTransform.hpp"
 #include "../core/ResourceManager.hpp"
@@ -27,7 +26,8 @@ private:
 
 	glm::vec3 m_ambientLight;
 
-	BasicTextureShader m_basicTextureShader;
-	PhongShader m_phongShader;
 	ForwardAmbientLightShader m_ambientLightShader;
+	ForwardDirectionalShader m_directionalLightShader;
+
+	DirectionalLight m_testDLight;
 };

@@ -5,7 +5,7 @@
 #include "../rendering/Renderer.hpp"
 
 Game::Game() : m_camera(70, 1.0),
-			   m_CAMERA_SPEED(0.5f) { }
+			   m_CAMERA_SPEED(1.0f) { }
 
 void Game::update(const Input& input, float delta) {
 	m_camera.setAspectRatio(input.getWindow().getWidth() / (float)input.getWindow().getHeight());

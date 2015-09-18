@@ -4,7 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Camera::Camera(float fov, float aspectRatio) : m_position(0.0f, 0.0f, 0.0f),
-				                               m_viewDirection(0.0f, 0.0f, 3.0f),
+				                               m_viewDirection(1.0f, 0.0f, 0.0f),
 				                               m_UP(0.0f, 1.0f, 0.0f),
                                                m_fov(fov),
                                                m_aspectRatio(aspectRatio),

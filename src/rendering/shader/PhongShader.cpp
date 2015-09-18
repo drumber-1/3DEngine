@@ -1,6 +1,4 @@
 #include "PhongShader.hpp"
-#include "../texture/Texture.hpp"
-#include "Shader.hpp"
 
 PhongShader::PhongShader(): Shader("phong_vert.glsl", "phong_frag.glsl") {
 	addUniform("worldToProjectionMatrix");

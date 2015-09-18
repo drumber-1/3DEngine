@@ -22,12 +22,12 @@ TestGame::TestGame() {
 	m_rootEntity.addChildEntity(plane);
 
 	Entity* monkey = new Entity();
-	monkey->getTransform().translate(glm::vec3(0.0f, 1.1f, -3.0f));
+	monkey->getTransform().translate(glm::vec3(-1.0f, 1.1f, -3.0f));
 	monkey->addComponent(new RenderComponent(Renderer::meshManager.getPointer("monkey3.obj"), checkers));
 	m_rootEntity.addChildEntity(monkey);
 
 	Entity* cube = new Entity();
-	cube->getTransform().translate(glm::vec3(0.0f, 1.1f, 3.0f));
+	cube->getTransform().translate(glm::vec3(1.0f, 1.1f, 3.0f));
 	cube->addComponent(new RenderComponent(Renderer::meshManager.getPointer("cube.obj"), brick));
 	m_rootEntity.addChildEntity(cube);
 
