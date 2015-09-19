@@ -3,9 +3,9 @@
 #include "LightShader.hpp"
 #include "../lighting/DirectionalLight.hpp"
 
-class ForwardDirectionalShader : public LightShader {
+class ForwardDirectionalLightShader : public LightShader {
 public:
-	ForwardDirectionalShader();
+	ForwardDirectionalLightShader();
 
 	void setDirectionalLight(const DirectionalLight& light);
 };

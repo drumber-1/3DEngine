@@ -7,7 +7,9 @@
 #include "model/Mesh.hpp"
 
 #include "shader/ForwardAmbientLightShader.hpp"
-#include "shader/ForwardDirectionalShader.hpp"
+#include "shader/ForwardDirectionalLightShader.hpp"
+#include "shader/ForwardPointLightShader.hpp"
+#include "shader/ForwardSpotLightShader.hpp"
 
 #include "../core/ModelToWorldTransform.hpp"
 #include "../core/ResourceManager.hpp"
@@ -27,7 +29,11 @@ private:
 	glm::vec3 m_ambientLight;
 
 	ForwardAmbientLightShader m_ambientLightShader;
-	ForwardDirectionalShader m_directionalLightShader;
+	ForwardDirectionalLightShader m_directionalLightShader;
+	ForwardPointLightShader m_pointLightShader;
+	ForwardSpotLightShader m_spotLightShader;
 
 	DirectionalLight m_testDLight;
+	PointLight m_testPLight;
+	SpotLight m_testSLight;
 };
