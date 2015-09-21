@@ -1,13 +1,13 @@
 #pragma once
 
 #include "LightShader.hpp"
-#include "../lighting/SpotLight.hpp"
+#include "../../components/SpotLightComponent.hpp"
 
 class ForwardSpotLightShader : public LightShader {
 public:
 	ForwardSpotLightShader();
 
-	void setPointLight(const SpotLight& light);
+	void setSpotLight(const SpotLightComponent& light);
 };
 
 

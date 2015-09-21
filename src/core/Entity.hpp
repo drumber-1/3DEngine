@@ -11,6 +11,7 @@
 //#include "../components/BaseComponent.hpp"
 
 class BaseComponent;
+class Engine;
 
 class Entity {
 public:
@@ -18,7 +19,7 @@ public:
 	~Entity();
 
 	void update(const Input& input, float delta);
-	void render(Shader &shaderer) const;
+	void render(Shader& shader) const;
 
 	void addChildEntity(std::unique_ptr<Entity>& entity);
 	void addChildEntity(Entity* entity);
@@ -28,10 +29,14 @@ public:
 
 	inline const ModelToWorldTransform& getTransform() const { return transform; }
 	inline ModelToWorldTransform& getTransform() { return transform; }
+protected:
+	Engine* m_engine;
 private:
 	std::vector<std::unique_ptr<Entity>> m_children;
 	std::vector<std::unique_ptr<BaseComponent>> m_components;
 	ModelToWorldTransform transform;
+
+	void setEngine(Engine* engine);
 };
 
 

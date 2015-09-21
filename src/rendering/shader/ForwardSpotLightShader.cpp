@@ -9,11 +9,11 @@ ForwardSpotLightShader::ForwardSpotLightShader() : LightShader("forward_spot_ver
 	addUniform("spotLight.cosineFov");
 }
 
-void ForwardSpotLightShader::setPointLight(const SpotLight& light) {
+void ForwardSpotLightShader::setSpotLight(const SpotLightComponent& light) {
 	setUniform("spotLight.pointLight.base.colour", light.getColour());
 	setUniform("spotLight.pointLight.base.luminosity", light.getLuminosity());
-	setUniform("spotLight.pointLight.position", light.getPosition());
+	setUniform("spotLight.pointLight.position", light.getTransform().getTranslation());
 	setUniform("spotLight.pointLight.range", light.getRange());
-	setUniform("spotLight.direction", light.getDirection());
+	setUniform("spotLight.direction", light.getTransform().getDirection());
 	setUniform("spotLight.cosineFov", light.getCosineFov());
 }

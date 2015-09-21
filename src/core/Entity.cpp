@@ -6,7 +6,7 @@
 Entity::Entity() {}
 Entity::~Entity() = default;
 
-void Entity::update(const Input &input, float delta) {
+void Entity::update(const Input& input, float delta) {
 	for (auto& c: m_components) {
 		c->update(input, delta);
 	}
@@ -16,9 +16,8 @@ void Entity::update(const Input &input, float delta) {
 	}
 }
 
-// TODO Generalise shader for forward rendering
-void Entity::render(Shader &shader) const {
-	for (auto& c: m_components) {
+void Entity::render(Shader& shader) const {
+	for (auto& c : m_components) {
 		c->render(shader);
 	}
 
@@ -43,4 +42,20 @@ void Entity::addComponent(std::unique_ptr<BaseComponent>& baseComponent) {
 void Entity::addComponent(BaseComponent* baseComponent) {
 	baseComponent->setParentEntity(this);
 	m_components.emplace_back(baseComponent);
+}
+
+void Entity::setEngine(Engine* engine) {
+	if (engine == m_engine) {
+		return;
+	}
+
+	m_engine = engine;
+
+	for (auto& c : m_components) {
+		c->addToEngine(m_engine);
+	}
+
+	for (auto& e : m_children) {
+		e->setEngine(m_engine);
+	}
 }

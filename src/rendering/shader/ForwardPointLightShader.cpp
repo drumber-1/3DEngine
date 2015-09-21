@@ -7,9 +7,9 @@ ForwardPointLightShader::ForwardPointLightShader() : LightShader("forward_point_
 	addUniform("pointLight.range");
 }
 
-void ForwardPointLightShader::setPointLight(const PointLight& light) {
+void ForwardPointLightShader::setPointLight(const PointLightComponent& light) {
 	setUniform("pointLight.base.colour", light.getColour());
 	setUniform("pointLight.base.luminosity", light.getLuminosity());
-	setUniform("pointLight.position", light.getPosition());
+	setUniform("pointLight.position", light.getTransform().getTranslation());
 	setUniform("pointLight.range", light.getRange());
 }

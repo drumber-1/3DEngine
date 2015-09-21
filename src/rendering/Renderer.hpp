@@ -15,12 +15,21 @@
 #include "../core/ResourceManager.hpp"
 #include "../core/Entity.hpp"
 
+class DirectionalLightComponent;
+class PointLightComponent;
+class SpotLightComponent;
+
 class Renderer {
 public:
 	Renderer(Window* window);
 	virtual ~Renderer() {}
 
 	void render(const Camera& camera, const Entity& root);
+
+	inline void addDirectionalLight(const DirectionalLightComponent* light) { m_directionalLights.push_back(light); }
+	inline void addPointLight(const PointLightComponent* light) { m_pointLights.push_back(light); }
+	inline void addSpotLight(const SpotLightComponent* light) { m_spotLights.push_back(light); }
+
 	static ResourceManager<Mesh> meshManager;
 	static ResourceManager<Texture> textureManager;
 private:
@@ -33,7 +42,11 @@ private:
 	ForwardPointLightShader m_pointLightShader;
 	ForwardSpotLightShader m_spotLightShader;
 
-	DirectionalLight m_testDLight;
-	PointLight m_testPLight;
-	SpotLight m_testSLight;
+	std::vector<const DirectionalLightComponent*> m_directionalLights;
+	std::vector<const PointLightComponent*> m_pointLights;
+	std::vector<const SpotLightComponent*> m_spotLights;
+
+//	DirectionalLight m_testDLight;
+//	PointLight m_testPLight;
+//	SpotLight m_testSLight;
 };

@@ -31,10 +31,18 @@ TestGame::TestGame() {
 	cube->addComponent(new RenderComponent(Renderer::meshManager.getPointer("cube.obj"), brick));
 	m_rootEntity.addChildEntity(cube);
 
+	Entity* skyLight = new Entity();
+	skyLight->getTransform().setRotation(glm::quat(0.0f, 1.0f, -0.2f, 0.0f));
+	skyLight->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.4f));
+	m_rootEntity.addChildEntity(skyLight);
+
+	Entity* monkeyLight = new Entity();
+	monkeyLight->getTransform().translate(glm::vec3(-1.0f, 0.1f, -3.0f));
+	monkeyLight->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.4f, 5));
+	m_rootEntity.addChildEntity(monkeyLight);
+
 	m_camera.moveUp(0.5f);
 }
-
-// TODO Add light components
 
 // Old lighting code:
 //	m_testDLight.setDirection(camera.getViewDirection());

@@ -8,10 +8,12 @@ class BaseComponent {
 public:
 	BaseComponent() : m_parentEntity(nullptr) {}
 
-	virtual void update(const Input& input, float delta) = 0;
-	virtual void render(Shader& shader) const = 0;
-protected:
+	virtual void update(const Input& input, float delta) {}
+	virtual void render(Shader& shader) const {}
+	virtual void addToEngine(Engine* engine) {}
+
 	inline const ModelToWorldTransform& getTransform() const { return m_parentEntity->getTransform(); }
+protected:
 	inline ModelToWorldTransform& getTransform() { return m_parentEntity->getTransform(); }
 private:
 	void setParentEntity(Entity* parent) { m_parentEntity = parent; }
