@@ -8,8 +8,6 @@
 
 #include "../rendering/shader/PhongShader.hpp"
 
-//#include "../components/BaseComponent.hpp"
-
 class BaseComponent;
 class Engine;
 
@@ -30,11 +28,12 @@ public:
 	inline const ModelToWorldTransform& getTransform() const { return transform; }
 	inline ModelToWorldTransform& getTransform() { return transform; }
 protected:
-	Engine* m_engine;
+	Entity(Engine* engine) : m_engine(engine) {}
 private:
 	std::vector<std::unique_ptr<Entity>> m_children;
 	std::vector<std::unique_ptr<BaseComponent>> m_components;
 	ModelToWorldTransform transform;
+	Engine* m_engine;
 
 	void setEngine(Engine* engine);
 };

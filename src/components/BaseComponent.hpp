@@ -10,7 +10,7 @@ public:
 
 	virtual void update(const Input& input, float delta) {}
 	virtual void render(Shader& shader) const {}
-	virtual void addToEngine(Engine* engine) {}
+	virtual void addToEngine(Engine* engine) const {}
 
 	inline const ModelToWorldTransform& getTransform() const { return m_parentEntity->getTransform(); }
 protected:

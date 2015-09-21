@@ -27,20 +27,24 @@ void Entity::render(Shader& shader) const {
 }
 
 void Entity::addChildEntity(std::unique_ptr<Entity>& entity) {
+	entity->setEngine(m_engine);
 	m_children.emplace_back(std::move(entity));
 }
 
 void Entity::addChildEntity(Entity* entity) {
+	entity->setEngine(m_engine);
 	m_children.emplace_back(entity);
 }
 
 void Entity::addComponent(std::unique_ptr<BaseComponent>& baseComponent) {
 	baseComponent->setParentEntity(this);
+	//baseComponent->addToEngine(m_engine);
 	m_components.emplace_back(std::move(baseComponent));
 }
 
 void Entity::addComponent(BaseComponent* baseComponent) {
 	baseComponent->setParentEntity(this);
+	//baseComponent->addToEngine(m_engine);
 	m_components.emplace_back(baseComponent);
 }
 

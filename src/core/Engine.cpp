@@ -10,13 +10,10 @@
 
 Engine::Engine(double frameRate,
 			   Window* window,
-			   Renderer* renderingEngine,
-			   Game* game) :
-		m_isRunning(false),
-		m_frameTime(1 / frameRate),
-		m_window(window),
-		m_renderingEngine(renderingEngine),
-		m_game(game) {
+			   Renderer* renderingEngine) : m_isRunning(false),
+											m_frameTime(1 / frameRate),
+											m_window(window),
+											m_renderer(renderingEngine) {
 }
 
 void Engine::start() {
@@ -77,6 +74,6 @@ void Engine::update(double dt) {
 }
 
 void Engine::render() {
-	m_game->render(*m_renderingEngine);
+	m_game->render(*m_renderer);
 	m_window->swapBuffers();
 }

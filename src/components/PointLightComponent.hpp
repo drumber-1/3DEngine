@@ -8,6 +8,8 @@ public:
 																				  m_range(range) {}
 	inline float getRange() const { return m_range; }
 	inline void setRange(float range) { m_range = range; }
+
+	virtual void addToEngine(Engine* engine) const;
 private:
 	float m_range;
 };

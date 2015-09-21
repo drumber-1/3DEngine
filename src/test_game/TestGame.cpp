@@ -1,9 +1,8 @@
 #include "TestGame.hpp"
 
 #include "../components/RenderComponent.hpp"
-#include "../rendering/Renderer.hpp"
 
-TestGame::TestGame() {
+TestGame::TestGame(Engine* engine) : Game(engine) {
 	Renderer::meshManager.emplace("cube.obj");
 	Renderer::meshManager.emplace("monkey3.obj");
 	Model modelPlane;

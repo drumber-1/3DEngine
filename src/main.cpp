@@ -14,8 +14,9 @@ int main() {
 
 	Window window(800, 600, "Look, a window!");
 	Renderer renderer(&window);
-	TestGame game;
-	Engine engine(240.0, &window, &renderer, &game);
+	Engine engine(240.0, &window, &renderer);
+	TestGame game(&engine);
+	engine.setGame(&game);
 
 	engine.start();
 

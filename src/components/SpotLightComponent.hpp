@@ -12,6 +12,8 @@ public:
 
 	inline float getCosineFov() const { return m_cosineFov; }
 	inline void setCosineFov(float cosineFov) { m_cosineFov = cosineFov; }
+
+	virtual void addToEngine(Engine* engine) const;
 private:
 	float m_cosineFov;
 };

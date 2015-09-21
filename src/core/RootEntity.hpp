@@ -4,7 +4,7 @@
 
 class RootEntity : public Entity {
 public:
-	RootEntity(Engine* engine) : m_engine(engine) {}
+	RootEntity(Engine* engine) : Entity(engine) {}
 };
 
 

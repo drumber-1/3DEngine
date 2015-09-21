@@ -1,20 +1,22 @@
 #pragma once
 
 #include "Input.hpp"
-#include "../rendering/Camera.hpp"
-#include "Entity.hpp"
+#include "RootEntity.hpp"
 
-class Renderer;
+#include "../rendering/Camera.hpp"
+#include "../rendering/Renderer.hpp"
+
+class Engine;
 
 class Game {
 public:
-	Game();
+	Game(Engine* engine);
 	virtual ~Game() {}
 
 	void update(const Input& input, float delta);
 	void render(Renderer& renderer);
 protected:
-	Entity m_rootEntity;
+	RootEntity m_rootEntity;
 	Camera m_camera;
 private:
 	const float m_CAMERA_SPEED;

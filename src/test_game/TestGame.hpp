@@ -4,7 +4,7 @@
 
 class TestGame : public Game {
 public:
-	TestGame();
+	TestGame(Engine* engine);
 };
 
 
