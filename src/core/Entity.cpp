@@ -38,13 +38,11 @@ void Entity::addChildEntity(Entity* entity) {
 
 void Entity::addComponent(std::unique_ptr<BaseComponent>& baseComponent) {
 	baseComponent->setParentEntity(this);
-	//baseComponent->addToEngine(m_engine);
 	m_components.emplace_back(std::move(baseComponent));
 }
 
 void Entity::addComponent(BaseComponent* baseComponent) {
 	baseComponent->setParentEntity(this);
-	//baseComponent->addToEngine(m_engine);
 	m_components.emplace_back(baseComponent);
 }
 
