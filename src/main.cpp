@@ -3,11 +3,7 @@
 
 #include <iostream>
 
-#include "test_game/TestGame.hpp"
-#include "core/Engine.hpp"
-
-#include "rendering/Window.hpp"
-#include "rendering/Renderer.hpp"
+#include "test_game2/TestGame2.hpp"
 
 int main() {
 	std::cout << "Let's go!\n";
@@ -15,7 +11,7 @@ int main() {
 	Window window(1280, 720, "Look, a window!");
 	Renderer renderer(&window);
 	Engine engine(240.0, &window, &renderer);
-	TestGame game(&engine);
+	TestGame2 game(&engine);
 	engine.setGame(&game);
 
 	engine.start();
