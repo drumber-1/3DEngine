@@ -16,7 +16,7 @@ Renderer::Renderer(Window* window) : m_window(window),
 
 	//Load some default textures
 	Texture::textureManager.emplace("default_normal.jpg");
-	Texture::textureManager.emplace("default_disp.png");
+	Texture::textureManager.emplace("default_spec.png");
 }
 
 void Renderer::render(const CameraComponent& camera, const Entity& root) {

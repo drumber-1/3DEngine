@@ -21,6 +21,7 @@ uniform vec3 eyePositionWorld;
 
 uniform sampler2D theTexture;
 uniform sampler2D theNormal;
+uniform sampler2D theSpec;
 uniform vec4 modColour = vec4(1.0, 1.0, 1.0, 1.0);
 uniform float reflectivity;
 uniform float specularIndex;
@@ -30,7 +31,7 @@ uniform PointLight pointLight;
 vec4 calculateLight(BaseLight light, vec3 lightDirection) {
 	vec3 lightVector = normalize(lightDirection);
 
-	float lightCoefficient = 0;
+	vec4 lightCoefficient = vec4(0, 0, 0, 0);
 
 	vec3 normal = texture(theNormal,fragTexCoord).rgb;
 	normal = normalize(normal * 2.0 - 1.0);
@@ -43,10 +44,11 @@ vec4 calculateLight(BaseLight light, vec3 lightDirection) {
 	if (reflectivity > 0) {
 		vec3 reflectVector = reflect(lightVector, normal);
 		vec3 eyeVector = normalize(eyePositionWorld - fragPositionWorld);
-		lightCoefficient += reflectivity * max(pow(dot(reflectVector, eyeVector), specularIndex), 0);
+		float spec = reflectivity * max(pow(dot(reflectVector, eyeVector), specularIndex), 0);
+		lightCoefficient += spec * texture(theSpec, fragTexCoord);
 	}
 
-	return vec4(clamp(lightCoefficient * light.luminosity * light.colour, 0, 1), 1.0);
+	return clamp(lightCoefficient * light.luminosity * vec4(light.colour, 1.0), 0, 1);
 }
 
 vec4 calculatePointLight(PointLight light) {
