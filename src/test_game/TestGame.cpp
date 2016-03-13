@@ -39,10 +39,12 @@ TestGame::TestGame(Engine* engine) : Game(engine) {
 	monkey->addComponent(new RenderComponent(Renderer::meshManager.getPointer("monkey3.obj"), checkers));
 	monkey->addComponent(new MovableComponent());
 	m_rootEntity.addChildEntity(monkey);
+
 	Entity* monkeyLight = new Entity();
 	monkeyLight->addComponent(new PointLightComponent(glm::vec3(1.0, 0.0, 0.0), 0.4f, 5));
 	monkeyLight->getLocalTransform().translate(glm::vec3(0.0f, -1.0f, 0.0f));
 	monkey->addChildEntity(monkeyLight);
+
 	Entity* monkeyCube = new Entity();
 	monkeyCube->getLocalTransform().translate(glm::vec3(0.0f, 1.0f, 0.0f));
 	monkeyCube->getLocalTransform().scale(glm::vec3(0.1f, 0.1f, 0.1f));

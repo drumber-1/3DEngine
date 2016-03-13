@@ -12,7 +12,7 @@
 int main() {
 	std::cout << "Let's go!\n";
 
-	Window window(800, 600, "Look, a window!");
+	Window window(1280, 720, "Look, a window!");
 	Renderer renderer(&window);
 	Engine engine(240.0, &window, &renderer);
 	TestGame game(&engine);
