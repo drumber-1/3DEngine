@@ -3,34 +3,33 @@
 #include "../components/RenderComponent.hpp"
 #include "../components/FPCameraComponent.hpp"
 
-#include <cstdlib>
 #include <ctime>
 
 std::vector<std::string> loadModels() {
 	std::vector<std::string> models;
 
-	Renderer::meshManager.emplace("cube.obj");
+	Mesh::meshManager.emplace("cube.obj");
 	models.push_back("cube.obj");
 
-	Renderer::meshManager.emplace("monkey3.obj");
+	Mesh::meshManager.emplace("monkey3.obj");
 	models.push_back("monkey3.obj");
 
 	Model modelPlane;
 	modelPlane.makePlane(100, 100, 1);
 	modelPlane.finalize();
-	Renderer::meshManager.emplace("plane", modelPlane);
+	Mesh::meshManager.emplace("plane", modelPlane);
 	models.push_back("plane");
 
 	return models;
 }
 
 std::vector<Material> loadMaterials() {
-	Renderer::textureManager.emplace("test.png");
-	Renderer::textureManager.emplace("bricks.jpg");
+	Texture::textureManager.emplace("test.png");
+	Texture::textureManager.emplace("bricks.jpg");
 
 	std::vector<Material> materials;
-	materials.emplace_back(Renderer::textureManager.getPointer("test.png"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	materials.emplace_back(Renderer::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0);
+	materials.emplace_back(Texture::textureManager.getPointer("test.png"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	materials.emplace_back(Texture::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0);
 
 	return materials;
 }
@@ -53,7 +52,7 @@ TestGame2::TestGame2(Engine* engine) : Game(engine) {
 	camera->addChildEntity(cameraLight);
 
 	Entity* plane = new Entity();
-	plane->addComponent(new RenderComponent(Renderer::meshManager.getPointer("plane"), materials[0]));
+	plane->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), materials[0]));
 	m_rootEntity.addChildEntity(plane);
 
 	Entity* skyLight = new Entity();
@@ -73,7 +72,7 @@ TestGame2::TestGame2(Engine* engine) : Game(engine) {
 			object->getLocalTransform().translate(glm::vec3(x, y, z));
 			std::string model = models[std::rand() % (models.size() - 1)];
 			Material material = materials[std::rand() % materials.size()];
-			object->addComponent(new RenderComponent(Renderer::meshManager.getPointer(model), material));
+			object->addComponent(new RenderComponent(Mesh::meshManager.getPointer(model), material));
 			m_rootEntity.addChildEntity(object);
 
 		}

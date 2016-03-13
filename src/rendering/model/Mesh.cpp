@@ -1,12 +1,10 @@
 #include "Mesh.hpp"
 
-#include "MeshData.hpp"
-
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-//Todo Check to see if this can be folded into MeshData
+ResourceManager<Mesh> Mesh::meshManager;
 
 Mesh::Mesh(const std::string &fileName, bool loadNow) : m_fileName(fileName), m_hasModel(true) {
 	if (loadNow) {

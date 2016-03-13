@@ -1,7 +1,5 @@
 #include "Renderer.hpp"
-
-ResourceManager<Mesh> Renderer::meshManager;
-ResourceManager<Texture> Renderer::textureManager;
+#include "texture/Texture.hpp"
 
 Renderer::Renderer(Window* window) : m_window(window),
 									 m_ambientLight(0.2f, 0.2f, 0.2f) {
@@ -15,6 +13,10 @@ Renderer::Renderer(Window* window) : m_window(window),
 	//glEnable(GL_FRAMEBUFFER_SRGB);
 
 	m_ambientLightShader.useShader();
+
+	//Load some default textures
+	Texture::textureManager.emplace("default_normal.png");
+	Texture::textureManager.emplace("default_disp.png");
 }
 
 void Renderer::render(const CameraComponent& camera, const Entity& root) {

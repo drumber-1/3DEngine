@@ -5,6 +5,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+ResourceManager<Texture> Texture::textureManager;
+
 Texture::Texture(const std::string &fileName, bool loadNow) : m_fileName(fileName) {
 	if (loadNow) {
 		load();

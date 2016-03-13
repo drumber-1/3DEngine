@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Window.hpp"
-#include "Material.hpp"
 
 #include "model/Mesh.hpp"
 
@@ -31,8 +30,6 @@ public:
 	inline void addPointLight(const PointLightComponent* light) { m_pointLights.push_back(light); }
 	inline void addSpotLight(const SpotLightComponent* light) { m_spotLights.push_back(light); }
 
-	static ResourceManager<Mesh> meshManager;
-	static ResourceManager<Texture> textureManager;
 private:
 	const Window* m_window;
 

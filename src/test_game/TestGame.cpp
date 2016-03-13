@@ -17,26 +17,26 @@ TestGame::TestGame(Engine* engine) : Game(engine) {
 	cameraLight->addComponent(new SpotLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 100, 0.8f));
 	camera->addChildEntity(cameraLight);
 
-	Renderer::meshManager.emplace("cube.obj");
-	Renderer::meshManager.emplace("monkey3.obj");
+	Mesh::meshManager.emplace("cube.obj");
+	Mesh::meshManager.emplace("monkey3.obj");
 	Model modelPlane;
 	modelPlane.makePlane(10, 10, 1);
 	modelPlane.finalize();
-	Renderer::meshManager.emplace("plane", modelPlane);
+	Mesh::meshManager.emplace("plane", modelPlane);
 
-	Renderer::textureManager.emplace("test.png");
-	Renderer::textureManager.emplace("bricks.jpg");
+	Texture::textureManager.emplace("test.png");
+	Texture::textureManager.emplace("bricks.jpg");
 
-	Material checkers(Renderer::textureManager.getPointer("test.png"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	Material brick(Renderer::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0);
+	Material checkers(Texture::textureManager.getPointer("test.png"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	Material brick(Texture::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0);
 
 	Entity* plane = new Entity();
-	plane->addComponent(new RenderComponent(Renderer::meshManager.getPointer("plane"), checkers));
+	plane->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), checkers));
 	m_rootEntity.addChildEntity(plane);
 
 	Entity* monkey = new Entity();
 	monkey->getLocalTransform().translate(glm::vec3(-1.0f, 1.1f, -3.0f));
-	monkey->addComponent(new RenderComponent(Renderer::meshManager.getPointer("monkey3.obj"), checkers));
+	monkey->addComponent(new RenderComponent(Mesh::meshManager.getPointer("monkey3.obj"), checkers));
 	monkey->addComponent(new MovableComponent());
 	m_rootEntity.addChildEntity(monkey);
 
@@ -48,12 +48,12 @@ TestGame::TestGame(Engine* engine) : Game(engine) {
 	Entity* monkeyCube = new Entity();
 	monkeyCube->getLocalTransform().translate(glm::vec3(0.0f, 1.0f, 0.0f));
 	monkeyCube->getLocalTransform().scale(glm::vec3(0.1f, 0.1f, 0.1f));
-	monkeyCube->addComponent(new RenderComponent(Renderer::meshManager.getPointer("cube.obj"), brick));
+	monkeyCube->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), brick));
 	monkey->addChildEntity(monkeyCube);
 
 	Entity* cube = new Entity();
 	cube->getLocalTransform().translate(glm::vec3(1.0f, 1.1f, 3.0f));
-	cube->addComponent(new RenderComponent(Renderer::meshManager.getPointer("cube.obj"), brick));
+	cube->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), brick));
 	cube->addComponent(new RotationComponent(1.0f, glm::vec3(0.0f, 1.0f, 0.0f)));
 	m_rootEntity.addChildEntity(cube);
 

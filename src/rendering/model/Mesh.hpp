@@ -6,6 +6,7 @@
 
 #include "Model.hpp"
 #include "MeshData.hpp"
+#include "../../core/ResourceManager.hpp"
 
 class Mesh {
 public:
@@ -17,6 +18,8 @@ public:
 	bool isLoaded() const;
 
 	void draw() const;
+
+	static ResourceManager<Mesh> meshManager;
 private:
 	std::unique_ptr<MeshData> m_meshData;
 	//TODO Avoid storing model for primitive shapes, using enums and hard-coded Model constructors probably
