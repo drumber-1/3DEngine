@@ -26,6 +26,7 @@ std::vector<std::string> loadModels() {
 std::vector<Material> loadMaterials() {
 	Texture::textureManager.emplace("test.png");
 	Texture::textureManager.emplace("bricks.jpg");
+	Texture::textureManager.emplace("bricks.jpg");
 
 	std::vector<Material> materials;
 	materials.emplace_back(Texture::textureManager.getPointer("test.png"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
