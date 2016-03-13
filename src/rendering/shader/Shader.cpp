@@ -6,7 +6,7 @@ Shader::Shader(const std::string &vertexShader, const std::string& fragmentShade
 	addUniform("modColour");
 }
 
-void Shader::setCamera(const Camera &camera) {
+void Shader::setCamera(const CameraComponent& camera) {
 	setWorldToProjectionMatrix(camera.getWorldToProjectionMatrix());
 }
 

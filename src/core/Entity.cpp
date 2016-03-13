@@ -28,11 +28,13 @@ void Entity::render(Shader& shader) const {
 
 void Entity::addChildEntity(std::unique_ptr<Entity>& entity) {
 	entity->setEngine(m_engine);
+	entity->m_parent = this;
 	m_children.emplace_back(std::move(entity));
 }
 
 void Entity::addChildEntity(Entity* entity) {
 	entity->setEngine(m_engine);
+	entity->m_parent = this;
 	m_children.emplace_back(entity);
 }
 
@@ -60,4 +62,30 @@ void Entity::setEngine(Engine* engine) {
 	for (auto& e : m_children) {
 		e->setEngine(m_engine);
 	}
+}
+
+const glm::mat4 Entity::getTransformationMatrix() const {
+	if (m_parent == nullptr) {
+		return transform.getTransformationMatrix();
+	} else {
+		return m_parent->getTransformationMatrix() * transform.getTransformationMatrix();
+	}
+}
+
+const glm::mat4 Entity::getCameraMatrix() const {
+	if (m_parent == nullptr) {
+		return transform.getCameraMatrix();
+	} else {
+		return m_parent->getCameraMatrix() * transform.getCameraMatrix();
+	}
+}
+
+const glm::vec3 Entity::getPosition() const {
+	glm::mat4 trans = getTransformationMatrix();
+	return glm::vec3(trans[3]);
+}
+
+const glm::vec3 Entity::getDirection() const {
+	glm::quat rot(getTransformationMatrix());
+	return rot * glm::vec3(0.0f, 0.0f, -1.0f);
 }

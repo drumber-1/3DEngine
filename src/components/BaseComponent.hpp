@@ -12,9 +12,12 @@ public:
 	virtual void render(Shader& shader) const {}
 	virtual void addToEngine(Engine* engine) const {}
 
-	inline const ModelToWorldTransform& getTransform() const { return m_parentEntity->getTransform(); }
+	inline const glm::mat4 getTransformationMatrix() const { return m_parentEntity->getTransformationMatrix(); }
+	inline const glm::mat4 getCameraMatrix() const { return m_parentEntity->getCameraMatrix(); }
+	inline const glm::vec3 getPosition() const { return m_parentEntity->getPosition(); }
+	inline const glm::vec3 getDirection() const { return m_parentEntity->getDirection(); }
 protected:
-	inline ModelToWorldTransform& getTransform() { return m_parentEntity->getTransform(); }
+	inline ModelToWorldTransform& getTransform() { return m_parentEntity->getLocalTransform(); }
 private:
 	void setParentEntity(Entity* parent) { m_parentEntity = parent; }
 	Entity* m_parentEntity;

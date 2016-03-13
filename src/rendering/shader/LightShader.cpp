@@ -6,7 +6,7 @@ LightShader::LightShader(const std::string &vertexShader, const std::string &fra
 	addUniform("specularIndex");
 }
 
-void LightShader::setCamera(const Camera &camera) {
+void LightShader::setCamera(const CameraComponent &camera) {
 	Shader::setCamera(camera);
 	setEyePositionWorld(camera.getPosition());
 }

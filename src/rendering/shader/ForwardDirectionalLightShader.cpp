@@ -9,5 +9,5 @@ ForwardDirectionalLightShader::ForwardDirectionalLightShader() : LightShader("fo
 void ForwardDirectionalLightShader::setDirectionalLight(const DirectionalLightComponent& light) {
 	setUniform("directionalLight.base.colour", light.getColour());
 	setUniform("directionalLight.base.luminosity", light.getLuminosity());
-	setUniform("directionalLight.direction", light.getTransform().getDirection());
+	setUniform("directionalLight.direction", light.getDirection());
 }

@@ -1,8 +1,5 @@
 #include "Renderer.hpp"
 
-#include "texture/Texture.hpp"
-#include "model/Mesh.hpp"
-
 ResourceManager<Mesh> Renderer::meshManager;
 ResourceManager<Texture> Renderer::textureManager;
 
@@ -20,7 +17,7 @@ Renderer::Renderer(Window* window) : m_window(window),
 	m_ambientLightShader.useShader();
 }
 
-void Renderer::render(const Camera& camera, const Entity& root) {
+void Renderer::render(const CameraComponent& camera, const Entity& root) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	m_ambientLightShader.useShader();

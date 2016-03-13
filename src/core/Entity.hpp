@@ -6,10 +6,9 @@
 #include "Input.hpp"
 #include "ModelToWorldTransform.hpp"
 
-#include "../rendering/shader/PhongShader.hpp"
-
 class BaseComponent;
 class Engine;
+class Shader;
 
 class Entity {
 public:
@@ -25,12 +24,18 @@ public:
 	void addComponent(std::unique_ptr<BaseComponent>& baseComponent);
 	void addComponent(BaseComponent* baseComponent);
 
-	inline const ModelToWorldTransform& getTransform() const { return transform; }
-	inline ModelToWorldTransform& getTransform() { return transform; }
+	inline ModelToWorldTransform& getLocalTransform() { return transform; }
+
+	const glm::mat4 getTransformationMatrix() const;
+	const glm::mat4 getCameraMatrix() const;
+
+	const glm::vec3 getPosition() const;
+	const glm::vec3 getDirection() const;
 protected:
 	Entity(Engine* engine) : m_engine(engine) {}
 private:
 	std::vector<std::unique_ptr<Entity>> m_children;
+	Entity* m_parent = nullptr;
 	std::vector<std::unique_ptr<BaseComponent>> m_components;
 	ModelToWorldTransform transform;
 	Engine* m_engine;

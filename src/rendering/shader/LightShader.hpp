@@ -12,7 +12,7 @@ public:
 	inline void setReflectivity(float reflectivity) { setUniform("reflectivity", reflectivity); }
 	inline void setSpecularIndex(float specularIndex) { setUniform("specularIndex", specularIndex); }
 
-	virtual void setCamera(const Camera& camera);
+	virtual void setCamera(const CameraComponent& camera);
 	virtual void setMaterial(const Material& material);
 };
 

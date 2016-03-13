@@ -17,7 +17,7 @@ public:
 	inline void setSpecularIndex(float specularIndex) { setUniform("specularIndex", specularIndex); }
 
 	void setMaterial(const Material& material);
-	void setCamera(const Camera& camera);
+	void setCamera(const CameraComponent& camera);
 
 	inline void setAmbientLight(const glm::vec3& ambientLight) { setUniform("ambientLight", ambientLight); }
 	void setDirectionalLight(const DirectionalLight& directionalLight, int id);

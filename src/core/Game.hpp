@@ -3,7 +3,6 @@
 #include "Input.hpp"
 #include "RootEntity.hpp"
 
-#include "../rendering/Camera.hpp"
 #include "../rendering/Renderer.hpp"
 
 class Engine;
@@ -17,9 +16,6 @@ public:
 	void render(Renderer& renderer);
 protected:
 	RootEntity m_rootEntity;
-	Camera m_camera;
-private:
-	const float m_CAMERA_SPEED;
-	bool m_mouseGrabbed = false;
+	const CameraComponent* m_currentCamera;
 };
 

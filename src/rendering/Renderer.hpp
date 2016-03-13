@@ -2,7 +2,6 @@
 
 #include "Window.hpp"
 #include "Material.hpp"
-#include "Camera.hpp"
 
 #include "model/Mesh.hpp"
 
@@ -15,6 +14,8 @@
 #include "../core/ResourceManager.hpp"
 #include "../core/Entity.hpp"
 
+#include "../components/CameraComponent.hpp"
+
 class DirectionalLightComponent;
 class PointLightComponent;
 class SpotLightComponent;
@@ -24,7 +25,7 @@ public:
 	Renderer(Window* window);
 	virtual ~Renderer() {}
 
-	void render(const Camera& camera, const Entity& root);
+	void render(const CameraComponent& camera, const Entity& root);
 
 	inline void addDirectionalLight(const DirectionalLightComponent* light) { m_directionalLights.push_back(light); }
 	inline void addPointLight(const PointLightComponent* light) { m_pointLights.push_back(light); }

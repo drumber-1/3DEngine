@@ -13,7 +13,7 @@ public:
 
 	virtual void render(Shader& shader) const {
 		shader.setMaterial(m_material);
-		shader.setModelToWorldMatrix(getTransform().getTransformationMatrix());
+		shader.setModelToWorldMatrix(getTransformationMatrix());
 		m_mesh->draw();
 	}
 private:
