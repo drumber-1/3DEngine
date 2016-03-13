@@ -2,7 +2,7 @@
 
 in vec3 fragPositionWorld;
 in vec2 fragTexCoord;
-in vec3 fragNormalWorld;
+in mat3 fragTBNWorld;
 
 out vec4 finalColour;
 
@@ -20,6 +20,7 @@ struct PointLight {
 uniform vec3 eyePositionWorld;
 
 uniform sampler2D theTexture;
+uniform sampler2D theNormal;
 uniform vec4 modColour = vec4(1.0, 1.0, 1.0, 1.0);
 uniform float reflectivity;
 uniform float specularIndex;
@@ -31,12 +32,16 @@ vec4 calculateLight(BaseLight light, vec3 lightDirection) {
 
 	float lightCoefficient = 0;
 
+	vec3 normal = texture(theNormal,fragTexCoord).rgb;
+	normal = normalize(normal * 2.0 - 1.0);
+	normal = normalize(fragTBNWorld * normal);
+
 	//Diffuse
-	lightCoefficient += max(dot(-lightVector, fragNormalWorld), 0);
+	lightCoefficient += max(dot(-lightVector, normal), 0);
 
 	//Specular
 	if (reflectivity > 0) {
-		vec3 reflectVector = reflect(lightVector, fragNormalWorld);
+		vec3 reflectVector = reflect(lightVector, normal);
 		vec3 eyeVector = normalize(eyePositionWorld - fragPositionWorld);
 		lightCoefficient += reflectivity * max(pow(dot(reflectVector, eyeVector), specularIndex), 0);
 	}
@@ -57,6 +62,5 @@ vec4 calculatePointLight(PointLight light) {
 
 void main() {
 	vec4 textureColour = texture(theTexture, fragTexCoord) * modColour;
-
 	finalColour = textureColour * calculatePointLight(pointLight);
 }

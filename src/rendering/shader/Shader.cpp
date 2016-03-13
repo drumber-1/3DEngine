@@ -4,6 +4,7 @@ Shader::Shader(const std::string &vertexShader, const std::string& fragmentShade
 	addUniform("worldToProjectionMatrix");
 	addUniform("modelToWorldMatrix");
 	addUniform("modColour");
+	setTextureUnit("theTexture");
 }
 
 void Shader::setCamera(const CameraComponent& camera) {
@@ -12,5 +13,5 @@ void Shader::setCamera(const CameraComponent& camera) {
 
 void Shader::setMaterial(const Material &material) {
 	setModColour(material.getModColour());
-	material.getTexture()->bind();
+	setTexture(material.getTexture());
 }

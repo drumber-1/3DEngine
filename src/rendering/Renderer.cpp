@@ -2,7 +2,7 @@
 #include "texture/Texture.hpp"
 
 Renderer::Renderer(Window* window) : m_window(window),
-									 m_ambientLight(0.2f, 0.2f, 0.2f) {
+									 m_ambientLight(0.1f, 0.1f, 0.1f) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);

@@ -24,6 +24,7 @@ public:
 	                                     m_dispMapBias(dispMapBias) {}
 
 	inline const Texture* getTexture() const { return m_texture; }
+	inline const Texture* getNormal() const { return m_normalMap; }
 	inline const glm::vec4& getModColour() const { return m_modColour; }
 	inline float getReflectivity() const { return m_reflectivity; }
 	inline float getSpecularIndex() const { return m_specularIndex; }

@@ -23,8 +23,9 @@ TextureData::TextureData(int width, int height, const GLvoid* data) : m_width(wi
 
 }
 
-
-void TextureData::bind() const {
-	glActiveTexture(GL_TEXTURE0);
+void TextureData::bind(GLint textureUnit) const {
+	glActiveTexture(textureUnit);
 	glBindTexture(GL_TEXTURE_2D, m_textureID);
 }
+
+

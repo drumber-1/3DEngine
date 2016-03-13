@@ -10,7 +10,7 @@ class Texture {
 public:
 	Texture(const std::string& fileName, bool loadNow = true);
 
-	inline void bind() const { m_textureData->bind(); }
+	inline void bind(GLint textureUnit) const { m_textureData->bind(textureUnit); }
 
 	void load();
 	inline void unload() { m_textureData.reset(); }

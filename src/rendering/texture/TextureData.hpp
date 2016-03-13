@@ -5,7 +5,7 @@
 class TextureData {
 public:
 	TextureData(int width, int height, const GLvoid* data);
-	void bind() const;
+	void bind(GLint textureUnit) const;
 private:
 	GLuint m_textureID;
 	int m_width;

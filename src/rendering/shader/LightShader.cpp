@@ -4,6 +4,7 @@ LightShader::LightShader(const std::string &vertexShader, const std::string &fra
 	addUniform("eyePositionWorld");
 	addUniform("reflectivity");
 	addUniform("specularIndex");
+	setTextureUnit("theNormal");
 }
 
 void LightShader::setCamera(const CameraComponent &camera) {
@@ -13,6 +14,8 @@ void LightShader::setCamera(const CameraComponent &camera) {
 
 void LightShader::setMaterial(const Material &material) {
 	Shader::setMaterial(material);
+	setNormalMap(material.getNormal());
+
 	setReflectivity(material.getReflectivity());
 	setSpecularIndex(material.getSpecularIndex());
 }
