@@ -11,7 +11,7 @@ public:
 			 glm::vec4 modColour = glm::vec4(1.0, 1.0, 1.0, 1.0),
 			 float reflectivity = 1.0f,
 			 float specularIndex = 32.0f,
-			 const Texture* normalMap = Texture::textureManager.getPointer("default_normal.png"),
+			 const Texture* normalMap = Texture::textureManager.getPointer("default_normal.jpg"),
 			 const Texture* dispMap = Texture::textureManager.getPointer("default_disp.png"),
 	         float dispMapScale = 0.0f,
 	         float dispMapBias = 0.0f) : m_texture(texture),

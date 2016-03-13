@@ -15,7 +15,7 @@ Renderer::Renderer(Window* window) : m_window(window),
 	m_ambientLightShader.useShader();
 
 	//Load some default textures
-	Texture::textureManager.emplace("default_normal.png");
+	Texture::textureManager.emplace("default_normal.jpg");
 	Texture::textureManager.emplace("default_disp.png");
 }
 
