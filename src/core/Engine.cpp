@@ -42,7 +42,7 @@ void Engine::start() {
 			update(m_frameTime);
 
 			if (fpsTimer > 1.0) {
-				//std::cout << frames << " fps\n";
+				std::cout << frames << " fps\n";
 				fpsTimer -= 1.0;
 				frames = 0;
 			}

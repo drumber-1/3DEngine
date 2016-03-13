@@ -61,31 +61,10 @@ TestGame::TestGame(Engine* engine) : Game(engine) {
 	cubeLight->getLocalTransform().rotate(glm::radians(135.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	m_rootEntity.addChildEntity(cubeLight);
 
-	//Entity* skyLight = new Entity();
-	//skyLight->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-	//skyLight->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
-	//skyLight->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.4f));
-	//m_rootEntity.addChildEntity(skyLight);
+	Entity* skyLight = new Entity();
+	skyLight->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
+	skyLight->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
+	skyLight->addComponent(new DirectionalLightComponent(glm::vec3(0.2, 0.4, 0.6), 0.4f));
+	m_rootEntity.addChildEntity(skyLight);
 }
 
-// Old lighting code:
-//	m_testDLight.setDirection(camera.getViewDirection());
-//	m_phongShader.setDirectiobalLight(m_testDLight);
-//
-//	m_testPLight.setPosition(camera.getPosition());
-//	m_phongShader.setPointLight(m_testPLight, 0);
-//
-//	m_testSLight.setPosition(camera.getPosition());
-//	m_testSLight.setDirection(camera.getViewDirection());
-//	m_phongShader.setSpotLight(m_testSLight, 0);
-//
-//
-//m_phongShader.useShader();
-//m_phongShader.setAmbientLight(glm::vec3(0.1f, 0.1f, 0.1f));
-//m_phongShader.setDirectionalLight(m_testDLight, 0);
-//m_phongShader.setPointLight(m_testPLight, 0);
-//m_phongShader.setSpotLight(m_testSLight, 0);
-//
-//m_testDLight(glm::vec3(1.0, 1.0, 1.0), 0.1f, glm::vec3(1.0, -0.2, 0.0)),
-//m_testPLight(glm::vec3(1.0, 1.0, 1.0), 0.4f, glm::vec3(0.0f, 0.1f, -3.0f), 5),
-//m_testSLight(glm::vec3(1.0, 1.0, 1.0), 0.8f, glm::vec3(0.0, 1.0, 0.0), 5, glm::vec3(0.0, 0.0, 0.0), glm::cos(glm::radians(40.0f)))

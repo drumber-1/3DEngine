@@ -46,8 +46,4 @@ private:
 	std::vector<const DirectionalLightComponent*> m_directionalLights;
 	std::vector<const PointLightComponent*> m_pointLights;
 	std::vector<const SpotLightComponent*> m_spotLights;
-
-//	DirectionalLight m_testDLight;
-//	PointLight m_testPLight;
-//	SpotLight m_testSLight;
 };
