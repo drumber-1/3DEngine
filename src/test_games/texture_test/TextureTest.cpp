@@ -1,8 +1,8 @@
-#include "TestGame2.hpp"
+#include "TextureTest.hpp"
 
-#include "../components/RenderComponent.hpp"
-#include "../components/FPCameraComponent.hpp"
-#include "../components/MovableComponent.hpp"
+#include "../../components/RenderComponent.hpp"
+#include "../../components/FPCameraComponent.hpp"
+#include "../../components/MovableComponent.hpp"
 
 #include <ctime>
 
@@ -88,7 +88,7 @@ std::vector<Material> loadMaterials() {
 	return materials;
 }
 
-TestGame2::TestGame2(Engine* engine) : Game(engine) {
+TextureTest::TextureTest(Engine* engine) : Game(engine) {
 
 	std::vector<std::string> models = loadModels();
 	std::vector<Material> materials = loadMaterials();
