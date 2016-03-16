@@ -1,14 +1,16 @@
 #pragma once
 
-#include "BaseShader.hpp"
+#include "Shader.hpp"
 #include "../../components/CameraComponent.hpp"
 
-class SkyboxShader : public BaseShader {
+class SkyboxShader : public Shader {
 public:
 	SkyboxShader();
-	void setCamera(const CameraComponent& camera);
+
 	void setAmbientLight(const glm::vec3& ambientLight);
-	void setModColour(const glm::vec4& colour);
+	virtual void setCamera(const CameraComponent& camera);
+	virtual void setMaterial(const Material& material);
+	virtual void draw(const RenderComponent& renderComponent);
 };
 
 

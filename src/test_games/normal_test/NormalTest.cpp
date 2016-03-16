@@ -2,6 +2,7 @@
 
 #include "../../components/RenderComponent.hpp"
 #include "../../components/FPCameraComponent.hpp"
+#include "../../components/MovableComponent.hpp"
 
 void addCube(Entity& root, const Material& material, const glm::vec3& position) {
 	Entity* cube = new Entity();
@@ -35,8 +36,8 @@ NormalTest::NormalTest(Engine* engine) : Game(engine) {
 	CameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
 	camera->addComponent(cameraComponent);
 	camera->getLocalTransform().translate(glm::vec3(0.0f, 1.0f, 0.0f));
-	m_rootEntity.addChildEntity(camera);
-	m_currentCamera = cameraComponent;
+	m_gameWorld.rootEntity.addChildEntity(camera);
+	m_gameWorld.currentCamera = cameraComponent;
 
 	Entity* cameraLight = new Entity();
 	cameraLight->addComponent(new SpotLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 100, 0.8f));
@@ -44,17 +45,25 @@ NormalTest::NormalTest(Engine* engine) : Game(engine) {
 
 	Entity* plane = new Entity();
 	plane->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), checkers));
-	m_rootEntity.addChildEntity(plane);
+	m_gameWorld.rootEntity.addChildEntity(plane);
 
 	Entity* skyLight = new Entity();
 	skyLight->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 	skyLight->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
 	skyLight->addComponent(new DirectionalLightComponent(glm::vec3(0.2, 0.4, 0.6), 0.4f));
-	m_rootEntity.addChildEntity(skyLight);
+	m_gameWorld.rootEntity.addChildEntity(skyLight);
 
-	addCube(m_rootEntity, bricks, glm::vec3(-1.0f, 1.1f, -3.0f));
-	addCube(m_rootEntity, bricks_n, glm::vec3(1.0f, 1.1f, -3.0f));
-	addCube(m_rootEntity, snow_grass, glm::vec3(-2.0f, 1.1f, -5.0f));
-	addCube(m_rootEntity, snow_grass_n, glm::vec3(0.0f, 1.1f, -5.0f));
-	addCube(m_rootEntity, snow_grass_ns, glm::vec3(2.0f, 1.1f, -5.0f));
+	Entity* probe = new Entity();
+	probe->getLocalTransform().translate(glm::vec3(0.0f, 1.0f, -0.5f));
+	probe->getLocalTransform().scale(glm::vec3(0.1f, 0.1f, 0.1f));
+	probe->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), checkers));
+	probe->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 100));
+	probe->addComponent(new MovableComponent());
+	m_gameWorld.rootEntity.addChildEntity(probe);
+
+	addCube(m_gameWorld.rootEntity, bricks, glm::vec3(-1.0f, 1.1f, -3.0f));
+	addCube(m_gameWorld.rootEntity, bricks_n, glm::vec3(1.0f, 1.1f, -3.0f));
+	addCube(m_gameWorld.rootEntity, snow_grass, glm::vec3(-2.0f, 1.1f, -5.0f));
+	addCube(m_gameWorld.rootEntity, snow_grass_n, glm::vec3(0.0f, 1.1f, -5.0f));
+	addCube(m_gameWorld.rootEntity, snow_grass_ns, glm::vec3(2.0f, 1.1f, -5.0f));
 }

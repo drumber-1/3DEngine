@@ -16,6 +16,7 @@
 #include "../components/CameraComponent.hpp"
 #include "../components/RenderComponent.hpp"
 #include "shader/SkyboxShader.hpp"
+#include "../core/GameWorld.hpp"
 
 class DirectionalLightComponent;
 class PointLightComponent;
@@ -26,7 +27,7 @@ public:
 	Renderer(Window* window);
 	virtual ~Renderer() {}
 
-	void render(const CameraComponent& camera, const Entity& root);
+	void render(const GameWorld& gameWorld);
 
 	inline void addDirectionalLight(const DirectionalLightComponent* light) { m_directionalLights.push_back(light); }
 	inline void addPointLight(const PointLightComponent* light) { m_pointLights.push_back(light); }
@@ -34,8 +35,6 @@ public:
 
 private:
 	const Window* m_window;
-
-	glm::vec3 m_ambientLight;
 
 	ForwardAmbientLightShader m_ambientLightShader;
 	ForwardDirectionalLightShader m_directionalLightShader;
@@ -47,4 +46,6 @@ private:
 	std::vector<const DirectionalLightComponent*> m_directionalLights;
 	std::vector<const PointLightComponent*> m_pointLights;
 	std::vector<const SpotLightComponent*> m_spotLights;
+
+	void renderSkybox(const GameWorld& gameWorld);
 };

@@ -4,18 +4,15 @@
 
 #include "../Material.hpp"
 #include "../../components/CameraComponent.hpp"
+#include "../../components/RenderComponent.hpp"
 
 class Shader : public BaseShader {
 public:
-	Shader(const std::string &vertexShader, const std::string& fragmentShader);
+	Shader(const std::string &vertexShader, const std::string& fragmentShader) : BaseShader(vertexShader, fragmentShader) {};
 
-	inline void setModColour(const glm::vec4& colour) { setUniform("modColour", colour); }
-	inline void setModelToWorldMatrix(const glm::mat4& matrix) { setUniform("modelToWorldMatrix", matrix); }
-	inline void setWorldToProjectionMatrix(const glm::mat4& matrix) { setUniform("worldToProjectionMatrix", matrix); }
-	inline void setTexture(const Texture* tex) { setUniform("theTexture", tex); }
-
-	virtual void setCamera(const CameraComponent& camera);
-	virtual void setMaterial(const Material& material);
+	virtual void setCamera(const CameraComponent& camera) = 0;
+	virtual void setMaterial(const Material& material) = 0;
+	virtual void draw(const RenderComponent& renderComponent) = 0;
 };
 
 

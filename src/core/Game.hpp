@@ -4,6 +4,7 @@
 #include "RootEntity.hpp"
 
 #include "../rendering/Renderer.hpp"
+#include "GameWorld.hpp"
 
 class Engine;
 
@@ -15,7 +16,8 @@ public:
 	void update(const Input& input, float delta);
 	void render(Renderer& renderer);
 protected:
-	RootEntity m_rootEntity;
-	const CameraComponent* m_currentCamera;
+	GameWorld m_gameWorld;
+	//RootEntity m_rootEntity;
+	//const CameraComponent* m_currentCamera;
 };
 

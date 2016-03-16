@@ -19,6 +19,7 @@ void Entity::update(const Input& input, float delta) {
 void Entity::render(Shader& shader) const {
 	for (auto& c : m_components) {
 		c->render(shader);
+		//shader.draw(c);
 	}
 
 	for (auto& e : m_children) {

@@ -97,8 +97,8 @@ TextureTest::TextureTest(Engine* engine) : Game(engine) {
 	CameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
 	camera->addComponent(cameraComponent);
 	camera->getLocalTransform().translate(glm::vec3(0.0f, 1.0f, 0.0f));
-	m_rootEntity.addChildEntity(camera);
-	m_currentCamera = cameraComponent;
+	m_gameWorld.rootEntity.addChildEntity(camera);
+	m_gameWorld.currentCamera = cameraComponent;
 
 	Entity* cameraLight = new Entity();
 	cameraLight->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 100));
@@ -106,13 +106,13 @@ TextureTest::TextureTest(Engine* engine) : Game(engine) {
 
 	Entity* plane = new Entity();
 	plane->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), materials[0]));
-	m_rootEntity.addChildEntity(plane);
+	m_gameWorld.rootEntity.addChildEntity(plane);
 
 	Entity* skyLight = new Entity();
 	skyLight->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 	skyLight->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
 	skyLight->addComponent(new DirectionalLightComponent(glm::vec3(0.2, 0.4, 0.6), 0.4f));
-	m_rootEntity.addChildEntity(skyLight);
+	m_gameWorld.rootEntity.addChildEntity(skyLight);
 
 	Entity* probe = new Entity();
 	probe->getLocalTransform().translate(glm::vec3(0.0f, 1.0f, -0.5f));
@@ -120,7 +120,7 @@ TextureTest::TextureTest(Engine* engine) : Game(engine) {
 	probe->addComponent(new RenderComponent(Mesh::meshManager.getPointer(models[0]), materials[1]));
 	probe->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 100));
 	probe->addComponent(new MovableComponent());
-	m_rootEntity.addChildEntity(probe);
+	m_gameWorld.rootEntity.addChildEntity(probe);
 
 	std::srand((unsigned int)std::time(0));
 	for (int i = 0; i <= 10; i++) {
@@ -134,8 +134,7 @@ TextureTest::TextureTest(Engine* engine) : Game(engine) {
 			std::string model = models[(i + 11*j) % (models.size() - 1)];
 			Material material = materials[(i + 11*j) % materials.size()];
 			object->addComponent(new RenderComponent(Mesh::meshManager.getPointer(model), material));
-			m_rootEntity.addChildEntity(object);
-
+			m_gameWorld.rootEntity.addChildEntity(object);
 		}
 	}
 }

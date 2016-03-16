@@ -23,8 +23,6 @@ public:
 	inline void setFov(float fov) { m_fov = fov; }
 	inline void setAspectRatio(float aspectRatio) { m_aspectRatio = aspectRatio; }
 
-
-
 private:
 	float m_fov;
 	float m_aspectRatio;
