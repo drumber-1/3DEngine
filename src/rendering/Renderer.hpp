@@ -14,6 +14,8 @@
 #include "../core/Entity.hpp"
 
 #include "../components/CameraComponent.hpp"
+#include "../components/RenderComponent.hpp"
+#include "shader/SkyboxShader.hpp"
 
 class DirectionalLightComponent;
 class PointLightComponent;
@@ -39,6 +41,8 @@ private:
 	ForwardDirectionalLightShader m_directionalLightShader;
 	ForwardPointLightShader m_pointLightShader;
 	ForwardSpotLightShader m_spotLightShader;
+
+	SkyboxShader m_skyboxShader;
 
 	std::vector<const DirectionalLightComponent*> m_directionalLights;
 	std::vector<const PointLightComponent*> m_pointLights;

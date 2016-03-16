@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "test_games/normal_test/NormalTest.hpp"
+#include "test_games/cubemap_test/CubeMapTest.hpp"
 
 int main() {
 	std::cout << "Let's go!\n";
@@ -11,7 +11,7 @@ int main() {
 	Window window(1280, 720, "Look, a window!");
 	Renderer renderer(&window);
 	Engine engine(240.0, &window, &renderer);
-	NormalTest game(&engine);
+	CubeMapTest game(&engine);
 	engine.setGame(&game);
 
 	engine.start();

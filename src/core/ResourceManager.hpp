@@ -7,7 +7,6 @@
 // T(std::string)
 // load()
 // unload()
-// isLoaded()
 
 template <typename T>
 class ResourceManager {
@@ -19,7 +18,6 @@ public:
 
 	inline void load(const std::string& identifier) { getResource(identifier).load(); }
 	inline void unload(const std::string& identifier) { getResource(identifier).unload(); }
-	inline bool isLoaded(const std::string& identifier) const { return getResource(identifier).isLoaded(); }
 
 	inline const T& getResource(const std::string& identifier) const { return m_resources.find(identifier)->second; }
 	inline T& getResource(const std::string& identifier) { return m_resources.find(identifier)->second; }

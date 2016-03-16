@@ -2,7 +2,7 @@
 #include "texture/Texture.hpp"
 
 Renderer::Renderer(Window* window) : m_window(window),
-									 m_ambientLight(0.1f, 0.1f, 0.1f) {
+									 m_ambientLight(0.8f, 0.8f, 0.8f) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
@@ -17,10 +17,25 @@ Renderer::Renderer(Window* window) : m_window(window),
 	//Load some default textures
 	Texture::textureManager.emplace("default_normal.jpg");
 	Texture::textureManager.emplace("default_spec.png");
+
+	m_skyboxShader.addUniform("ambientLight");
 }
 
 void Renderer::render(const CameraComponent& camera, const Entity& root) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glDepthMask(GL_FALSE);
+	glFrontFace(GL_CW);
+
+	m_skyboxShader.useShader();
+	m_skyboxShader.setCamera(camera);
+	m_skyboxShader.setUniform("ambientLight", m_ambientLight);
+	m_skyboxShader.setModColour(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	Texture::textureManager.getPointer("cube_skybox")->bind(GL_TEXTURE0);
+	Mesh::meshManager.getPointer("cube.obj")->draw();
+
+	glDepthMask(GL_TRUE);
+	glFrontFace(GL_CCW);
 
 	m_ambientLightShader.useShader();
 	m_ambientLightShader.setCamera(camera);
