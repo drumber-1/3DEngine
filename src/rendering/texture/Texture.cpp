@@ -8,24 +8,7 @@
 ResourceManager<Texture> Texture::textureManager;
 std::array<std::string, 6> cubemapSuffixes = {"/right.jpg", "/left.jpg", "/top.jpg", "/bottom.jpg", "/back.jpg", "/front.jpg"};
 
-void textureLoader(int width, int height, const GLvoid* data, GLenum textureType, GLenum textureTarget) {
-	glTexParameteri(textureType, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(textureType, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-	glTexImage2D(textureTarget, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-
-	glGenerateMipmap(textureType);
-	GLfloat maxAnisotropy;
-	glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy);
-	glTexParameterf(textureType, GL_TEXTURE_MAX_ANISOTROPY_EXT, std::min(8.0f, maxAnisotropy));
-
-	glTexParameteri(textureType, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(textureType, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(textureType, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-}
-
 Texture::Texture(const std::string& filename, bool loadNow) : m_filename(filename) {
-	glGenTextures(1, &m_textureID);
 	if (filename.find("cube") == 0) {
 		m_textureType = GL_TEXTURE_CUBE_MAP;
 	} else {
@@ -37,7 +20,6 @@ Texture::Texture(const std::string& filename, bool loadNow) : m_filename(filenam
 }
 
 void Texture::load() {
-	glBindTexture(m_textureType, m_textureID);
 	if (m_textureType == GL_TEXTURE_CUBE_MAP) {
 		for (unsigned int i = 0; i < 6; i++) {
 			std::string filenameFull = m_filename + cubemapSuffixes[i];
@@ -45,10 +27,12 @@ void Texture::load() {
 			if (surface == nullptr) {
 				std::cerr << "Unable to load image from " << filenameFull << ", SDL_image Error: " << IMG_GetError() <<
 				"\n";
-				continue;
-				//return;
+				return;
 			}
-			textureLoader(surface->w, surface->h, surface->pixels, GL_TEXTURE_CUBE_MAP, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i);
+			if (i == 0) {
+				textureData.reset(new TextureData(GL_TEXTURE_CUBE_MAP, surface->w, surface->h, nullptr));
+			}
+			textureData->load(surface->w, surface->h, surface->pixels, GL_TEXTURE_CUBE_MAP, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i);
 			SDL_FreeSurface(surface);
 		}
 	} else {
@@ -58,12 +42,11 @@ void Texture::load() {
 			"\n";
 			return;
 		}
-		textureLoader(surface->w, surface->h, surface->pixels, GL_TEXTURE_2D, GL_TEXTURE_2D);
+		textureData.reset(new TextureData(GL_TEXTURE_2D, surface->w, surface->h, surface->pixels));
 		SDL_FreeSurface(surface);
 	}
 }
 
-void Texture::bind(GLint textureUnit) const {
-	glActiveTexture(textureUnit);
-	glBindTexture(m_textureType, m_textureID);
+void Texture::bind(GLenum textureUnit) const {
+	textureData->bind(textureUnit);
 }

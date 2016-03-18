@@ -15,11 +15,6 @@ MeshData::MeshData(const Model &model) : m_nIndices((unsigned int)model.getIndic
 	m_BufferObjectIDs[BufferType::INDEX] = renderingUtil::createIndexArrayBufferObject(model.getIndices());
 }
 
-MeshData::~MeshData() {
-	glDeleteVertexArrays(1, &m_vertexArrayObjectID);
-	glDeleteBuffers(NUM_BUFFERS, m_BufferObjectIDs._M_elems);
-}
-
 void MeshData::draw() const {
 	glBindVertexArray(m_vertexArrayObjectID);
 	glDrawElements(GL_TRIANGLES, m_nIndices, GL_UNSIGNED_INT, 0);

@@ -93,6 +93,11 @@ TextureTest::TextureTest(Engine* engine) : Game(engine) {
 	std::vector<std::string> models = loadModels();
 	std::vector<Material> materials = loadMaterials();
 
+	Texture::textureManager.emplace("cube_skybox");
+	Material sky(Texture::textureManager.getPointer("cube_skybox"));
+	m_skybox.reset(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), sky));
+	m_gameWorld.currentSkyBox = m_skybox.get();
+
 	Entity* camera = new Entity();
 	CameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
 	camera->addComponent(cameraComponent);
@@ -104,9 +109,9 @@ TextureTest::TextureTest(Engine* engine) : Game(engine) {
 	cameraLight->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 100));
 	camera->addChildEntity(cameraLight);
 
-	Entity* plane = new Entity();
-	plane->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), materials[0]));
-	m_gameWorld.rootEntity.addChildEntity(plane);
+	//Entity* plane = new Entity();
+	//plane->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), materials[0]));
+	//m_gameWorld.rootEntity.addChildEntity(plane);
 
 	Entity* skyLight = new Entity();
 	skyLight->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
@@ -137,4 +142,6 @@ TextureTest::TextureTest(Engine* engine) : Game(engine) {
 			m_gameWorld.rootEntity.addChildEntity(object);
 		}
 	}
+
+	m_gameWorld.ambientLight = glm::vec3(0.2, 0.2, 0.2);
 }

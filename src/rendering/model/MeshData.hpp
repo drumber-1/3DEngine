@@ -8,13 +8,22 @@
 class MeshData {
 public:
 	MeshData(const Model& model);
-	virtual ~MeshData();
+
+	~MeshData() {
+		glDeleteVertexArrays(1, &m_vertexArrayObjectID);
+		glDeleteBuffers(NUM_BUFFERS, m_BufferObjectIDs._M_elems);
+	}
+	MeshData(const MeshData& other) = delete;
+	MeshData& operator=(const MeshData& other) = delete;
+	MeshData(MeshData&& other) {
+		m_vertexArrayObjectID = other.m_vertexArrayObjectID;
+		m_BufferObjectIDs = other.m_BufferObjectIDs;
+
+	};
+	MeshData& operator=(MeshData&& other) = delete;
 
 	void draw() const;
 private:
-	MeshData(MeshData& other) {}
-	void operator=(MeshData& other) {}
-
 	enum BufferType {
 		POSITION,
 		TEXCOORD,

@@ -11,10 +11,10 @@
 template <typename T>
 class ResourceManager {
 public:
-	inline void emplace(std::string identifier) { m_resources.emplace(std::make_pair(identifier, T(identifier))); }
+	inline void emplace(std::string identifier) { m_resources.emplace(identifier, identifier); }
 
 	template <class... Args>
-	inline void emplace(std::string identifier, Args&&... args) { m_resources.emplace(std::make_pair(identifier, T(std::forward<Args>(args)...))); }
+	inline void emplace(std::string identifier, Args&&... args) { m_resources.emplace(std::make_pair(identifier, std::forward<Args>(args)...)); }
 
 	inline void load(const std::string& identifier) { getResource(identifier).load(); }
 	inline void unload(const std::string& identifier) { getResource(identifier).unload(); }

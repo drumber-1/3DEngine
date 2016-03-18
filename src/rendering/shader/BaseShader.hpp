@@ -12,9 +12,6 @@ public:
 
 	inline void useShader() const { m_shaderData.useProgram(); }
 
-	void addUniform(const std::string& uniformName);
-	void setTextureUnit(const std::string& uniformName);
-
 	inline void setUniform(const std::string& uniformName, int uniformValue) const { glUniform1i(m_uniformLocations.at(uniformName), uniformValue); }
 	inline void setUniform(const std::string& uniformName, float uniformValue) const { glUniform1f(m_uniformLocations.at(uniformName), uniformValue); }
 	inline void setUniform(const std::string& uniformName, const glm::vec3& uniformValue) const { glUniform3fv(m_uniformLocations.at(uniformName), 1, &uniformValue[0]); }
@@ -27,6 +24,9 @@ public:
 
 protected:
 	ShaderData m_shaderData;
+
+	void addUniform(const std::string& uniformName);
+	void setTextureUnit(const std::string& uniformName);
 private:
 	std::map<std::string, GLint> m_uniformLocations;
 	std::map<std::string, GLint> m_textureUnits;
