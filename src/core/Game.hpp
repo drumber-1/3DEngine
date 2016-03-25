@@ -18,6 +18,6 @@ public:
 protected:
 	GameWorld m_gameWorld;
 	//RootEntity m_rootEntity;
-	//const CameraComponent* m_currentCamera;
+	//const BaseCameraComponent* m_currentCamera;
 };
 

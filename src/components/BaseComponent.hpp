@@ -16,6 +16,7 @@ public:
 	inline const glm::mat4 getCameraMatrix() const { return m_parentEntity->getCameraMatrix(); }
 	inline const glm::vec3 getPosition() const { return m_parentEntity->getPosition(); }
 	inline const glm::vec3 getDirection() const { return m_parentEntity->getDirection(); }
+	inline const glm::quat getRotation() const { return m_parentEntity->getRotation(); }
 protected:
 	inline ModelToWorldTransform& getTransform() { return m_parentEntity->getLocalTransform(); }
 private:

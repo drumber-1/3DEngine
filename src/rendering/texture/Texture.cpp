@@ -1,4 +1,6 @@
 #include "Texture.hpp"
+#include "Texture2DData.hpp"
+#include "TextureCubeData.hpp"
 
 #include <iostream>
 
@@ -21,19 +23,21 @@ Texture::Texture(const std::string& filename, bool loadNow) : m_filename(filenam
 
 void Texture::load() {
 	if (m_textureType == GL_TEXTURE_CUBE_MAP) {
+		std::array<SDL_Surface*, 6> surfaces;
+		std::array<void*, 6> pixels;
 		for (unsigned int i = 0; i < 6; i++) {
 			std::string filenameFull = m_filename + cubemapSuffixes[i];
-			SDL_Surface* surface = IMG_Load(("res/textures/" + filenameFull).c_str());
-			if (surface == nullptr) {
+			surfaces[i] = IMG_Load(("res/textures/" + filenameFull).c_str());
+			if (surfaces[i] == nullptr) {
 				std::cerr << "Unable to load image from " << filenameFull << ", SDL_image Error: " << IMG_GetError() <<
 				"\n";
 				return;
 			}
-			if (i == 0) {
-				textureData.reset(new TextureData(GL_TEXTURE_CUBE_MAP, surface->w, surface->h, nullptr));
-			}
-			textureData->load(surface->w, surface->h, surface->pixels, GL_TEXTURE_CUBE_MAP, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i);
-			SDL_FreeSurface(surface);
+			pixels[i] = surfaces[i]->pixels;
+		}
+		textureData.reset(new TextureCubeData(surfaces[0]->w, surfaces[1]->h, pixels));
+		for (unsigned int i = 0; i < 6; i++) {
+			SDL_FreeSurface(surfaces[i]);
 		}
 	} else {
 		SDL_Surface* surface = IMG_Load(("res/textures/" + m_filename).c_str());
@@ -42,7 +46,7 @@ void Texture::load() {
 			"\n";
 			return;
 		}
-		textureData.reset(new TextureData(GL_TEXTURE_2D, surface->w, surface->h, surface->pixels));
+		textureData.reset(new Texture2DData(surface->w, surface->h, surface->pixels));
 		SDL_FreeSurface(surface);
 	}
 }

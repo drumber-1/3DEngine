@@ -1,10 +1,10 @@
 #include "NormalTest.hpp"
 
 #include "../../components/RenderComponent.hpp"
-#include "../../components/FPCameraComponent.hpp"
+#include "../../components/camera/FPCameraComponent.hpp"
 #include "../../components/MovableComponent.hpp"
 
-void addCube(Entity& root, const Material& material, const glm::vec3& position) {
+void NormalTest::addCube(Entity& root, const Material& material, const glm::vec3& position) {
 	Entity* cube = new Entity();
 	cube->getLocalTransform().translate(position);
 	cube->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), material));
@@ -33,7 +33,7 @@ NormalTest::NormalTest(Engine* engine) : Game(engine) {
 	Mesh::meshManager.emplace("cube.obj");
 
 	Entity* camera = new Entity();
-	CameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
+	BaseCameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
 	camera->addComponent(cameraComponent);
 	camera->getLocalTransform().translate(glm::vec3(0.0f, 1.0f, 0.0f));
 	m_gameWorld.rootEntity.addChildEntity(camera);

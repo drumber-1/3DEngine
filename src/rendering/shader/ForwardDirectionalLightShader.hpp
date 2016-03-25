@@ -1,7 +1,7 @@
 #pragma once
 
 #include "LightShader.hpp"
-#include "../../components/DirectionalLightComponent.hpp"
+#include "../../components/lights/DirectionalLightComponent.hpp"
 
 class ForwardDirectionalLightShader : public LightShader {
 public:

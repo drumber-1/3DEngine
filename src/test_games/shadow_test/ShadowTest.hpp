@@ -2,12 +2,9 @@
 
 #include "../../core/Game.hpp"
 
-class NormalTest : public Game {
+class ShadowTest : public Game {
 public:
-	NormalTest(Engine* engine);
+	ShadowTest(Engine* engine);
 
 	void addCube(Entity& root, const Material& material, const glm::vec3& position);
 };
-
-
-

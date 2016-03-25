@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../components/CameraComponent.hpp"
+#include "../components/camera/BaseCameraComponent.hpp"
 #include "../components/RenderComponent.hpp"
 #include "RootEntity.hpp"
 
@@ -11,7 +11,7 @@ public:
 								currentSkyBox(nullptr),
 	                            ambientLight(glm::vec3(1.0, 1.0, 1.0)) {}
 	RootEntity rootEntity;
-	CameraComponent* currentCamera;
+	BaseCameraComponent* currentCamera;
 	RenderComponent* currentSkyBox;
 	glm::vec3 ambientLight;
 };

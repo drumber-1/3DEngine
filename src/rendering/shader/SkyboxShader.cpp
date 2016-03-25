@@ -8,7 +8,7 @@ SkyboxShader::SkyboxShader() : Shader("skybox_vert.glsl", "skybox_frag.glsl") {
 	setTextureUnit("theTexture");
 }
 
-void SkyboxShader::setCamera(const CameraComponent& camera) {
+void SkyboxShader::setCamera(const BaseCameraComponent& camera) {
 	setUniform("worldToViewMatrix", camera.getWorldToViewMatrix());
 	setUniform("viewToProjectionMatrix", camera.getViewToProjection());
 }

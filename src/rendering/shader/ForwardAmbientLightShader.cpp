@@ -13,7 +13,7 @@ void ForwardAmbientLightShader::setAmbientLight(const glm::vec3& ambientLight) {
 	setUniform("ambientLight", ambientLight);
 }
 
-void ForwardAmbientLightShader::setCamera(const CameraComponent &camera) {
+void ForwardAmbientLightShader::setCamera(const BaseCameraComponent &camera) {
 	setUniform("worldToProjectionMatrix", camera.getWorldToProjectionMatrix());
 }
 

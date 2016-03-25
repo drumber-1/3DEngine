@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "test_games/cubemap_test/CubeMapTest.hpp"
+#include "test_games/shadow_test/ShadowTest.hpp"
 #include "test_games/texture_test/TextureTest.hpp"
 #include "test_games/normal_test/NormalTest.hpp"
 
@@ -14,8 +15,9 @@ int main() {
 	Renderer renderer(&window);
 	Engine engine(240.0, &window, &renderer);
 	//CubeMapTest game(&engine);
-	TextureTest game(&engine);
-	//NormalTest game (&engine);
+	//TextureTest game(&engine);
+	//NormalTest game(&engine);
+	ShadowTest game(&engine);
 	engine.setGame(&game);
 
 	engine.start();

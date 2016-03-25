@@ -14,7 +14,7 @@ LightShader::LightShader(const std::string &vertexShader, const std::string &fra
 	setTextureUnit("theSpec");
 }
 
-void LightShader::setCamera(const CameraComponent &camera) {
+void LightShader::setCamera(const BaseCameraComponent &camera) {
 	setUniform("worldToProjectionMatrix", camera.getWorldToProjectionMatrix());
 	setUniform("eyePositionWorld", camera.getPosition());
 }

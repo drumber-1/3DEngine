@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseComponent.hpp"
+#include "../BaseComponent.hpp"
 
 //TODO Do something about removing lights
 

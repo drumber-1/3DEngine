@@ -2,7 +2,7 @@
 
 #include "BaseLightComponent.hpp"
 
-#include "../core/Engine.hpp"
+#include "../../core/Engine.hpp"
 
 class DirectionalLightComponent : public BaseLightComponent {
 public:

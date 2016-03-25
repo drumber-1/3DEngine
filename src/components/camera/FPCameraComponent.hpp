@@ -1,12 +1,11 @@
 #pragma once
 
-#include "CameraComponent.hpp"
+#include "../../rendering/Window.hpp"
+#include "PerspectiveCameraComponent.hpp"
 
-#include "../rendering/Window.hpp"
-
-class FPCameraComponent : public CameraComponent {
+class FPCameraComponent : public PerspectiveCameraComponent {
 public:
-	FPCameraComponent(float fov, float aspectRatio) : CameraComponent(fov, aspectRatio), m_CAMERA_SPEED(1.0f) {}
+	FPCameraComponent(float fov, float aspectRatio) : PerspectiveCameraComponent(fov, aspectRatio), m_CAMERA_SPEED(1.0f) {}
 
 	virtual void update(const Input& input, float delta) {
 		setAspectRatio(input.getWindow().getWidth() / (float)input.getWindow().getHeight());

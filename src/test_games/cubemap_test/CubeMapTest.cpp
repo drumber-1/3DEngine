@@ -1,6 +1,6 @@
 #include "CubeMapTest.hpp"
 
-#include "../../components/FPCameraComponent.hpp"
+#include "../../components/camera/FPCameraComponent.hpp"
 
 CubeMapTest::CubeMapTest(Engine* engine) : Game(engine) {
 
@@ -20,7 +20,7 @@ CubeMapTest::CubeMapTest(Engine* engine) : Game(engine) {
 	Material sky(Texture::textureManager.getPointer("cube_skybox"));
 
 	Entity* camera = new Entity();
-	CameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
+	BaseCameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
 	camera->addComponent(cameraComponent);
 	camera->getLocalTransform().translate(glm::vec3(0.0f, 1.0f, 0.0f));
 	m_gameWorld.rootEntity.addChildEntity(camera);

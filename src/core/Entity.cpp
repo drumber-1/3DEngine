@@ -87,6 +87,10 @@ const glm::vec3 Entity::getPosition() const {
 }
 
 const glm::vec3 Entity::getDirection() const {
+	return getRotation() * glm::vec3(0.0f, 0.0f, -1.0f);
+}
+
+const glm::quat Entity::getRotation() const {
 	glm::quat rot(getTransformationMatrix());
-	return rot * glm::vec3(0.0f, 0.0f, -1.0f);
+	return rot;
 }

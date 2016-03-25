@@ -31,6 +31,7 @@ public:
 
 	const glm::vec3 getPosition() const;
 	const glm::vec3 getDirection() const;
+	const glm::quat getRotation() const;
 protected:
 	Entity(Engine* engine) : m_engine(engine) {}
 private:

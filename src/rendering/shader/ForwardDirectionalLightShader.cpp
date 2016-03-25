@@ -4,6 +4,9 @@ ForwardDirectionalLightShader::ForwardDirectionalLightShader() : LightShader("fo
 	addUniform("directionalLight.base.colour");
 	addUniform("directionalLight.base.luminosity");
 	addUniform("directionalLight.direction");
+
+	addUniform("lightSpaceMatrix");
+	setTextureUnit("shadowMap");
 }
 
 void ForwardDirectionalLightShader::setDirectionalLight(const DirectionalLightComponent& light) {

@@ -6,7 +6,7 @@
 #include <bits/unique_ptr.h>
 
 #include "../../core/ResourceManager.hpp"
-#include "TextureData.hpp"
+#include "BaseTextureData.hpp"
 
 class Texture {
 public:
@@ -20,7 +20,7 @@ public:
 	static ResourceManager<Texture> textureManager;
 private:
 	const std::string m_filename;
-	std::unique_ptr<TextureData> textureData;
+	std::unique_ptr<BaseTextureData> textureData;
 	GLenum m_textureType;
 };
 

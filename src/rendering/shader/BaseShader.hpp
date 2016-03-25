@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "ShaderData.hpp"
+#include "../texture/BaseTextureData.hpp"
 #include "../texture/Texture.hpp"
 
 class BaseShader {
@@ -17,9 +18,13 @@ public:
 	inline void setUniform(const std::string& uniformName, const glm::vec3& uniformValue) const { glUniform3fv(m_uniformLocations.at(uniformName), 1, &uniformValue[0]); }
 	inline void setUniform(const std::string& uniformName, const glm::vec4& uniformValue) const { glUniform4fv(m_uniformLocations.at(uniformName), 1, &uniformValue[0]); }
 	inline void setUniform(const std::string& uniformName, const glm::mat4& uniformValue) const { glUniformMatrix4fv(m_uniformLocations.at(uniformName), 1, GL_FALSE, &uniformValue[0][0]); }
+	inline void setUniform(const std::string& uniformName, const BaseTextureData* textureData) const {
+		glUniform1i(m_uniformLocations.at(uniformName), m_textureUnits.at(uniformName));
+		textureData->bind(GL_TEXTURE0 + (GLenum)m_textureUnits.at(uniformName));
+	}
 	inline void setUniform(const std::string& uniformName, const Texture* texture) const {
 		glUniform1i(m_uniformLocations.at(uniformName), m_textureUnits.at(uniformName));
-		texture->bind(GL_TEXTURE0 + m_textureUnits.at(uniformName));
+		texture->bind(GL_TEXTURE0 + (GLenum)m_textureUnits.at(uniformName));
 	}
 
 protected:
