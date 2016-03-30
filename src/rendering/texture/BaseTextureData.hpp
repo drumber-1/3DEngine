@@ -19,7 +19,7 @@ public:
 	void bind(GLenum textureUnit) const;
 	void load(const GLvoid* data, GLenum textureTarget);
 	void load(const GLvoid* data, GLenum textureTarget, GLenum format, GLint interpolation, GLint wrapping, float anisotropy);
-	GLuint getID() { return m_textureID; }
+	GLuint getID() const { return m_textureID; }
 protected:
 	GLuint m_textureID;
 	const GLenum m_textureType;

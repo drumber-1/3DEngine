@@ -1,7 +1,8 @@
+#include <iostream>
 #include "Renderer.hpp"
 #include "../components/camera/OrthographicCameraComponent.hpp"
 
-Renderer::Renderer(Window* window) : m_window(window) , depthMap(1024, 1024) {
+Renderer::Renderer(Window* window) : m_window(window), shadowBuffer(1024, 1024) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
@@ -17,12 +18,9 @@ Renderer::Renderer(Window* window) : m_window(window) , depthMap(1024, 1024) {
 	Texture::textureManager.emplace("default_normal.jpg");
 	Texture::textureManager.emplace("default_spec.png");
 
-	glGenFramebuffers(1, &depthMapFBO);
-	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap.getID(), 0);
-	glDrawBuffer(GL_NONE);
-	glReadBuffer(GL_NONE);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+		std::cout << "Other framebuffer is not complete!\n";
+	}
 
 	shadowCam = new OrthographicCameraComponent(-5, 5, -5, 5);
 	shadowEntity.addComponent(shadowCam);
@@ -41,8 +39,9 @@ void Renderer::renderShadows(const GameWorld& gameWorld, const BaseCameraCompone
 
 void Renderer::renderScene(const GameWorld& gameWorld) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	renderSkybox(gameWorld);
 
+	m_window->bindAsRenderTarget();
+	renderSkybox(gameWorld);
 	m_ambientLightShader.useShader();
 	m_ambientLightShader.setCamera(*gameWorld.currentCamera);
 	m_ambientLightShader.setAmbientLight(gameWorld.ambientLight);
@@ -52,10 +51,10 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 
 		disableBlending();
 
-		glViewport(0, 0, 1024, 1024);
-		glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 		shadowEntity.getLocalTransform().setRotation(l->getRotation());
 		shadowEntity.getLocalTransform().setTranslation(l->getPosition());
+
+		shadowBuffer.bind();
 		renderShadows(gameWorld, *shadowCam);
 
 		enableBlending();
@@ -63,7 +62,7 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 		m_window->bindAsRenderTarget();
 		m_directionalLightShader.useShader();
 		m_directionalLightShader.setCamera(*gameWorld.currentCamera);
-		m_directionalLightShader.setUniform("shadowMap", &depthMap);
+		m_directionalLightShader.setUniform("shadowMap", &shadowBuffer.getShadowMap());
 
 		m_directionalLightShader.setUniform("lightSpaceMatrix", shadowCam->getWorldToProjectionMatrix());
 		m_directionalLightShader.setDirectionalLight(*l);

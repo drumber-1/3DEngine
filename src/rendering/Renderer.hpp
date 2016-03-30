@@ -18,8 +18,8 @@
 #include "../components/camera/BaseCameraComponent.hpp"
 #include "../components/RenderComponent.hpp"
 #include "../core/GameWorld.hpp"
-#include "framebuffer/Framebuffer.hpp"
 #include "texture/DepthTexture2DData.hpp"
+#include "framebuffer/ShadowFramebuffer.hpp"
 
 class DirectionalLightComponent;
 class PointLightComponent;
@@ -51,8 +51,7 @@ private:
 	std::vector<const PointLightComponent*> m_pointLights;
 	std::vector<const SpotLightComponent*> m_spotLights;
 
-	GLuint depthMapFBO;
-	DepthTexture2DData depthMap;
+	ShadowFramebuffer shadowBuffer;
 	Entity shadowEntity;
 	BaseCameraComponent* shadowCam;
 
