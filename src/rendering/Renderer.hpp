@@ -51,10 +51,6 @@ private:
 	std::vector<const PointLightComponent*> m_pointLights;
 	std::vector<const SpotLightComponent*> m_spotLights;
 
-	ShadowFramebuffer shadowBuffer;
-	Entity shadowEntity;
-	BaseCameraComponent* shadowCam;
-
 	void renderScene(const GameWorld& gameWorld);
 	void renderShadows(const GameWorld& gameWorld, const BaseCameraComponent& lightCamera);
 	void renderSkybox(const GameWorld& gameWorld);

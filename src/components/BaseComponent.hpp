@@ -19,8 +19,8 @@ public:
 	inline const glm::quat getRotation() const { return m_parentEntity->getRotation(); }
 protected:
 	inline ModelToWorldTransform& getTransform() { return m_parentEntity->getLocalTransform(); }
+	virtual void setParentEntity(Entity* parent) { m_parentEntity = parent; }
 private:
-	void setParentEntity(Entity* parent) { m_parentEntity = parent; }
 	Entity* m_parentEntity;
 };
 

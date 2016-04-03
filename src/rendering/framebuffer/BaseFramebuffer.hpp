@@ -20,7 +20,7 @@ public:
 	};
 	BaseFramebuffer& operator=(BaseFramebuffer&& other) = delete;
 
-	void bind() {
+	void bind() const {
 		glViewport(0, 0, m_width, m_height);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_framebufferID);
 	}

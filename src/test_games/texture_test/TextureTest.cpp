@@ -116,7 +116,7 @@ TextureTest::TextureTest(Engine* engine) : Game(engine) {
 	Entity* skyLight = new Entity();
 	skyLight->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 	skyLight->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
-	skyLight->addComponent(new DirectionalLightComponent(glm::vec3(0.2, 0.4, 0.6), 0.4f));
+	skyLight->addComponent(new DirectionalLightComponent(glm::vec3(0.2, 0.4, 0.6), 0.4f, false));
 	m_gameWorld.rootEntity.addChildEntity(skyLight);
 
 	Entity* probe = new Entity();

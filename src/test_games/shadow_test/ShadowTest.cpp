@@ -45,7 +45,7 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	skyLight->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 	skyLight->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
 	//skyLight->getLocalTransform().rotate(glm::radians(-90.0f), glm::vec3(1.0, 0.0, 0.0));
-	skyLight->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f));
+	skyLight->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, false));
 	m_gameWorld.rootEntity.addChildEntity(skyLight);
 
 	addCube(m_gameWorld.rootEntity, bricks, glm::vec3(0.0f, 2.1f, 0.0f));

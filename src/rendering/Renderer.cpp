@@ -2,7 +2,8 @@
 #include "Renderer.hpp"
 #include "../components/camera/OrthographicCameraComponent.hpp"
 
-Renderer::Renderer(Window* window) : m_window(window), shadowBuffer(1024, 1024) {
+//Renderer::Renderer(Window* window) : m_window(window), shadowBuffer(1024, 1024) {
+Renderer::Renderer(Window* window) : m_window(window) {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
@@ -17,13 +18,6 @@ Renderer::Renderer(Window* window) : m_window(window), shadowBuffer(1024, 1024) 
 	//Load some default textures
 	Texture::textureManager.emplace("default_normal.jpg");
 	Texture::textureManager.emplace("default_spec.png");
-
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-		std::cout << "Other framebuffer is not complete!\n";
-	}
-
-	shadowCam = new OrthographicCameraComponent(-5, 5, -5, 5);
-	shadowEntity.addComponent(shadowCam);
 }
 
 void Renderer::render(GameWorld& gameWorld) {
@@ -51,20 +45,17 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 
 		disableBlending();
 
-		shadowEntity.getLocalTransform().setRotation(l->getRotation());
-		shadowEntity.getLocalTransform().setTranslation(l->getPosition());
-
-		shadowBuffer.bind();
-		renderShadows(gameWorld, *shadowCam);
+		l->getShadowMapBuffer()->bind();
+		renderShadows(gameWorld, *l->getCamera());
 
 		enableBlending();
 
 		m_window->bindAsRenderTarget();
 		m_directionalLightShader.useShader();
 		m_directionalLightShader.setCamera(*gameWorld.currentCamera);
-		m_directionalLightShader.setUniform("shadowMap", &shadowBuffer.getShadowMap());
+		m_directionalLightShader.setUniform("shadowMap", &(l->getShadowMapBuffer()->getShadowMap()));
 
-		m_directionalLightShader.setUniform("lightSpaceMatrix", shadowCam->getWorldToProjectionMatrix());
+		m_directionalLightShader.setUniform("lightSpaceMatrix", l->getCamera()->getWorldToProjectionMatrix());
 		m_directionalLightShader.setDirectionalLight(*l);
 		gameWorld.rootEntity.render(m_directionalLightShader);
 	}

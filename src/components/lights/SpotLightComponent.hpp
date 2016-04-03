@@ -14,6 +14,14 @@ public:
 	inline void setCosineFov(float cosineFov) { m_cosineFov = cosineFov; }
 
 	virtual void addToEngine(Engine* engine) const;
+protected:
+	virtual ShadowFramebuffer* generateFrameBuffer() override {
+		return nullptr;
+	}
+
+	virtual BaseCameraComponent* generateCamera() override {
+		return nullptr;
+	}
 private:
 	float m_cosineFov;
 };
