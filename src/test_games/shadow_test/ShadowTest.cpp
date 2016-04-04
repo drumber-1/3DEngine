@@ -65,5 +65,5 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	//cube->addComponent(new RotationComponent(0.2f, glm::vec3(1.0f, 0.0f, 0.0f)));
 	//m_gameWorld.rootEntity.addChildEntity(cube);
 
-	m_gameWorld.ambientLight = glm::vec3(0.1, 0.1, 0.1);
+	m_gameWorld.ambientLight = glm::vec3(0.2, 0.2, 0.2);
 }
