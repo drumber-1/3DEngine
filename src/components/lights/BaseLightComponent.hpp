@@ -10,8 +10,6 @@ public:
 																	m_luminosity(luminosity),
 																	m_xray(xray) {}
 
-	BaseLightComponent(const glm::vec3& colour, float luminosity) : BaseLightComponent(colour, luminosity, false) {}
-
 	inline const glm::vec3& getColour() const { return m_colour; }
 	inline void setColour(const glm::vec3& colour) { m_colour = colour; }
 

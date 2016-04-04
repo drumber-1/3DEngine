@@ -5,3 +5,15 @@
 void SpotLightComponent::addToEngine(Engine* engine) const {
 	engine->getRenderer()->addSpotLight(this);
 }
+
+ShadowFramebuffer* SpotLightComponent::generateFrameBuffer() {
+	return PointLightComponent::generateFrameBuffer();
+}
+
+BaseCameraComponent* SpotLightComponent::generateCamera() {
+	return PointLightComponent::generateCamera();
+}
+
+
+
+

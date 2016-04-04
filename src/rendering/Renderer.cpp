@@ -42,35 +42,45 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 	gameWorld.rootEntity.render(m_ambientLightShader);
 
 	for (auto l : m_directionalLights) {
-
-		disableBlending();
-
-		l->getShadowMapBuffer()->bind();
-		renderShadows(gameWorld, *l->getCamera());
-
+		if (!l->isXray()) {
+			disableBlending();
+			l->getShadowMapBuffer()->bind();
+			renderShadows(gameWorld, *l->getCamera());
+		}
 		enableBlending();
-
 		m_window->bindAsRenderTarget();
 		m_directionalLightShader.useShader();
 		m_directionalLightShader.setCamera(*gameWorld.currentCamera);
-		m_directionalLightShader.setUniform("shadowMap", &(l->getShadowMapBuffer()->getShadowMap()));
-
-		m_directionalLightShader.setUniform("lightSpaceMatrix", l->getCamera()->getWorldToProjectionMatrix());
 		m_directionalLightShader.setDirectionalLight(*l);
 		gameWorld.rootEntity.render(m_directionalLightShader);
 	}
 
 
-	m_pointLightShader.useShader();
-	m_pointLightShader.setCamera(*gameWorld.currentCamera);
 	for (auto l : m_pointLights) {
+		if (!l->isXray()) {
+			disableBlending();
+			l->getShadowMapBuffer()->bind();
+			renderShadows(gameWorld, *l->getCamera());
+			enableBlending();
+		}
+		enableBlending();
+		m_window->bindAsRenderTarget();
+		m_pointLightShader.useShader();
+		m_pointLightShader.setCamera(*gameWorld.currentCamera);
 		m_pointLightShader.setPointLight(*l);
 		gameWorld.rootEntity.render(m_pointLightShader);
 	}
 
-	m_spotLightShader.useShader();
-	m_spotLightShader.setCamera(*gameWorld.currentCamera);
 	for (auto l : m_spotLights) {
+		if (!l->isXray()) {
+			disableBlending();
+			l->getShadowMapBuffer()->bind();
+			renderShadows(gameWorld, *l->getCamera());
+			enableBlending();
+		}
+		m_window->bindAsRenderTarget();
+		m_spotLightShader.useShader();
+		m_spotLightShader.setCamera(*gameWorld.currentCamera);
 		m_spotLightShader.setSpotLight(*l);
 		gameWorld.rootEntity.render(m_spotLightShader);
 	}

@@ -2,12 +2,14 @@
 
 #include "../../components/camera/FPCameraComponent.hpp"
 #include "../../components/RotationComponent.hpp"
+#include "../../components/MovableComponent.hpp"
 
-void ShadowTest::addCube(Entity& root, const Material& material, const glm::vec3& position) {
+void ShadowTest::addCube(Entity& root, const Material& material, const glm::vec3& position, const glm::vec3& scale) {
 	Entity* cube = new Entity();
 	cube->getLocalTransform().translate(position);
+	cube->getLocalTransform().scale(scale);
 	cube->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), material));
-	cube->addComponent(new RotationComponent(0.3f, glm::vec3(0.0f, 1.0f, 0.0f)));
+	cube->addComponent(new MovableComponent());
 	root.addChildEntity(cube);
 }
 
@@ -28,27 +30,40 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	Entity* camera = new Entity();
 	BaseCameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
 	camera->addComponent(cameraComponent);
-	camera->getLocalTransform().translate(glm::vec3(0.0f, 1.0f, 0.0f));
+	camera->getLocalTransform().translate(glm::vec3(0.0f, 3.0f, 3.0f));
 	m_gameWorld.rootEntity.addChildEntity(camera);
 	m_gameWorld.currentCamera = cameraComponent;
-
-	//Entity* cameraLight = new Entity();
-	//cameraLight->addComponent(new SpotLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 100, 0.8f));
-	//camera->addChildEntity(cameraLight);
 
 	Entity* plane = new Entity();
 	plane->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), checkers));
 	m_gameWorld.rootEntity.addChildEntity(plane);
 
-	Entity* skyLight = new Entity();
-	//skyLight->getLocalTransform().translate(glm::vec3(0.0f, 10.0f, 0.0f));
-	skyLight->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-	skyLight->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
-	//skyLight->getLocalTransform().rotate(glm::radians(-90.0f), glm::vec3(1.0, 0.0, 0.0));
-	skyLight->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, false));
-	m_gameWorld.rootEntity.addChildEntity(skyLight);
+	//Entity* skyLight1 = new Entity();
+	//skyLight1->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
+	//skyLight1->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
+	//skyLight1->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.6f, false));
+	//m_gameWorld.rootEntity.addChildEntity(skyLight1);
 
-	addCube(m_gameWorld.rootEntity, bricks, glm::vec3(0.0f, 2.1f, 0.0f));
+	//Entity* skyLight2 = new Entity();
+	//skyLight2->getLocalTransform().rotate(glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0));
+	//skyLight2->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
+	//skyLight2->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.6f, false));
+	//m_gameWorld.rootEntity.addChildEntity(skyLight2);
 
-	m_gameWorld.ambientLight = glm::vec3(0.2, 0.2, 0.2);
+	Entity* pointLight = new Entity();
+	pointLight->getLocalTransform().translate(glm::vec3(0.0f, 3.0f, 0.0f));
+	pointLight->getLocalTransform().rotate(glm::radians(-90.0f), glm::vec3(1.0, 0.0, 0.0));
+	pointLight->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 1.5f, 10.0f, false));
+	m_gameWorld.rootEntity.addChildEntity(pointLight);
+
+	addCube(m_gameWorld.rootEntity, bricks, glm::vec3(0.0f, 1.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
+
+	//Entity* cube = new Entity();
+	//cube->getLocalTransform().translate(glm::vec3(0.0f, 2.7f, 0.0f));
+	//cube->getLocalTransform().scale(glm::vec3(0.1f, 0.1f, 0.1f));
+	//cube->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), bricks));
+	//cube->addComponent(new RotationComponent(0.2f, glm::vec3(1.0f, 0.0f, 0.0f)));
+	//m_gameWorld.rootEntity.addChildEntity(cube);
+
+	m_gameWorld.ambientLight = glm::vec3(0.1, 0.1, 0.1);
 }

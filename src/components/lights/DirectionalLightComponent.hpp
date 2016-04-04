@@ -9,10 +9,7 @@ class DirectionalLightComponent : public BaseLightComponent {
 public:
 	DirectionalLightComponent(const glm::vec3& colour,
 							  float luminosity,
-							  bool xray) : BaseLightComponent(colour, luminosity, xray) {}
-
-	DirectionalLightComponent(const glm::vec3& colour,
-							  float luminosity) : BaseLightComponent(colour, luminosity) {}
+							  bool xray = false) : BaseLightComponent(colour, luminosity, xray) {}
 
 	virtual void addToEngine(Engine* engine) const;
 protected:

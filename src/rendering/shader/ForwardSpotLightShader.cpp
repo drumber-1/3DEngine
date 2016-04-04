@@ -3,10 +3,14 @@
 ForwardSpotLightShader::ForwardSpotLightShader() : LightShader("forward_spot_vert.glsl", "forward_spot_frag.glsl") {
 	addUniform("spotLight.pointLight.base.colour");
 	addUniform("spotLight.pointLight.base.luminosity");
+	addUniform("spotLight.pointLight.base.xray");
 	addUniform("spotLight.pointLight.position");
 	addUniform("spotLight.pointLight.range");
 	addUniform("spotLight.direction");
 	addUniform("spotLight.cosineFov");
+
+	addUniform("lightSpaceMatrix");
+	setTextureUnit("shadowMap");
 }
 
 void ForwardSpotLightShader::setSpotLight(const SpotLightComponent& light) {
@@ -16,4 +20,8 @@ void ForwardSpotLightShader::setSpotLight(const SpotLightComponent& light) {
 	setUniform("spotLight.pointLight.range", light.getRange());
 	setUniform("spotLight.direction", light.getDirection());
 	setUniform("spotLight.cosineFov", light.getCosineFov());
+	if (!light.isXray()) {
+		setUniform("shadowMap", &(light.getShadowMapBuffer()->getShadowMap()));
+		setUniform("lightSpaceMatrix", light.getCamera()->getWorldToProjectionMatrix());
+	}
 }

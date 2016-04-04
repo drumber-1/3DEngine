@@ -4,7 +4,7 @@
 
 class DepthTexture2DData : public BaseTextureData {
 public:
-	DepthTexture2DData(int width, int height);
+	DepthTexture2DData(int width, int height, bool defaultShadow);
 };
 
 

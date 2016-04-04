@@ -10,6 +10,7 @@ out vec4 finalColour;
 struct BaseLight {
 	vec3 colour;
 	float luminosity;
+	bool xray;
 };
 
 struct DirectionalLight {
@@ -30,7 +31,6 @@ uniform float specularIndex;
 uniform DirectionalLight directionalLight;
 
 float calculateShadow(vec4 fragPositionLight, vec3 lightDirection, vec3 normal) {
-	//vec3 projCoords = fragPositionLight.xyz / fragPositionLight.w;
 	fragPositionLight = fragPositionLight * 0.5 + 0.5;
 	float closestDepth = texture(shadowMap, fragPositionLight.xy).r;
 	float currentDepth = fragPositionLight.z;
@@ -61,7 +61,9 @@ vec4 calculateLight(BaseLight light, vec3 lightDirection) {
 		lightCoefficient += spec * texture(theSpec, fragTexCoord);
 	}
 
-	lightCoefficient *= (1.0 - calculateShadow(fragPositionLight, lightDirection, normal));
+	if (!light.xray) {
+		lightCoefficient *= (1.0 - calculateShadow(fragPositionLight, lightDirection, normal));
+	}
 
 	return clamp(lightCoefficient * light.luminosity * vec4(light.colour, 1.0), 0, 1);
 }

@@ -5,7 +5,7 @@
 
 class ShadowFramebuffer : public BaseFramebuffer {
 public:
-	ShadowFramebuffer(int width, int height);
+	ShadowFramebuffer(int width, int height, bool defaultShadow);
 
 	const DepthTexture2DData& getShadowMap() const { return m_shadowMap; }
 private:

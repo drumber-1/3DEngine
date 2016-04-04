@@ -8,7 +8,7 @@ void DirectionalLightComponent::addToEngine(Engine* engine) const {
 }
 
 ShadowFramebuffer* DirectionalLightComponent::generateFrameBuffer() {
-	return new ShadowFramebuffer(1024, 1024);
+	return new ShadowFramebuffer(1024, 1024, false);
 }
 
 BaseCameraComponent* DirectionalLightComponent::generateCamera() {
