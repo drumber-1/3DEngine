@@ -11,10 +11,13 @@ class Engine;
 class Game {
 public:
 	Game(Engine* engine);
-	virtual ~Game() {}
+
+	virtual ~Game() { }
 
 	void update(const Input& input, float delta);
+
 	void render(Renderer& renderer);
+
 protected:
 	GameWorld m_gameWorld;
 	//RootEntity m_rootEntity;

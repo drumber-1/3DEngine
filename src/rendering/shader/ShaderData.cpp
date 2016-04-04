@@ -1,10 +1,9 @@
 #include "ShaderData.hpp"
 
-#include <GL/glew.h>
 #include <iostream>
 #include <fstream>
 
-ShaderData::ShaderData(const std::string &vertexShader, const std::string& fragmentShader) {
+ShaderData::ShaderData(const std::string& vertexShader, const std::string& fragmentShader) {
 	m_programID = glCreateProgram();
 
 	std::string vertexShaderCode = readShaderCode(vertexShader);

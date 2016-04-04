@@ -11,10 +11,13 @@
 class Mesh {
 public:
 	Mesh(const std::string& fileName, bool loadNow = true);
+
 	Mesh(const Model& model, bool loadNow = true);
 
 	void load();
+
 	void unload();
+
 	bool isLoaded() const;
 
 	void draw() const;

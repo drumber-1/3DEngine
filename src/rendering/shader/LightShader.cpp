@@ -1,6 +1,7 @@
 #include "LightShader.hpp"
 
-LightShader::LightShader(const std::string &vertexShader, const std::string &fragmentShader) : Shader(vertexShader, fragmentShader) {
+LightShader::LightShader(const std::string& vertexShader, const std::string& fragmentShader) : Shader(vertexShader,
+																									  fragmentShader) {
 	addUniform("worldToProjectionMatrix");
 	addUniform("modelToWorldMatrix");
 	addUniform("modColour");
@@ -14,12 +15,12 @@ LightShader::LightShader(const std::string &vertexShader, const std::string &fra
 	setTextureUnit("theSpec");
 }
 
-void LightShader::setCamera(const BaseCameraComponent &camera) {
+void LightShader::setCamera(const BaseCameraComponent& camera) {
 	setUniform("worldToProjectionMatrix", camera.getWorldToProjectionMatrix());
 	setUniform("eyePositionWorld", camera.getPosition());
 }
 
-void LightShader::setMaterial(const Material &material) {
+void LightShader::setMaterial(const Material& material) {
 	setUniform("modColour", material.getModColour());
 	setUniform("theTexture", material.getTexture());
 	setUniform("theNormal", material.getNormal());
@@ -28,7 +29,7 @@ void LightShader::setMaterial(const Material &material) {
 	setUniform("specularIndex", material.getSpecularIndex());
 }
 
-void LightShader::draw(const RenderComponent &renderComponent) {
+void LightShader::draw(const RenderComponent& renderComponent) {
 	setMaterial(renderComponent.material);
 	setUniform("modelToWorldMatrix", renderComponent.getTransformationMatrix());
 	renderComponent.mesh->draw();

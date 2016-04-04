@@ -11,6 +11,7 @@ public:
 	virtual glm::mat4 getViewToProjection() const {
 		return glm::ortho(m_xMin, m_xMax, m_yMin, m_yMax, m_near, m_far);
 	}
+
 private:
 	const float m_xMin, m_xMax, m_yMin, m_yMax;
 	const float m_near, m_far;

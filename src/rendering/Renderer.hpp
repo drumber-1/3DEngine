@@ -21,18 +21,23 @@
 #include "framebuffer/ShadowFramebuffer.hpp"
 
 class DirectionalLightComponent;
+
 class PointLightComponent;
+
 class SpotLightComponent;
 
 class Renderer {
 public:
 	Renderer(Window* window);
-	virtual ~Renderer() {}
+
+	virtual ~Renderer() { }
 
 	void render(GameWorld& gameWorld);
 
 	inline void addDirectionalLight(const DirectionalLightComponent* light) { m_directionalLights.push_back(light); }
+
 	inline void addPointLight(const PointLightComponent* light) { m_pointLights.push_back(light); }
+
 	inline void addSpotLight(const SpotLightComponent* light) { m_spotLights.push_back(light); }
 
 private:
@@ -51,8 +56,12 @@ private:
 	std::vector<const SpotLightComponent*> m_spotLights;
 
 	void renderScene(const GameWorld& gameWorld);
+
 	void renderShadows(const GameWorld& gameWorld, const BaseCameraComponent& lightCamera);
+
 	void renderSkybox(const GameWorld& gameWorld);
+
 	void enableBlending();
+
 	void disableBlending();
 };

@@ -14,20 +14,29 @@ public:
 	Input(Window* window);
 
 	void handle_event(const SDL_Event& e);
+
 	void reset();
 
 	void showCursor(bool show) const;
+
 	void setCursorPosition(const glm::vec2& pos) const;
 
 	inline bool getKeyPressed(int keyCode) const { return m_keyPressed[keyCode]; }
+
 	inline bool getKeyPressedLast(int keyCode) const { return m_keyPressedLast[keyCode]; }
+
 	inline bool getKeyReleasedLast(int keyCode) const { return m_keyReleasedLast[keyCode]; }
 
 	inline bool getMousePressed(int keyCode) const { return m_mousePressed[keyCode]; }
+
 	inline bool getMousePressedLast(int keyCode) const { return m_mousePressedLast[keyCode]; }
+
 	inline bool getMouseReleasedLast(int keyCode) const { return m_mousedReleasedLast[keyCode]; }
+
 	inline int getMousePositionX() const { return m_mousePositionX; }
+
 	inline int getMousePositionY() const { return m_mousePositionY; }
+
 	inline int getMouseWheel() const { return m_mouseWheel; }
 
 	inline const Window& getWindow() const { return *m_window; }

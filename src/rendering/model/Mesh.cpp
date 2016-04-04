@@ -6,13 +6,13 @@
 
 ResourceManager<Mesh> Mesh::meshManager;
 
-Mesh::Mesh(const std::string &fileName, bool loadNow) : m_fileName(fileName), m_hasModel(true) {
+Mesh::Mesh(const std::string& fileName, bool loadNow) : m_fileName(fileName), m_hasModel(true) {
 	if (loadNow) {
 		load();
 	}
 }
 
-Mesh::Mesh(const Model &model, bool loadNow) : m_model(model), m_fileName(""), m_hasModel(false) {
+Mesh::Mesh(const Model& model, bool loadNow) : m_model(model), m_fileName(""), m_hasModel(false) {
 	if (loadNow) {
 		load();
 	}
@@ -43,10 +43,11 @@ void Mesh::load() {
 	std::vector<unsigned int> indices;
 
 	const aiVector3D aiZeroVector(0.0f, 0.0f, 0.0f);
-	for(unsigned int i = 0; i < importedMesh->mNumVertices; ++i) {
+	for (unsigned int i = 0; i < importedMesh->mNumVertices; ++i) {
 		const aiVector3D pos = importedMesh->mVertices[i];
 		const aiVector3D normal = importedMesh->mNormals[i];
-		const aiVector3D texCoord = importedMesh->HasTextureCoords(0) ? importedMesh->mTextureCoords[0][i] : aiZeroVector;
+		const aiVector3D texCoord = importedMesh->HasTextureCoords(0) ? importedMesh->mTextureCoords[0][i]
+																	  : aiZeroVector;
 		const aiVector3D tangent = importedMesh->mTangents[i];
 
 		positions.push_back(glm::vec3(pos.x, pos.y, pos.z));
@@ -55,7 +56,7 @@ void Mesh::load() {
 		tangents.push_back(glm::vec3(tangent.x, tangent.y, tangent.z));
 	}
 
-	for(unsigned int i = 0; i < importedMesh->mNumFaces; ++i) {
+	for (unsigned int i = 0; i < importedMesh->mNumFaces; ++i) {
 		const aiFace& face = importedMesh->mFaces[i];
 		assert(face.mNumIndices == 3);
 		indices.push_back(face.mIndices[0]);

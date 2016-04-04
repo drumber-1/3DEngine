@@ -13,16 +13,21 @@ public:
 		glDeleteVertexArrays(1, &m_vertexArrayObjectID);
 		glDeleteBuffers(NUM_BUFFERS, m_BufferObjectIDs._M_elems);
 	}
+
 	MeshData(const MeshData& other) = delete;
+
 	MeshData& operator=(const MeshData& other) = delete;
+
 	MeshData(MeshData&& other) {
 		m_vertexArrayObjectID = other.m_vertexArrayObjectID;
 		m_BufferObjectIDs = other.m_BufferObjectIDs;
 
 	};
+
 	MeshData& operator=(MeshData&& other) = delete;
 
 	void draw() const;
+
 private:
 	enum BufferType {
 		POSITION,

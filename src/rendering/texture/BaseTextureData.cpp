@@ -1,9 +1,9 @@
 #include <algorithm>
 #include "BaseTextureData.hpp"
 
-BaseTextureData::BaseTextureData(GLenum textureType, int width, int height)  : m_textureType(textureType),
-																			   m_width(width),
-																			   m_height(height) {
+BaseTextureData::BaseTextureData(GLenum textureType, int width, int height) : m_textureType(textureType),
+																			  m_width(width),
+																			  m_height(height) {
 	glGenTextures(1, &m_textureID);
 	glBindTexture(m_textureType, m_textureID);
 }
@@ -25,7 +25,8 @@ void BaseTextureData::loadAsShadowMap(GLenum textureTarget, float borderIntensit
 	load(nullptr, textureTarget, GL_DEPTH_COMPONENT, GL_NEAREST, GL_CLAMP_TO_BORDER, 0.0f);
 }
 
-void BaseTextureData::load(const GLvoid* data, GLenum textureTarget, GLenum format, GLint interpolation, GLint wrapping, float anisotropy) {
+void BaseTextureData::load(const GLvoid* data, GLenum textureTarget, GLenum format, GLint interpolation, GLint wrapping,
+						   float anisotropy) {
 	bind(GL_TEXTURE0);
 	glTexParameteri(m_textureType, GL_TEXTURE_MIN_FILTER, interpolation);
 	glTexParameteri(m_textureType, GL_TEXTURE_MAG_FILTER, interpolation);

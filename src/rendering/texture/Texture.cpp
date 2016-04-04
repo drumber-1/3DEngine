@@ -8,7 +8,8 @@
 #include <SDL2/SDL_image.h>
 
 ResourceManager<Texture> Texture::textureManager;
-std::array<std::string, 6> cubemapSuffixes = {"/right.jpg", "/left.jpg", "/top.jpg", "/bottom.jpg", "/back.jpg", "/front.jpg"};
+std::array<std::string, 6> cubemapSuffixes = {"/right.jpg", "/left.jpg", "/top.jpg", "/bottom.jpg", "/back.jpg",
+											  "/front.jpg"};
 
 Texture::Texture(const std::string& filename, bool loadNow) : m_filename(filename) {
 	if (filename.find("cube") == 0) {

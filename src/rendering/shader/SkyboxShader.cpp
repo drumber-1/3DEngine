@@ -17,12 +17,12 @@ void SkyboxShader::setAmbientLight(const glm::vec3& ambientLight) {
 	setUniform("ambientLight", ambientLight);
 }
 
-void SkyboxShader::setMaterial(const Material &material) {
+void SkyboxShader::setMaterial(const Material& material) {
 	setUniform("modColour", material.getModColour());
 	setUniform("theTexture", material.getTexture());
 }
 
-void SkyboxShader::draw(const RenderComponent &renderComponent) {
+void SkyboxShader::draw(const RenderComponent& renderComponent) {
 	setMaterial(renderComponent.material);
 	renderComponent.mesh->draw();
 }

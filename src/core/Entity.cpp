@@ -3,7 +3,8 @@
 
 // Needed due to forward declaration of BaseComponent in header
 // See: http://stackoverflow.com/questions/13414652/forward-declaration-with-unique-ptr
-Entity::Entity() {}
+Entity::Entity() { }
+
 Entity::~Entity() = default;
 
 void Entity::update(const Input& input, float delta) {

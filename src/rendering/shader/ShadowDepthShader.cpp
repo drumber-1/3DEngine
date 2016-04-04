@@ -5,11 +5,11 @@ ShadowDepthShader::ShadowDepthShader() : Shader("shadow_depth_vert.glsl", "shado
 	addUniform("modelToWorldMatrix");
 }
 
-void ShadowDepthShader::setCamera(const BaseCameraComponent &camera) {
+void ShadowDepthShader::setCamera(const BaseCameraComponent& camera) {
 	setUniform("worldToProjectionMatrix", camera.getWorldToProjectionMatrix());
 }
 
-void ShadowDepthShader::draw(const RenderComponent &renderComponent) {
+void ShadowDepthShader::draw(const RenderComponent& renderComponent) {
 	setUniform("modelToWorldMatrix", renderComponent.getTransformationMatrix());
 	renderComponent.mesh->draw();
 }

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void BaseShader::addUniform(const std::string &uniformName) {
+void BaseShader::addUniform(const std::string& uniformName) {
 	GLint uniformLocation = glGetUniformLocation(m_shaderData.getProgramID(), uniformName.c_str());
 	if (uniformLocation == -1) {
 		std::cerr << "Couldn't find uniform " << uniformName << "\n";

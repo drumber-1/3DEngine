@@ -1,10 +1,8 @@
 #include "Input.hpp"
 
-#include <iostream>
-
 #include "../rendering/Window.hpp"
 
-Input::Input(Window *window) : m_mousePositionX(0), m_mousePositionY(0), m_window(window) {
+Input::Input(Window* window) : m_mousePositionX(0), m_mousePositionY(0), m_window(window) {
 	for (int i = 0; i < NUM_KEYS; ++i) {
 		m_keyPressed[i] = false;
 	}
@@ -14,7 +12,7 @@ Input::Input(Window *window) : m_mousePositionX(0), m_mousePositionY(0), m_windo
 	reset();
 }
 
-void Input::handle_event(const SDL_Event &e) {
+void Input::handle_event(const SDL_Event& e) {
 	int code = -1;
 	switch (e.type) {
 		case SDL_MOUSEMOTION:
@@ -69,6 +67,6 @@ void Input::showCursor(bool show) const {
 	SDL_ShowCursor(show);
 }
 
-void Input::setCursorPosition(const glm::vec2 &pos) const {
-	SDL_WarpMouseInWindow(m_window->getSDLWindow(), (int)pos.x, (int)pos.y);
+void Input::setCursorPosition(const glm::vec2& pos) const {
+	SDL_WarpMouseInWindow(m_window->getSDLWindow(), (int) pos.x, (int) pos.y);
 }

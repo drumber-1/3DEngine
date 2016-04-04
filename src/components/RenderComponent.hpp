@@ -7,8 +7,10 @@
 
 class RenderComponent : public BaseComponent {
 public:
-	RenderComponent(const Mesh* mesh, const Material& material) : mesh(mesh), material(material) {}
+	RenderComponent(const Mesh* mesh, const Material& material) : mesh(mesh), material(material) { }
+
 	virtual void render(Shader& shader) const;
+
 	const Mesh* mesh;
 	Material material;
 };

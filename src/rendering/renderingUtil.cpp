@@ -1,6 +1,6 @@
 #include "renderingUtil.hpp"
 
-template <typename T>
+template<typename T>
 GLuint createArrayBufferObjects(const std::vector<T>& data, unsigned int attrib, unsigned int floats_per_vert) {
 	GLuint bufferID;
 	glGenBuffers(1, &bufferID);

@@ -1,6 +1,7 @@
 #include "ForwardDirectionalLightShader.hpp"
 
-ForwardDirectionalLightShader::ForwardDirectionalLightShader() : LightShader("forward_directional_vert.glsl", "forward_directional_frag.glsl") {
+ForwardDirectionalLightShader::ForwardDirectionalLightShader() : LightShader("forward_directional_vert.glsl",
+																			 "forward_directional_frag.glsl") {
 	addUniform("directionalLight.base.colour");
 	addUniform("directionalLight.base.luminosity");
 	addUniform("directionalLight.base.xray");

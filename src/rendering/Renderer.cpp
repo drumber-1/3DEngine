@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Renderer.hpp"
-#include "../components/camera/OrthographicCameraComponent.hpp"
 
 //Renderer::Renderer(Window* window) : m_window(window), shadowBuffer(1024, 1024) {
 Renderer::Renderer(Window* window) : m_window(window) {

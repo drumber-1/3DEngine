@@ -15,6 +15,7 @@ public:
 	void bind(GLenum textureUnit) const;
 
 	void load();
+
 	inline void unload() { textureData.reset(); }
 
 	static ResourceManager<Texture> textureManager;

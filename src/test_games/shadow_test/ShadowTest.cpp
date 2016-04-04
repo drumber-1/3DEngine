@@ -1,7 +1,6 @@
 #include "ShadowTest.hpp"
 
 #include "../../components/camera/FPCameraComponent.hpp"
-#include "../../components/RotationComponent.hpp"
 #include "../../components/MovableComponent.hpp"
 
 void ShadowTest::addCube(Entity& root, const Material& material, const glm::vec3& position, const glm::vec3& scale) {
@@ -19,7 +18,8 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	Texture::textureManager.emplace("bricks_normal.jpg");
 
 	Material checkers(Texture::textureManager.getPointer("test.png"));
-	Material bricks(Texture::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0, Texture::textureManager.getPointer("bricks_normal.jpg"));
+	Material bricks(Texture::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0,
+					Texture::textureManager.getPointer("bricks_normal.jpg"));
 
 	Model modelPlane;
 	modelPlane.makePlane(100, 100, 1);

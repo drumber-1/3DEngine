@@ -5,10 +5,11 @@
 
 class FPCameraComponent : public PerspectiveCameraComponent {
 public:
-	FPCameraComponent(float fov, float aspectRatio) : PerspectiveCameraComponent(fov, aspectRatio), m_CAMERA_SPEED(1.0f) {}
+	FPCameraComponent(float fov, float aspectRatio) : PerspectiveCameraComponent(fov, aspectRatio),
+													  m_CAMERA_SPEED(1.0f) { }
 
 	virtual void update(const Input& input, float delta) {
-		setAspectRatio(input.getWindow().getWidth() / (float)input.getWindow().getHeight());
+		setAspectRatio(input.getWindow().getWidth() / (float) input.getWindow().getHeight());
 
 		if (input.getKeyPressed(SDL_SCANCODE_W)) {
 			getTransform().moveForward(delta * m_CAMERA_SPEED);

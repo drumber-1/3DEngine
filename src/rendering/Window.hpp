@@ -7,17 +7,25 @@
 class Window {
 public:
 	Window(int width, int height, const std::string& title);
+
 	virtual ~Window();
 
 	void update();
+
 	void swapBuffers();
+
 	void bindAsRenderTarget() const;
 
 	inline int getWidth() const { return m_width; }
+
 	inline int getHeight() const { return m_height; }
+
 	inline const std::string& getTitle() const { return m_title; }
+
 	inline bool isCloseRequested() const { return m_isCloseRequested; }
+
 	inline SDL_Window* getSDLWindow() { return m_window; }
+
 	inline const Input& getInput() const { return m_input; }
 
 private:

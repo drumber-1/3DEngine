@@ -2,7 +2,7 @@
 
 #include "../renderingUtil.hpp"
 
-MeshData::MeshData(const Model &model) : m_nIndices((unsigned int)model.getIndices().size()) {
+MeshData::MeshData(const Model& model) : m_nIndices((unsigned int) model.getIndices().size()) {
 	assert(model.isValid());
 
 	glGenVertexArrays(1, &m_vertexArrayObjectID);

@@ -13,11 +13,15 @@ public:
 	}
 
 	~BaseFramebuffer() { glDeleteFramebuffers(1, &m_framebufferID); }
+
 	BaseFramebuffer(const BaseFramebuffer& other) = delete;
+
 	BaseFramebuffer& operator=(const BaseFramebuffer& other) = delete;
+
 	BaseFramebuffer(BaseFramebuffer&& other) : m_width(other.m_width), m_height(other.m_height) {
 		m_framebufferID = other.m_framebufferID;
 	};
+
 	BaseFramebuffer& operator=(BaseFramebuffer&& other) = delete;
 
 	void bind() const {
@@ -33,6 +37,7 @@ public:
 	static void unbindAll() {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
+
 private:
 	GLuint m_framebufferID;
 	const int m_width;

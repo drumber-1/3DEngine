@@ -7,21 +7,25 @@
 class BaseLightComponent : public BaseComponent {
 public:
 	BaseLightComponent(const glm::vec3& colour, float luminosity, bool xray) : m_colour(colour),
-																	m_luminosity(luminosity),
-																	m_xray(xray) {}
+																			   m_luminosity(luminosity),
+																			   m_xray(xray) { }
 
 	inline const glm::vec3& getColour() const { return m_colour; }
+
 	inline void setColour(const glm::vec3& colour) { m_colour = colour; }
 
 	inline float getLuminosity() const { return m_luminosity; }
+
 	inline void setLuminosity(float luminosity) { m_luminosity = luminosity; }
 
 	inline bool isXray() const { return m_xray; }
 
 	const ShadowFramebuffer* getShadowMapBuffer() const { return m_shadowMapBuffer.get(); };
+
 	const BaseCameraComponent* getCamera() const { return m_Camera; };
 protected:
 	virtual ShadowFramebuffer* generateFrameBuffer() = 0;
+
 	virtual BaseCameraComponent* generateCamera() = 0;
 
 	virtual void setParentEntity(Entity* parent) override {

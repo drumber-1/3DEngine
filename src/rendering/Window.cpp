@@ -1,14 +1,13 @@
 #include "Window.hpp"
 
-#include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <iostream>
 
-Window::Window(int width, int height, const std::string &title) : m_width(width),
-                                                                  m_height(height),
-                                                                  m_title(title),
+Window::Window(int width, int height, const std::string& title) : m_width(width),
+																  m_height(height),
+																  m_title(title),
 																  m_input(this),
-                                                                  m_isCloseRequested(false) {
+																  m_isCloseRequested(false) {
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -19,7 +18,8 @@ Window::Window(int width, int height, const std::string &title) : m_width(width)
 
 	glewExperimental = GL_TRUE;
 
-	m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
+	m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height,
+								SDL_WINDOW_OPENGL);
 	m_glContext = SDL_GL_CreateContext(m_window);
 
 	GLenum result = glewInit();
