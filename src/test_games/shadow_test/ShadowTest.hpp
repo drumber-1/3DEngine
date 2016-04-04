@@ -7,4 +7,8 @@ public:
 	ShadowTest(Engine* engine);
 
 	void addCube(Entity& root, const Material& material, const glm::vec3& position, const glm::vec3& scale);
+
+private:
+	const int ROOM_WIDTH = 10.0f;
+	const int ROOM_HEIGHT = 5.0f;
 };

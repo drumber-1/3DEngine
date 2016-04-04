@@ -8,7 +8,7 @@ void PointLightComponent::addToEngine(Engine* engine) const {
 }
 
 ShadowFramebuffer* PointLightComponent::generateFrameBuffer() {
-	return new ShadowFramebuffer(1024, 1024, false);
+	return new ShadowFramebuffer(1024, 1024, 1.0f);
 }
 
 BaseCameraComponent* PointLightComponent::generateCamera() {
