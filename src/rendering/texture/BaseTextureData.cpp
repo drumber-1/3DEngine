@@ -18,6 +18,13 @@ void BaseTextureData::load(const GLvoid* data, GLenum textureTarget) {
 	load(data, textureTarget, GL_RGB, GL_LINEAR_MIPMAP_LINEAR, GL_CLAMP_TO_EDGE, 8.0f);
 }
 
+void BaseTextureData::loadAsShadowMap(GLenum textureTarget, float borderIntensity) {
+	bind(GL_TEXTURE0);
+	GLfloat borderColour[] = {borderIntensity, borderIntensity, borderIntensity, 1.0};
+	glTexParameterfv(m_textureType, GL_TEXTURE_BORDER_COLOR, borderColour);
+	load(nullptr, textureTarget, GL_DEPTH_COMPONENT, GL_NEAREST, GL_CLAMP_TO_BORDER, 0.0f);
+}
+
 void BaseTextureData::load(const GLvoid* data, GLenum textureTarget, GLenum format, GLint interpolation, GLint wrapping, float anisotropy) {
 	bind(GL_TEXTURE0);
 	glTexParameteri(m_textureType, GL_TEXTURE_MIN_FILTER, interpolation);

@@ -21,7 +21,7 @@ void ForwardSpotLightShader::setSpotLight(const SpotLightComponent& light) {
 	setUniform("spotLight.direction", light.getDirection());
 	setUniform("spotLight.cosineFov", light.getCosineFov());
 	if (!light.isXray()) {
-		setUniform("shadowMap", &(light.getShadowMapBuffer()->getShadowMap()));
+		setUniform("shadowMap", light.getShadowMapBuffer()->getShadowMap());
 		setUniform("lightSpaceMatrix", light.getCamera()->getWorldToProjectionMatrix());
 	}
 }

@@ -16,7 +16,7 @@ void ForwardDirectionalLightShader::setDirectionalLight(const DirectionalLightCo
 	setUniform("directionalLight.base.xray", light.isXray());
 	setUniform("directionalLight.direction", light.getDirection());
 	if (!light.isXray()) {
-		setUniform("shadowMap", &(light.getShadowMapBuffer()->getShadowMap()));
+		setUniform("shadowMap", light.getShadowMapBuffer()->getShadowMap());
 		setUniform("lightSpaceMatrix", light.getCamera()->getWorldToProjectionMatrix());
 	}
 }

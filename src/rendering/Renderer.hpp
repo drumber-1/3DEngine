@@ -18,7 +18,6 @@
 #include "../components/camera/BaseCameraComponent.hpp"
 #include "../components/RenderComponent.hpp"
 #include "../core/GameWorld.hpp"
-#include "texture/DepthTexture2DData.hpp"
 #include "framebuffer/ShadowFramebuffer.hpp"
 
 class DirectionalLightComponent;

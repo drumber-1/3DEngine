@@ -18,6 +18,7 @@ public:
 
 	void bind(GLenum textureUnit) const;
 	void load(const GLvoid* data, GLenum textureTarget);
+	void loadAsShadowMap(GLenum textureTarget, float borderIntensity);
 	void load(const GLvoid* data, GLenum textureTarget, GLenum format, GLint interpolation, GLint wrapping, float anisotropy);
 	GLuint getID() const { return m_textureID; }
 protected:

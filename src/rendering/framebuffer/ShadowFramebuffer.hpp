@@ -1,15 +1,14 @@
 #pragma once
 
 #include "BaseFramebuffer.hpp"
-#include "../texture/DepthTexture2DData.hpp"
 
 class ShadowFramebuffer : public BaseFramebuffer {
 public:
-	ShadowFramebuffer(int width, int height, bool defaultShadow);
+	ShadowFramebuffer(int width, int height, float borderIntensity);
 
-	const DepthTexture2DData& getShadowMap() const { return m_shadowMap; }
+	const BaseTextureData* getShadowMap() const { return m_shadowMap.get(); }
 private:
-	DepthTexture2DData m_shadowMap;
+	std::unique_ptr<BaseTextureData> m_shadowMap;
 };
 
 
