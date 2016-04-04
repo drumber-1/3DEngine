@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include "../BaseComponent.hpp"
 #include "../../rendering/framebuffer/ShadowFramebuffer.hpp"
 #include "../camera/BaseCameraComponent.hpp"
@@ -32,6 +33,9 @@ protected:
 		BaseComponent::setParentEntity(parent);
 		if (!m_xray) {
 			m_shadowMapBuffer.reset(generateFrameBuffer());
+			if (!m_shadowMapBuffer.get()->isComplete()) {
+				std::cout << "Framebuffer incomplete!\n";
+			}
 			m_Camera = generateCamera();
 			parent->addComponent(m_Camera);
 		}

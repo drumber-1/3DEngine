@@ -49,36 +49,36 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	m_gameWorld.rootEntity.addChildEntity(ceiling);
 
 	Entity* wall1 = new Entity();
-	wall1->addComponent(new RenderComponent(Mesh::meshManager.getPointer("planeSmall"), bricks));
+	wall1->addComponent(new RenderComponent(Mesh::meshManager.getPointer("planeSmall"), checkers));
 	wall1->getLocalTransform().translate(glm::vec3(ROOM_WIDTH / 2.0f, ROOM_HEIGHT / 2.0f, 0.0f));
 	wall1->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 	wall1->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	m_gameWorld.rootEntity.addChildEntity(wall1);
 
 	Entity* wall2 = new Entity();
-	wall2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("planeSmall"), bricks));
+	wall2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("planeSmall"), checkers));
 	wall2->getLocalTransform().translate(glm::vec3(-ROOM_WIDTH / 2.0f, ROOM_HEIGHT / 2.0f, 0.0f));
 	wall2->getLocalTransform().rotate(glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 	wall2->getLocalTransform().rotate(glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	m_gameWorld.rootEntity.addChildEntity(wall2);
 
 	Entity* wall3 = new Entity();
-	wall3->addComponent(new RenderComponent(Mesh::meshManager.getPointer("planeSmall"), bricks));
+	wall3->addComponent(new RenderComponent(Mesh::meshManager.getPointer("planeSmall"), checkers));
 	wall3->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, ROOM_WIDTH / 2.0f));
 	wall3->getLocalTransform().rotate(glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	m_gameWorld.rootEntity.addChildEntity(wall3);
 
 	Entity* wall4 = new Entity();
-	wall4->addComponent(new RenderComponent(Mesh::meshManager.getPointer("planeSmall"), bricks));
+	wall4->addComponent(new RenderComponent(Mesh::meshManager.getPointer("planeSmall"), checkers));
 	wall4->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, -ROOM_WIDTH / 2.0f));
 	wall4->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	m_gameWorld.rootEntity.addChildEntity(wall4);
 
-	Entity* skyLight1 = new Entity();
-	skyLight1->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-	skyLight1->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
-	skyLight1->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.6f, false));
-	m_gameWorld.rootEntity.addChildEntity(skyLight1);
+	//Entity* skyLight1 = new Entity();
+	//skyLight1->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
+	//skyLight1->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
+	//skyLight1->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.6f, false));
+	//m_gameWorld.rootEntity.addChildEntity(skyLight1);
 
 	//Entity* skyLight2 = new Entity();
 	//skyLight2->getLocalTransform().rotate(glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0));
@@ -87,12 +87,12 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	//m_gameWorld.rootEntity.addChildEntity(skyLight2);
 
 	Entity* pointLight = new Entity();
-	pointLight->getLocalTransform().translate(glm::vec3(0.0f, 3.0f, 0.0f));
+	pointLight->getLocalTransform().translate(glm::vec3(0.0f, 3.0f * ROOM_HEIGHT / 4.0f, 0.0f));
 	pointLight->getLocalTransform().rotate(glm::radians(-90.0f), glm::vec3(1.0, 0.0, 0.0));
 	pointLight->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 1.5f, 10.0f, false));
 	m_gameWorld.rootEntity.addChildEntity(pointLight);
 
-	addCube(m_gameWorld.rootEntity, bricks, glm::vec3(0.0f, 1.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
+	addCube(m_gameWorld.rootEntity, bricks, glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 
 	//Entity* cube = new Entity();
 	//cube->getLocalTransform().translate(glm::vec3(0.0f, 2.7f, 0.0f));
@@ -101,5 +101,5 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	//cube->addComponent(new RotationComponent(0.2f, glm::vec3(1.0f, 0.0f, 0.0f)));
 	//m_gameWorld.rootEntity.addChildEntity(cube);
 
-	m_gameWorld.ambientLight = glm::vec3(0.5, 0.5, 0.5);
+	m_gameWorld.ambientLight = glm::vec3(0.1, 0.1, 0.1);
 }
