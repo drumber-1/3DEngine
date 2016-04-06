@@ -9,6 +9,8 @@ public:
 	inline glm::mat4 getWorldToViewMatrix() const { return getCameraMatrix(); }
 
 	inline glm::mat4 getWorldToProjectionMatrix() const { return getViewToProjection() * getWorldToViewMatrix(); }
+
+	virtual float getFarPlane() const = 0;
 };
 
 

@@ -3,13 +3,32 @@
 #include <iostream>
 #include <fstream>
 
+ShaderData::ShaderData(const std::string& vertexShader, const std::string& fragmentShader, const std::string& geometryShader) {
+	m_programID = glCreateProgram();
+
+	std::string vertexShaderCode = readShaderCode(vertexShader);
+	GLuint vertexShaderID = addShaderToProgram(vertexShaderCode, GL_VERTEX_SHADER);
+
+	std::string fragmentShaderCode = readShaderCode(fragmentShader);
+	GLuint fragmentShaderID = addShaderToProgram(fragmentShaderCode, GL_FRAGMENT_SHADER);
+
+	std::string geometryShaderCode = readShaderCode(geometryShader);
+	GLuint geometryShaderID = addShaderToProgram(geometryShaderCode, GL_GEOMETRY_SHADER);
+
+	linkProgram();
+
+	glDeleteShader(vertexShaderID);
+	glDeleteShader(fragmentShaderID);
+	glDeleteShader(geometryShaderID);
+}
+
 ShaderData::ShaderData(const std::string& vertexShader, const std::string& fragmentShader) {
 	m_programID = glCreateProgram();
 
 	std::string vertexShaderCode = readShaderCode(vertexShader);
-	std::string fragmentShaderCode = readShaderCode(fragmentShader);
-
 	GLuint vertexShaderID = addShaderToProgram(vertexShaderCode, GL_VERTEX_SHADER);
+
+	std::string fragmentShaderCode = readShaderCode(fragmentShader);
 	GLuint fragmentShaderID = addShaderToProgram(fragmentShaderCode, GL_FRAGMENT_SHADER);
 
 	linkProgram();

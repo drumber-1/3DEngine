@@ -9,8 +9,15 @@
 
 class BaseShader {
 public:
-	BaseShader(const std::string& vertexShader, const std::string& fragmentShader) : m_shaderData(
-			"res/shaders/" + vertexShader, "res/shaders/" + fragmentShader) { }
+	BaseShader(const std::string& vertexShader,
+			   const std::string& fragmentShader) : m_shaderData("res/shaders/" + vertexShader,
+																 "res/shaders/" + fragmentShader) { }
+
+	BaseShader(const std::string& vertexShader,
+			   const std::string& fragmentShader,
+			   const std::string& geometryShader) : m_shaderData("res/shaders/" + vertexShader,
+																 "res/shaders/" + fragmentShader,
+																 "res/shaders/" + geometryShader) { }
 
 	inline void useShader() const { m_shaderData.useProgram(); }
 
@@ -32,6 +39,10 @@ public:
 
 	inline void setUniform(const std::string& uniformName, const glm::mat4& uniformValue) const {
 		glUniformMatrix4fv(m_uniformLocations.at(uniformName), 1, GL_FALSE, &uniformValue[0][0]);
+	}
+
+	inline void setUniform(const std::string& uniformName, const std::vector<glm::mat4>& uniformValues) const {
+		glUniformMatrix4fv(m_uniformLocations.at(uniformName), (GLsizei)uniformValues.size(), GL_FALSE, &uniformValues[0][0][0]);
 	}
 
 	inline void setUniform(const std::string& uniformName, const BaseTextureData* textureData) const {

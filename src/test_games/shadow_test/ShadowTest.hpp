@@ -10,5 +10,5 @@ public:
 
 private:
 	const int ROOM_WIDTH = 8;
-	const int ROOM_HEIGHT = 4;
+	const int ROOM_HEIGHT = 8;
 };

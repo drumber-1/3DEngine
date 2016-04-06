@@ -7,12 +7,12 @@ in layout(location=3) vec3 vertexTangentModel;
 
 uniform mat4 worldToProjectionMatrix;
 uniform mat4 modelToWorldMatrix;
-uniform mat4 lightSpaceMatrix;
+//uniform mat4 lightSpaceMatrix;
 
 out vec3 fragPositionWorld;
 out vec2 fragTexCoord;
 out mat3 fragTBNWorld;
-out vec4 fragPositionLight;
+//out vec4 fragPositionLight;
 
 void main() {
 	gl_Position = worldToProjectionMatrix * modelToWorldMatrix * vertexPositionModel;
@@ -24,5 +24,5 @@ void main() {
 	vec3 fragTangentWorld = vec3(modelToWorldMatrix * vec4(vertexTangentModel, 0));
 	vec3 fragBiTangentWorld = cross(fragTangentWorld, fragNormalWorld);
 	fragTBNWorld = mat3(fragTangentWorld, fragBiTangentWorld, fragNormalWorld);
-	fragPositionLight = lightSpaceMatrix * vec4(fragPositionWorld, 1.0);
+	//fragPositionLight = lightSpaceMatrix * vec4(fragPositionWorld, 1.0);
 }

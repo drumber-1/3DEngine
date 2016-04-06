@@ -8,6 +8,7 @@
 
 class ShaderData {
 public:
+	ShaderData(const std::string& vertexShader, const std::string& fragmentShader, const std::string& geometryShader);
 	ShaderData(const std::string& vertexShader, const std::string& fragmentShader);
 
 	virtual ~ShaderData();

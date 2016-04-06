@@ -7,7 +7,7 @@ ForwardPointLightShader::ForwardPointLightShader() : LightShader("forward_point_
 	addUniform("pointLight.position");
 	addUniform("pointLight.range");
 
-	addUniform("lightSpaceMatrix");
+	//addUniform("lightSpaceMatrix");
 	setTextureUnit("shadowMap");
 }
 
@@ -18,6 +18,6 @@ void ForwardPointLightShader::setPointLight(const PointLightComponent& light) {
 	setUniform("pointLight.range", light.getRange());
 	if (!light.isXray()) {
 		setUniform("shadowMap", light.getShadowMapBuffer()->getShadowMap());
-		setUniform("lightSpaceMatrix", light.getCamera()->getWorldToProjectionMatrix());
+		//setUniform("lightSpaceMatrix", light.getCamera()->getWorldToProjectionMatrix());
 	}
 }

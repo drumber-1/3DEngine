@@ -19,6 +19,7 @@
 #include "../components/RenderComponent.hpp"
 #include "../core/GameWorld.hpp"
 #include "framebuffer/ShadowFramebuffer.hpp"
+#include "shader/ShadowDepthCubeShader.hpp"
 
 class DirectionalLightComponent;
 
@@ -50,6 +51,7 @@ private:
 
 	SkyboxShader m_skyboxShader;
 	ShadowDepthShader m_shadowShader;
+	ShadowDepthCubeShader m_shadowCubeShader;
 
 	std::vector<const DirectionalLightComponent*> m_directionalLights;
 	std::vector<const PointLightComponent*> m_pointLights;
@@ -57,7 +59,7 @@ private:
 
 	void renderScene(const GameWorld& gameWorld);
 
-	void renderShadows(const GameWorld& gameWorld, const BaseCameraComponent& lightCamera);
+	void renderShadows(const GameWorld& gameWorld, const BaseCameraComponent& lightCamera, Shader& shader);
 
 	void renderSkybox(const GameWorld& gameWorld);
 

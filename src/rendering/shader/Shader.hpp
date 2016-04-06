@@ -8,8 +8,12 @@
 
 class Shader : public BaseShader {
 public:
-	Shader(const std::string& vertexShader, const std::string& fragmentShader) : BaseShader(vertexShader,
-																							fragmentShader) { };
+	Shader(const std::string& vertexShader,
+		   const std::string& fragmentShader) : BaseShader(vertexShader, fragmentShader) { };
+
+	Shader(const std::string& vertexShader,
+		   const std::string& fragmentShader,
+		   const std::string& geometryShader) : BaseShader(vertexShader, fragmentShader, geometryShader) { };
 
 	virtual void setCamera(const BaseCameraComponent& camera) = 0;
 
