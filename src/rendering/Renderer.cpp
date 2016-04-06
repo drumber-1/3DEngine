@@ -27,7 +27,7 @@ void Renderer::renderShadows(const GameWorld& gameWorld, const BaseCameraCompone
 	glClear(GL_DEPTH_BUFFER_BIT);
 	shader.useShader();
 	shader.setCamera(lightCamera);
-	gameWorld.rootEntity.render(m_shadowShader);
+	gameWorld.rootEntity.render(shader);
 }
 
 void Renderer::renderScene(const GameWorld& gameWorld) {

@@ -38,7 +38,8 @@ public:
 	}
 
 	inline void setUniform(const std::string& uniformName, const glm::mat4& uniformValue) const {
-		glUniformMatrix4fv(m_uniformLocations.at(uniformName), 1, GL_FALSE, &uniformValue[0][0]);
+		int n = m_uniformLocations.at(uniformName);
+		glUniformMatrix4fv(n, 1, GL_FALSE, &uniformValue[0][0]);
 	}
 
 	inline void setUniform(const std::string& uniformName, const std::vector<glm::mat4>& uniformValues) const {

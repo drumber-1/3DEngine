@@ -8,12 +8,12 @@ ShadowDepthCubeShader::ShadowDepthCubeShader() : Shader("shadow_depth_cube_vert.
 	addUniform("projectionMatrices");
 
 	addUniform("test");
-	addUniform("tarPlane");
+	addUniform("farPlane");
 }
 
 void ShadowDepthCubeShader::setCamera(const BaseCameraComponent& camera) {
 	setUniform("test", camera.getPosition());
-	setUniform("tarPlane", camera.getFarPlane());
+	setUniform("farPlane", camera.getFarPlane());
 
 	std::vector<glm::mat4> projectionMatrices;
 	projectionMatrices.push_back(camera.getViewToProjection() * glm::lookAt(camera.getPosition(), camera.getPosition() + glm::vec3(1.0,0.0,0.0), glm::vec3(0.0,-1.0,0.0)));

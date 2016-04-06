@@ -9,6 +9,6 @@ public:
 	void addCube(Entity& root, const Material& material, const glm::vec3& position, const glm::vec3& scale);
 
 private:
-	const int ROOM_WIDTH = 8;
-	const int ROOM_HEIGHT = 8;
+	const int ROOM_WIDTH = 4;
+	const int ROOM_HEIGHT = 4;
 };

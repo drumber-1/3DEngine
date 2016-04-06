@@ -30,22 +30,10 @@ uniform float reflectivity;
 uniform float specularIndex;
 
 uniform PointLight pointLight;
-
-//float calculateShadow(vec4 fragPositionLight, vec3 lightDirection, vec3 normal) {
-	//vec3 projCoords = fragPositionLight.xyz / fragPositionLight.w;
-	//projCoords = projCoords * 0.5 + 0.5;
-	//float closestDepth = texture(shadowMap, lightDirection).r;
-	//float currentDepth = projCoords.z;
-	//float currentDepth = length(lightDirection);
-	//if (currentDepth > 1.0f) {
-	//	return 0.0f;
-	//}
-	//float bias = max(0.05 * (1.0 - abs(dot(normal, lightDirection))), 0.005);
-	//return currentDepth - bias > closestDepth ? 1.0 : 0.0;
-//}
+uniform float farPlane;
 
 float calculateShadow(vec3 lightDirection, vec3 normal) {
-	float closestDepth = 10.0f * texture(shadowMap, lightDirection).r;
+	float closestDepth = farPlane * texture(shadowMap, lightDirection).r;
 	float currentDepth = length(lightDirection);
 	float bias = max(0.05 * (1.0 - abs(dot(normal, lightDirection))), 0.005);
     return currentDepth - bias > closestDepth ? 1.0 : 0.0;
@@ -90,10 +78,10 @@ vec4 calculatePointLight(PointLight light) {
 }
 
 void main() {
-	//vec4 textureColour = texture(theTexture, fragTexCoord) * modColour;
-	//finalColour = textureColour * calculatePointLight(pointLight);
+	vec4 textureColour = texture(theTexture, fragTexCoord) * modColour;
+	finalColour = textureColour * calculatePointLight(pointLight);
 
-	vec3 lightDirection = fragPositionWorld - pointLight.position;
-	float closestDepth = texture(shadowMap, lightDirection).r;
-	finalColour = vec4(vec3(closestDepth), 1.0);
+	//vec3 lightDirection = fragPositionWorld - pointLight.position;
+	//float closestDepth = texture(shadowMap, lightDirection).r;
+	//finalColour = vec4(vec3(closestDepth), 1.0);
 }
