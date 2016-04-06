@@ -6,7 +6,7 @@ class PerspectiveCameraComponent : public BaseCameraComponent {
 public:
 	PerspectiveCameraComponent(float fov, float aspectRatio) : m_fov(fov),
 															   m_aspectRatio(aspectRatio),
-															   m_near(0.1f), m_far(10.0f) { }
+															   m_near(0.1f), m_far(25.0f) { }
 
 	virtual glm::mat4 getViewToProjection() const {
 		return glm::perspective(glm::radians(m_fov), m_aspectRatio, m_near, m_far);
