@@ -60,7 +60,6 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 			disableBlending();
 			l->getShadowMapBuffer()->bind();
 			renderShadows(gameWorld, *l->getCamera(), m_shadowCubeShader);
-			enableBlending();
 		}
 		enableBlending();
 		m_window->bindAsRenderTarget();
@@ -75,8 +74,8 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 			disableBlending();
 			l->getShadowMapBuffer()->bind();
 			renderShadows(gameWorld, *l->getCamera(), m_shadowShader);
-			enableBlending();
 		}
+		enableBlending();
 		m_window->bindAsRenderTarget();
 		m_spotLightShader.useShader();
 		m_spotLightShader.setCamera(*gameWorld.currentCamera);

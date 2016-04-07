@@ -17,6 +17,7 @@ ForwardPointLightShader::ForwardPointLightShader() : LightShader("forward_point_
 void ForwardPointLightShader::setPointLight(const PointLightComponent& light) {
 	setUniform("pointLight.base.colour", light.getColour());
 	setUniform("pointLight.base.luminosity", light.getLuminosity());
+	setUniform("pointLight.base.xray", light.isXray());
 	setUniform("pointLight.position", light.getPosition());
 	setUniform("pointLight.range", light.getRange());
 	setUniform("pointLight.attenuation.quadratic", light.getAttenuation().quadratic);
