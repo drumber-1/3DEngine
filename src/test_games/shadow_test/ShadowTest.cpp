@@ -8,7 +8,7 @@ void ShadowTest::addCube(Entity& root, const Material& material, const glm::vec3
 	cube->getLocalTransform().translate(position);
 	cube->getLocalTransform().scale(scale);
 	cube->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), material));
-	cube->addComponent(new MovableComponent());
+	//cube->addComponent(new MovableComponent());
 	root.addChildEntity(cube);
 }
 
@@ -89,7 +89,9 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	Entity* pointLight = new Entity();
 	//pointLight->getLocalTransform().translate(glm::vec3(0.0f, 3.0f * ROOM_HEIGHT / 4.0f, 0.0f));
 	pointLight->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, 0.0f));
-	pointLight->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 1.5f, 10.0f, Attenuation(1.0, 0.0, 1.0), false));
+	//pointLight->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 1.5f, 10.0f, Attenuation(0.44, 0.35, 1.0), false));
+	pointLight->addComponent(new SpotLightComponent(glm::vec3(1.0, 1.0, 1.0), 1.5f, 10.0f, 0.6f, Attenuation(0.44, 0.35, 1.0), false));
+	pointLight->addComponent(new MovableComponent());
 	m_gameWorld.rootEntity.addChildEntity(pointLight);
 
 	addCube(m_gameWorld.rootEntity, bricks, glm::vec3(ROOM_WIDTH / 4.0f, ROOM_HEIGHT / 2.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
@@ -101,5 +103,5 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	//cube->addComponent(new RotationComponent(0.2f, glm::vec3(1.0f, 0.0f, 0.0f)));
 	//m_gameWorld.rootEntity.addChildEntity(cube);
 
-	m_gameWorld.ambientLight = glm::vec3(0.2, 0.2, 0.2);
+	m_gameWorld.ambientLight = glm::vec3(0.1, 0.1, 0.1);
 }

@@ -12,7 +12,7 @@ ShadowFramebuffer* SpotLightComponent::generateFrameBuffer() {
 }
 
 BaseCameraComponent* SpotLightComponent::generateCamera() {
-	return new PerspectiveCameraComponent(std::cos(m_cosineFov), 1.0f);
+	return new PerspectiveCameraComponent(360.0f * std::acos(m_cosineFov) / (float)M_PI, 1.0f);
 }
 
 
