@@ -6,6 +6,9 @@ ForwardSpotLightShader::ForwardSpotLightShader() : LightShader("forward_spot_ver
 	addUniform("spotLight.pointLight.base.xray");
 	addUniform("spotLight.pointLight.position");
 	addUniform("spotLight.pointLight.range");
+	addUniform("spotLight.pointLight.attenuation.quadratic");
+	addUniform("spotLight.pointLight.attenuation.linear");
+	addUniform("spotLight.pointLight.attenuation.constant");
 	addUniform("spotLight.direction");
 	addUniform("spotLight.cosineFov");
 
@@ -18,6 +21,9 @@ void ForwardSpotLightShader::setSpotLight(const SpotLightComponent& light) {
 	setUniform("spotLight.pointLight.base.luminosity", light.getLuminosity());
 	setUniform("spotLight.pointLight.position", light.getPosition());
 	setUniform("spotLight.pointLight.range", light.getRange());
+	setUniform("spotLight.pointLight.attenuation.quadratic", light.getAttenuation().quadratic);
+	setUniform("spotLight.pointLight.attenuation.linear", light.getAttenuation().linear);
+	setUniform("spotLight.pointLight.attenuation.constant", light.getAttenuation().constant);
 	setUniform("spotLight.direction", light.getDirection());
 	setUniform("spotLight.cosineFov", light.getCosineFov());
 	if (!light.isXray()) {

@@ -7,13 +7,18 @@ public:
 	SpotLightComponent(const glm::vec3& colour,
 					   float luminosity,
 					   float range,
+					   float cosineFov) : PointLightComponent(colour, luminosity, range),
+										  m_cosineFov(cosineFov) { }
+
+	SpotLightComponent(const glm::vec3& colour,
+					   float luminosity,
+					   float range,
 					   float cosineFov,
-					   bool xray = false) : PointLightComponent(colour, luminosity, range, xray),
+					   Attenuation attenuation,
+					   bool xray = false) : PointLightComponent(colour, luminosity, range, attenuation, xray),
 											m_cosineFov(cosineFov) { }
 
 	inline float getCosineFov() const { return m_cosineFov; }
-
-	inline void setCosineFov(float cosineFov) { m_cosineFov = cosineFov; }
 
 	virtual void addToEngine(Engine* engine) const;
 

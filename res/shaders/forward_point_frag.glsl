@@ -3,7 +3,6 @@
 in vec3 fragPositionWorld;
 in vec2 fragTexCoord;
 in mat3 fragTBNWorld;
-//in vec4 fragPositionLight;
 
 out vec4 finalColour;
 
@@ -13,10 +12,17 @@ struct BaseLight {
 	bool xray;
 };
 
+struct Attenuation {
+	float quadratic;
+	float linear;
+	float constant;
+};
+
 struct PointLight {
 	BaseLight base;
 	vec3 position;
 	float range;
+	Attenuation attenuation;
 };
 
 uniform vec3 eyePositionWorld;
@@ -74,14 +80,14 @@ vec4 calculatePointLight(PointLight light) {
 		return vec4(0.0, 0.0, 0.0, 1.0);
 	}
 
-	return calculateLight(light.base, lightDirection) / (distance * distance + 0.0001);
+	float decay = light.attenuation.quadratic * distance * distance
+	            + light.attenuation.linear * distance
+	            + light.attenuation.constant;
+
+	return calculateLight(light.base, lightDirection) / decay;
 }
 
 void main() {
 	vec4 textureColour = texture(theTexture, fragTexCoord) * modColour;
 	finalColour = textureColour * calculatePointLight(pointLight);
-
-	//vec3 lightDirection = fragPositionWorld - pointLight.position;
-	//float closestDepth = texture(shadowMap, lightDirection).r;
-	//finalColour = vec4(vec3(closestDepth), 1.0);
 }

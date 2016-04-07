@@ -13,10 +13,17 @@ struct BaseLight {
 	bool xray;
 };
 
+struct Attenuation {
+	float quadratic;
+	float linear;
+	float constant;
+};
+
 struct PointLight {
 	BaseLight base;
 	vec3 position;
 	float range;
+	Attenuation attenuation;
 };
 
 struct SpotLight {
@@ -84,7 +91,11 @@ vec4 calculatePointLight(PointLight light) {
 		return vec4(0.0, 0.0, 0.0, 1.0);
 	}
 
-	return calculateLight(light.base, lightDirection) / (distance * distance + 0.0001);
+	float decay = light.attenuation.quadratic * distance * distance
+    	            + light.attenuation.linear * distance
+    	            + light.attenuation.constant;
+
+	return calculateLight(light.base, lightDirection) / decay;
 }
 
 vec4 calculateSpotLight(SpotLight light) {
