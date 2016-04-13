@@ -8,7 +8,7 @@ uniform mat4 viewToProjectionMatrix;
 out vec3 fragTexCoord;
 
 void main() {
-	//gl_Position = viewToProjectionMatrix * worldToViewMatrix * vertexPositionWorld;
-	gl_Position = viewToProjectionMatrix * mat4(mat3(worldToViewMatrix)) * vertexPositionWorld;
+	vec4 pos = viewToProjectionMatrix * mat4(mat3(worldToViewMatrix)) * vec4(vertexPositionWorld.xyz, 1.0);
+	gl_Position = pos.xyww;
 	fragTexCoord = vec3(vertexPositionWorld);
 }

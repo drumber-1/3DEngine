@@ -20,6 +20,7 @@
 #include "../core/GameWorld.hpp"
 #include "framebuffer/ShadowFramebuffer.hpp"
 #include "shader/ShadowDepthCubeShader.hpp"
+#include "shader/ReflectionShader.hpp"
 
 class DirectionalLightComponent;
 
@@ -50,6 +51,7 @@ private:
 	ForwardSpotLightShader m_spotLightShader;
 
 	SkyboxShader m_skyboxShader;
+	ReflectionShader m_reflectionShader;
 	ShadowDepthShader m_shadowShader;
 	ShadowDepthCubeShader m_shadowCubeShader;
 

@@ -34,11 +34,14 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	m_window->bindAsRenderTarget();
-	renderSkybox(gameWorld);
 	m_ambientLightShader.useShader();
 	m_ambientLightShader.setCamera(*gameWorld.currentCamera);
 	m_ambientLightShader.setAmbientLight(gameWorld.ambientLight);
 	gameWorld.rootEntity.render(m_ambientLightShader);
+
+	m_reflectionShader.useShader();
+	m_reflectionShader.setCamera(*gameWorld.currentCamera);
+	gameWorld.rootEntity.render(m_reflectionShader);
 
 	for (auto l : m_directionalLights) {
 		if (!l->isXray()) {
@@ -83,18 +86,23 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 		gameWorld.rootEntity.render(m_spotLightShader);
 	}
 
+	m_window->bindAsRenderTarget();
+	renderSkybox(gameWorld);
+
 	disableBlending();
 }
 
 void Renderer::renderSkybox(const GameWorld& gameWorld) {
 	if (gameWorld.currentSkyBox != nullptr) {
-		glDepthMask(GL_FALSE);
+		//glDepthMask(GL_FALSE);
+		glDepthFunc(GL_LEQUAL);
 		glFrontFace(GL_CW);
 		m_skyboxShader.useShader();
 		m_skyboxShader.setCamera(*gameWorld.currentCamera);
 		m_skyboxShader.setAmbientLight(gameWorld.ambientLight);
 		gameWorld.currentSkyBox->render(m_skyboxShader);
-		glDepthMask(GL_TRUE);
+		//glDepthMask(GL_TRUE);
+		glDepthFunc(GL_LESS);
 		glFrontFace(GL_CCW);
 	}
 }
