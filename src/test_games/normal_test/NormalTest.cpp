@@ -35,6 +35,8 @@ NormalTest::NormalTest(Engine* engine) : Game(engine) {
 	Mesh::meshManager.emplace("plane", modelPlane);
 	Mesh::meshManager.emplace("cube.obj");
 
+	m_gameWorld.ambientLight = glm::vec3(0.2, 0.2, 0.2);
+
 	Entity* camera = new Entity();
 	BaseCameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
 	camera->addComponent(cameraComponent);

@@ -2,13 +2,14 @@
 
 #include "../../components/camera/FPCameraComponent.hpp"
 #include "../../components/MovableComponent.hpp"
+#include "../../components/RotationComponent.hpp"
 
 void ShadowTest::addCube(Entity& root, const Material& material, const glm::vec3& position, const glm::vec3& scale) {
 	Entity* cube = new Entity();
 	cube->getLocalTransform().translate(position);
 	cube->getLocalTransform().scale(scale);
 	cube->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), material));
-	//cube->addComponent(new MovableComponent());
+	cube->addComponent(new MovableComponent());
 	root.addChildEntity(cube);
 }
 
@@ -30,13 +31,21 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	modelPlane2.finalize();
 	Mesh::meshManager.emplace("planeSmall", modelPlane2);
 	Mesh::meshManager.emplace("cube.obj");
+	Mesh::meshManager.emplace("monkey3.obj");
 
 	Entity* camera = new Entity();
 	BaseCameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
 	camera->addComponent(cameraComponent);
+	camera->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 10.0f));
 	camera->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, ROOM_WIDTH));
 	m_gameWorld.rootEntity.addChildEntity(camera);
 	m_gameWorld.currentCamera = cameraComponent;
+	Entity* playerModel = new Entity();
+	playerModel->addComponent(new RenderComponent(Mesh::meshManager.getPointer("monkey3.obj"), checkers));
+	playerModel->getLocalTransform().setScale(glm::vec3(0.1, 0.1, 0.1));
+	playerModel->getLocalTransform().translate(glm::vec3(0.0, 0.0, 0.1));
+	playerModel->getLocalTransform().rotate(glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	camera->addChildEntity(playerModel);
 
 	Entity* floor = new Entity();
 	floor->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), checkers));
@@ -80,28 +89,14 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	//skyLight1->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.6f, false));
 	//m_gameWorld.rootEntity.addChildEntity(skyLight1);
 
-	//Entity* skyLight2 = new Entity();
-	//skyLight2->getLocalTransform().rotate(glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0));
-	//skyLight2->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
-	//skyLight2->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.6f, false));
-	//m_gameWorld.rootEntity.addChildEntity(skyLight2);
-
-	Entity* pointLight = new Entity();
-	//pointLight->getLocalTransform().translate(glm::vec3(0.0f, 3.0f * ROOM_HEIGHT / 4.0f, 0.0f));
-	pointLight->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, 0.0f));
-	//pointLight->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 1.5f, 10.0f, Attenuation(0.44, 0.35, 1.0), false));
-	pointLight->addComponent(new SpotLightComponent(glm::vec3(1.0, 1.0, 1.0), 1.5f, 10.0f, 0.6f, Attenuation(0.44, 0.35, 1.0), false));
-	pointLight->addComponent(new MovableComponent());
-	m_gameWorld.rootEntity.addChildEntity(pointLight);
+	Entity* spotLight = new Entity();
+	spotLight->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, 0.0f));
+	spotLight->addComponent(new SpotLightComponent(glm::vec3(1.0, 1.0, 1.0), 1.5f, 10.0f, 0.6f, Attenuation(0.44, 0.35, 1.0), false));
+	//pointLight->addComponent(new MovableComponent());
+	spotLight->addComponent(new RotationComponent(-0.8f, glm::vec3(0.0, 1.0, 0.0)));
+	m_gameWorld.rootEntity.addChildEntity(spotLight);
 
 	addCube(m_gameWorld.rootEntity, bricks, glm::vec3(ROOM_WIDTH / 4.0f, ROOM_HEIGHT / 2.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 
-	//Entity* cube = new Entity();
-	//cube->getLocalTransform().translate(glm::vec3(0.0f, 2.7f, 0.0f));
-	//cube->getLocalTransform().scale(glm::vec3(0.1f, 0.1f, 0.1f));
-	//cube->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), bricks));
-	//cube->addComponent(new RotationComponent(0.2f, glm::vec3(1.0f, 0.0f, 0.0f)));
-	//m_gameWorld.rootEntity.addChildEntity(cube);
-
-	m_gameWorld.ambientLight = glm::vec3(0.1, 0.1, 0.1);
+	m_gameWorld.ambientLight = glm::vec3(0.05, 0.05, 0.05);
 }
