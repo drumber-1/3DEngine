@@ -45,15 +45,20 @@ void Mesh::load() {
 	const aiVector3D aiZeroVector(0.0f, 0.0f, 0.0f);
 	for (unsigned int i = 0; i < importedMesh->mNumVertices; ++i) {
 		const aiVector3D pos = importedMesh->mVertices[i];
-		const aiVector3D normal = importedMesh->mNormals[i];
-		const aiVector3D texCoord = importedMesh->HasTextureCoords(0) ? importedMesh->mTextureCoords[0][i]
-																	  : aiZeroVector;
-		const aiVector3D tangent = importedMesh->mTangents[i];
-
 		positions.push_back(glm::vec3(pos.x, pos.y, pos.z));
+
+		const aiVector3D texCoord = importedMesh->HasTextureCoords(0) ? importedMesh->mTextureCoords[0][i] : aiZeroVector;
 		texCoords.push_back(glm::vec2(texCoord.x, texCoord.y));
-		normals.push_back(glm::vec3(normal.x, normal.y, normal.z));
-		tangents.push_back(glm::vec3(tangent.x, tangent.y, tangent.z));
+
+		if (importedMesh->HasNormals()) {
+			const aiVector3D normal = importedMesh->mNormals[i];
+			normals.push_back(glm::vec3(normal.x, normal.y, normal.z));
+		}
+
+		if (importedMesh->HasTangentsAndBitangents()) {
+			const aiVector3D tangent = importedMesh->mTangents[i];
+			tangents.push_back(glm::vec3(tangent.x, tangent.y, tangent.z));
+		}
 	}
 
 	for (unsigned int i = 0; i < importedMesh->mNumFaces; ++i) {
@@ -64,7 +69,10 @@ void Mesh::load() {
 		indices.push_back(face.mIndices[2]);
 	}
 
-	m_meshData.reset(new MeshData(Model(indices, positions, texCoords, normals, tangents)));
+	Model model(indices, positions, texCoords, normals, tangents);
+	model.finalize();
+
+	m_meshData.reset(new MeshData(model));
 }
 
 void Mesh::unload() {

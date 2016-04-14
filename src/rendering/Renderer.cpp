@@ -57,7 +57,6 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 		gameWorld.rootEntity.render(m_directionalLightShader);
 	}
 
-
 	for (auto l : m_pointLights) {
 		if (!l->isXray()) {
 			disableBlending();
