@@ -19,15 +19,11 @@ NormalTest::NormalTest(Engine* engine) : Game(engine) {
 	Texture::textureManager.emplace("snow_grass_s.jpg");
 
 	Material checkers(Texture::textureManager.getPointer("test.png"));
-	Material bricks(Texture::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	Material bricks_n(Texture::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0,
-					  Texture::textureManager.getPointer("bricks_normal.jpg"));
-	Material snow_grass(Texture::textureManager.getPointer("snow_grass_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	Material snow_grass_n(Texture::textureManager.getPointer("snow_grass_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1,
-						  32, Texture::textureManager.getPointer("snow_grass_n.jpg"));
-	Material snow_grass_ns(Texture::textureManager.getPointer("snow_grass_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1,
-						   32, Texture::textureManager.getPointer("snow_grass_n.jpg"),
-						   Texture::textureManager.getPointer("snow_grass_s.jpg"));
+	Material bricks(Texture::textureManager.getPointer("bricks.jpg"));
+	Material bricks_n(Texture::textureManager.getPointer("bricks.jpg"), Texture::textureManager.getPointer("bricks_normal.jpg"), nullptr, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0);
+	Material snow_grass(Texture::textureManager.getPointer("snow_grass_d.jpg"));
+	Material snow_grass_n(Texture::textureManager.getPointer("snow_grass_d.jpg"), Texture::textureManager.getPointer("snow_grass_n.jpg"));
+	Material snow_grass_ns(Texture::textureManager.getPointer("snow_grass_d.jpg"), Texture::textureManager.getPointer("snow_grass_n.jpg"), Texture::textureManager.getPointer("snow_grass_s.jpg"));
 
 	Model modelPlane;
 	modelPlane.makePlane(10, 10, 1);

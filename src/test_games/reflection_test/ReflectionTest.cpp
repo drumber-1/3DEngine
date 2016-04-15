@@ -16,11 +16,11 @@ ReflectionTest::ReflectionTest(Engine* engine) : Game(engine) {
 	Texture::textureManager.emplace("bricks_normal.jpg");
 	Texture::textureManager.emplace("cube_skybox");
 
-	Material test(Texture::textureManager.getPointer("test.png"));
-	Material mirror(nullptr, true);
-	Material brick(Texture::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0,
-				   Texture::textureManager.getPointer("bricks_normal.jpg"));
-	Material sky(Texture::textureManager.getPointer("cube_skybox"));
+	Material test(Texture::textureManager.getPointer("test.png"), nullptr, nullptr);
+	Material mirror(nullptr, nullptr, nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
+	Material brick(Texture::textureManager.getPointer("bricks.jpg"), Texture::textureManager.getPointer("bricks_normal.jpg"), nullptr,
+				   glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0);
+	Material sky(Texture::textureManager.getPointer("cube_skybox"), nullptr, nullptr);
 
 	Entity* camera = new Entity();
 	BaseCameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);

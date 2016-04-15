@@ -69,49 +69,47 @@ std::vector<Material> loadMaterials() {
 
 
 	std::vector<Material> materials;
-	materials.emplace_back(Texture::textureManager.getPointer("test.png"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	materials.emplace_back(Texture::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0,
-						   Texture::textureManager.getPointer("bricks_normal.jpg"));
-	materials.emplace_back(Texture::textureManager.getPointer("adesert_mntn4_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
-						   1, 32, Texture::textureManager.getPointer("adesert_mntn4_n.jpg"),
+	materials.emplace_back(Texture::textureManager.getPointer("test.png"));
+	materials.emplace_back(Texture::textureManager.getPointer("bricks.jpg"), Texture::textureManager.getPointer("bricks_normal.jpg"), nullptr,
+						   glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0);
+	materials.emplace_back(Texture::textureManager.getPointer("adesert_mntn4_d.jpg"),
+						   Texture::textureManager.getPointer("adesert_mntn4_n.jpg"),
 						   Texture::textureManager.getPointer("adesert_mntn4_s.jpg"));
-	materials.emplace_back(Texture::textureManager.getPointer("desert_cracks_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
-						   1, 32, Texture::textureManager.getPointer("desert_cracks_n.jpg"),
+	materials.emplace_back(Texture::textureManager.getPointer("desert_cracks_d.jpg"),
+						   Texture::textureManager.getPointer("desert_cracks_n.jpg"),
 						   Texture::textureManager.getPointer("desert_cracks_s.jpg"));
 	materials.emplace_back(Texture::textureManager.getPointer("desert_sand_big_d.jpg"),
-						   glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1, 32,
 						   Texture::textureManager.getPointer("desert_sand_big_n.jpg"),
 						   Texture::textureManager.getPointer("desert_sand_big_s.jpg"));
-	materials.emplace_back(Texture::textureManager.getPointer("desert_sand_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
-						   1, 32, Texture::textureManager.getPointer("desert_sand_n.jpg"),
+	materials.emplace_back(Texture::textureManager.getPointer("desert_sand_d.jpg"),
+						   Texture::textureManager.getPointer("desert_sand_n.jpg"),
 						   Texture::textureManager.getPointer("desert_sand_s.jpg"));
-	materials.emplace_back(Texture::textureManager.getPointer("grass_autumn_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
-						   1, 32, Texture::textureManager.getPointer("grass_autumn_n.jpg"),
+	materials.emplace_back(Texture::textureManager.getPointer("grass_autumn_d.jpg"),
+						   Texture::textureManager.getPointer("grass_autumn_n.jpg"),
 						   Texture::textureManager.getPointer("grass_autumn_s.jpg"));
-	materials.emplace_back(Texture::textureManager.getPointer("grass_rocky_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
-						   1, 32, Texture::textureManager.getPointer("grass_rocky_n.jpg"),
+	materials.emplace_back(Texture::textureManager.getPointer("grass_rocky_d.jpg"),
+						   Texture::textureManager.getPointer("grass_rocky_n.jpg"),
 						   Texture::textureManager.getPointer("grass_rocky_s.jpg"));
 	materials.emplace_back(Texture::textureManager.getPointer("ground_cracked_d.jpg"),
-						   glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1, 32,
 						   Texture::textureManager.getPointer("ground_cracked_n.jpg"),
 						   Texture::textureManager.getPointer("ground_cracked_s.jpg"));
-	materials.emplace_back(Texture::textureManager.getPointer("jungle_stone_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
-						   1, 32, Texture::textureManager.getPointer("jungle_stone_n.jpg"),
+	materials.emplace_back(Texture::textureManager.getPointer("jungle_stone_d.jpg"),
+						   Texture::textureManager.getPointer("jungle_stone_n.jpg"),
 						   Texture::textureManager.getPointer("jungle_stone_s.jpg"));
-	materials.emplace_back(Texture::textureManager.getPointer("lava_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1, 32,
+	materials.emplace_back(Texture::textureManager.getPointer("lava_d.jpg"),
 						   Texture::textureManager.getPointer("lava_n.jpg"),
 						   Texture::textureManager.getPointer("lava_s.jpg"));
-	materials.emplace_back(Texture::textureManager.getPointer("moss_plants_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
-						   1, 32, Texture::textureManager.getPointer("moss_plants_n.jpg"),
+	materials.emplace_back(Texture::textureManager.getPointer("moss_plants_d.jpg"),
+						   Texture::textureManager.getPointer("moss_plants_n.jpg"),
 						   Texture::textureManager.getPointer("moss_plants_s.jpg"));
-	materials.emplace_back(Texture::textureManager.getPointer("snow_bumpy_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1,
-						   32, Texture::textureManager.getPointer("snow_bumpy_n.jpg"),
+	materials.emplace_back(Texture::textureManager.getPointer("snow_bumpy_d.jpg"),
+						   Texture::textureManager.getPointer("snow_bumpy_n.jpg"),
 						   Texture::textureManager.getPointer("snow_bumpy_s.jpg"));
-	materials.emplace_back(Texture::textureManager.getPointer("snow_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1, 32,
+	materials.emplace_back(Texture::textureManager.getPointer("snow_d.jpg"),
 						   Texture::textureManager.getPointer("snow_n.jpg"),
 						   Texture::textureManager.getPointer("snow_s.jpg"));
-	materials.emplace_back(Texture::textureManager.getPointer("snow_grass_d.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1,
-						   32, Texture::textureManager.getPointer("snow_grass_n.jpg"),
+	materials.emplace_back(Texture::textureManager.getPointer("snow_grass_d.jpg"),
+						   Texture::textureManager.getPointer("snow_grass_n.jpg"),
 						   Texture::textureManager.getPointer("snow_grass_s.jpg"));
 	return materials;
 }

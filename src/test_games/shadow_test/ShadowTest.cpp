@@ -19,8 +19,8 @@ ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
 	Texture::textureManager.emplace("bricks_normal.jpg");
 
 	Material checkers(Texture::textureManager.getPointer("test.png"));
-	Material bricks(Texture::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0,
-					Texture::textureManager.getPointer("bricks_normal.jpg"));
+	Material bricks(Texture::textureManager.getPointer("bricks.jpg"), Texture::textureManager.getPointer("bricks_normal.jpg"), nullptr,
+					glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0);
 
 	Model modelPlane;
 	modelPlane.makePlane(ROOM_WIDTH, ROOM_WIDTH, 1);

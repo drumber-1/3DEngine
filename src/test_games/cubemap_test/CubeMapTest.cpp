@@ -15,9 +15,8 @@ CubeMapTest::CubeMapTest(Engine* engine) : Game(engine) {
 	Texture::textureManager.emplace("bricks_normal.jpg");
 	Texture::textureManager.emplace("cube_skybox");
 
-	Material test(Texture::textureManager.getPointer("test.png"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	Material brick(Texture::textureManager.getPointer("bricks.jpg"), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0,
-				   Texture::textureManager.getPointer("bricks_normal.jpg"));
+	Material test(Texture::textureManager.getPointer("test.png"));
+	Material brick(Texture::textureManager.getPointer("bricks.jpg"), Texture::textureManager.getPointer("bricks_normal.jpg"), nullptr, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0);
 	Material sky(Texture::textureManager.getPointer("cube_skybox"));
 
 	Entity* camera = new Entity();

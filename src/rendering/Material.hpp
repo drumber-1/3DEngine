@@ -8,33 +8,21 @@
 class Material {
 public:
 	Material(const Texture* texture,
+			 const Texture* normalMap = nullptr,
+			 const Texture* specMap = nullptr,
 			 glm::vec4 modColour = glm::vec4(1.0, 1.0, 1.0, 1.0),
 			 float reflectivity = 1.0f,
 			 float specularIndex = 32.0f,
-			 const Texture* normalMap = Texture::textureManager.getPointer("default_normal.jpg"),
-			 const Texture* specMap = Texture::textureManager.getPointer("default_spec.png"))
+			 bool reflections = false)
 			: m_texture(texture),
 			  m_normalMap(normalMap),
 			  m_specMap(specMap),
 			  m_modColour(modColour),
 			  m_reflectivity(reflectivity),
 			  m_specularIndex(specularIndex),
-			  m_reflections(false) { }
-
-	Material(const Texture* texture,
-			 bool reflections,
-			 glm::vec4 modColour = glm::vec4(1.0, 1.0, 1.0, 1.0),
-			 float reflectivity = 1.0f,
-			 float specularIndex = 32.0f,
-			 const Texture* normalMap = Texture::textureManager.getPointer("default_normal.jpg"),
-			 const Texture* specMap = Texture::textureManager.getPointer("default_spec.png"))
-			: m_texture(texture),
-			  m_normalMap(normalMap),
-			  m_specMap(specMap),
-			  m_modColour(modColour),
-			  m_reflectivity(reflectivity),
-			  m_specularIndex(specularIndex),
-			  m_reflections(reflections) { }
+			  m_reflections(reflections) {
+		setDefaultTextures();
+	}
 
 	inline const Texture* getTexture() const { return m_texture; }
 
@@ -50,6 +38,7 @@ public:
 
 	inline bool hasReflections() const { return m_reflections; }
 
+	inline bool hasDiffuse() const { return m_hasDiffuse; }
 private:
 	const Texture* m_texture;
 	const Texture* m_normalMap;
@@ -61,6 +50,22 @@ private:
 	float m_specularIndex;
 
 	bool m_reflections;
+	bool m_hasDiffuse;
+
+	void setDefaultTextures() {
+		if (m_texture == nullptr) {
+			m_texture = Texture::textureManager.getPointer("default_diff.png");
+			m_hasDiffuse = false;
+		} else {
+			m_hasDiffuse = true;
+		}
+		if (m_normalMap == nullptr) {
+			m_normalMap = Texture::textureManager.getPointer("default_normal.png");
+		}
+		if (m_specMap == nullptr) {
+			m_specMap = Texture::textureManager.getPointer("default_spec.png");
+		}
+	}
 };
 
 
