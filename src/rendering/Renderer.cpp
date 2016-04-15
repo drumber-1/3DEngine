@@ -40,6 +40,8 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 	m_ambientLightShader.setAmbientLight(gameWorld.ambientLight);
 	gameWorld.rootEntity.render(m_ambientLightShader);
 
+	enableBlending();
+
 	m_reflectionShader.useShader();
 	m_reflectionShader.setCamera(*gameWorld.currentCamera);
 	gameWorld.rootEntity.render(m_reflectionShader);
