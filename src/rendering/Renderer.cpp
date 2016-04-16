@@ -9,6 +9,8 @@ Renderer::Renderer(Window* window) : m_window(window) {
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_DEPTH_CLAMP);
+	glBlendFunc(GL_ONE, GL_ONE);
+	glDepthFunc(GL_LESS);
 	//glEnable(GL_MULTISAMPLE);
 	//glEnable(GL_FRAMEBUFFER_SRGB);
 
@@ -42,9 +44,13 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 
 	enableBlending();
 
+	glBlendFunc(GL_DST_COLOR, GL_ZERO);
+
 	m_reflectionShader.useShader();
 	m_reflectionShader.setCamera(*gameWorld.currentCamera);
 	gameWorld.rootEntity.render(m_reflectionShader);
+
+	glBlendFunc(GL_ONE, GL_ONE);
 
 	for (auto l : m_directionalLights) {
 		if (!l->isXray()) {
@@ -111,13 +117,12 @@ void Renderer::renderSkybox(const GameWorld& gameWorld) {
 
 void Renderer::enableBlending() {
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_ONE, GL_ONE);
 	glDepthMask(GL_FALSE);
 	glDepthFunc(GL_EQUAL);
 }
 
 void Renderer::disableBlending() {
-	glDepthFunc(GL_LESS);
-	glDepthMask(GL_TRUE);
 	glDisable(GL_BLEND);
+	glDepthMask(GL_TRUE);
+	glDepthFunc(GL_LESS);
 }
