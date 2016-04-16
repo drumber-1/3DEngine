@@ -60,7 +60,7 @@ private:
 			m_hasDiffuse = true;
 		}
 		if (m_normalMap == nullptr) {
-			m_normalMap = Texture::textureManager.getPointer("default_normal.png");
+			m_normalMap = Texture::textureManager.getPointer("default_normal.jpg");
 		}
 		if (m_specMap == nullptr) {
 			m_specMap = Texture::textureManager.getPointer("default_spec.png");
