@@ -44,12 +44,6 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 
 	enableBlending();
 
-	glBlendFunc(GL_DST_COLOR, GL_ZERO);
-
-	m_reflectionShader.useShader();
-	m_reflectionShader.setCamera(*gameWorld.currentCamera);
-	gameWorld.rootEntity.render(m_reflectionShader);
-
 	glBlendFunc(GL_ONE, GL_ONE);
 
 	for (auto l : m_directionalLights) {
@@ -94,6 +88,12 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 		gameWorld.rootEntity.render(m_spotLightShader);
 	}
 
+	glBlendFunc(GL_DST_COLOR, GL_ZERO);
+	m_reflectionShader.useShader();
+	m_reflectionShader.setCamera(*gameWorld.currentCamera);
+	gameWorld.rootEntity.render(m_reflectionShader);
+
+	glBlendFunc(GL_ONE, GL_ONE);
 	m_window->bindAsRenderTarget();
 	renderSkybox(gameWorld);
 
