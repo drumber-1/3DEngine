@@ -10,11 +10,18 @@ uniform mat4 modelToWorldMatrix;
 uniform mat4 lightSpaceMatrix;
 
 out vec3 fragPositionWorld;
-out vec3 fragNormalWorld;
+out vec2 fragTexCoord;
+out mat3 fragTBNWorld;
 
 void main() {
 	gl_Position = worldToProjectionMatrix * modelToWorldMatrix * vertexPositionModel;
 
 	fragPositionWorld = vec3(modelToWorldMatrix * vertexPositionModel);
-	fragNormalWorld = vec3(modelToWorldMatrix * vec4(vertexNormalModel, 0));
+
+	fragTexCoord = vertexTexCoord;
+
+    vec3 fragNormalWorld = vec3(modelToWorldMatrix * vec4(vertexNormalModel, 0));
+    vec3 fragTangentWorld = vec3(modelToWorldMatrix * vec4(vertexTangentModel, 0));
+    vec3 fragBiTangentWorld = cross(fragTangentWorld, fragNormalWorld);
+    fragTBNWorld = mat3(fragTangentWorld, fragBiTangentWorld, fragNormalWorld);
 }

@@ -7,13 +7,13 @@ ReflectionShader::ReflectionShader() : Shader("forward_reflection_vert.glsl",
 	//addUniform("modColour");
 
 	addUniform("eyePositionWorld");
-	//addUniform("reflectivity");
+	addUniform("reflectivity");
 	//addUniform("specularIndex");
 
 	setTextureUnit("reflectionMap");
 	//setTextureUnit("theTexture");
-	//setTextureUnit("theNormal");
-	//setTextureUnit("theSpec");
+	setTextureUnit("theNormal");
+	setTextureUnit("theSpec");
 }
 
 void ReflectionShader::setCamera(const BaseCameraComponent& camera) {
@@ -24,9 +24,9 @@ void ReflectionShader::setCamera(const BaseCameraComponent& camera) {
 void ReflectionShader::setMaterial(const Material& material) {
 	//setUniform("modColour", material.getModColour());
 	//setUniform("theTexture", material.getTexture());
-	//setUniform("theNormal", material.getNormal());
-	//setUniform("theSpec", material.getSpec());
-	//setUniform("reflectivity", material.getReflectivity());
+	setUniform("theNormal", material.getNormal());
+	setUniform("theSpec", material.getSpec());
+	setUniform("reflectivity", material.getReflectivity());
 	//setUniform("specularIndex", material.getSpecularIndex());
 }
 
