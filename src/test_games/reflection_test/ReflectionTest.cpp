@@ -17,8 +17,8 @@ ReflectionTest::ReflectionTest(Engine* engine) : Game(engine) {
 	Texture::textureManager.emplace("cube_skybox");
 
 	Material test(Texture::textureManager.getPointer("test.png"), nullptr, nullptr);
-	Material mirror(nullptr, nullptr, nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
-	//Material mirror(Texture::textureManager.getPointer("test.png"), nullptr, nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
+	//Material mirror(nullptr, nullptr, nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
+	Material mirror(Texture::textureManager.getPointer("test.png"), nullptr, nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
 	Material brick(Texture::textureManager.getPointer("bricks.jpg"), Texture::textureManager.getPointer("bricks_normal.jpg"), nullptr,
 				   glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 0, 0);
 	Material sky(Texture::textureManager.getPointer("cube_skybox"), nullptr, nullptr);
@@ -47,4 +47,11 @@ ReflectionTest::ReflectionTest(Engine* engine) : Game(engine) {
 	object2->addComponent(new MovableComponent());
 	m_gameWorld.rootEntity.addChildEntity(object2);
 
+	Entity* skyLight1 = new Entity();
+	skyLight1->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
+	skyLight1->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
+	skyLight1->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.6f, false));
+	m_gameWorld.rootEntity.addChildEntity(skyLight1);
+
+	m_gameWorld.ambientLight = glm::vec3(0.2, 0.2, 0.2);
 }
