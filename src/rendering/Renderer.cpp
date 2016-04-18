@@ -44,7 +44,7 @@ void Renderer::render(GameWorld& gameWorld) {
 
 	m_window->bindAsRenderTarget();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	renderScene(gameWorld);
+	renderScene(gameWorld, gameWorld.currentCamera);
 }
 
 void Renderer::renderShadows(const GameWorld& gameWorld, const BaseLightComponent* light, Shader& shader) {
@@ -56,9 +56,9 @@ void Renderer::renderShadows(const GameWorld& gameWorld, const BaseLightComponen
 	gameWorld.rootEntity.render(shader);
 }
 
-void Renderer::renderScene(const GameWorld& gameWorld) {
+void Renderer::renderScene(const GameWorld& gameWorld, const BaseCameraComponent* camera) {
 	m_ambientLightShader.useShader();
-	m_ambientLightShader.setCamera(*gameWorld.currentCamera);
+	m_ambientLightShader.setCamera(*camera);
 	m_ambientLightShader.setAmbientLight(gameWorld.ambientLight);
 	gameWorld.rootEntity.render(m_ambientLightShader);
 
@@ -68,49 +68,43 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 
 	for (auto l : m_directionalLights) {
 		m_directionalLightShader.useShader();
-		m_directionalLightShader.setCamera(*gameWorld.currentCamera);
+		m_directionalLightShader.setCamera(*camera);
 		m_directionalLightShader.setDirectionalLight(*l);
 		gameWorld.rootEntity.render(m_directionalLightShader);
 	}
 
 	for (auto l : m_pointLights) {
 		m_pointLightShader.useShader();
-		m_pointLightShader.setCamera(*gameWorld.currentCamera);
+		m_pointLightShader.setCamera(*camera);
 		m_pointLightShader.setPointLight(*l);
 		gameWorld.rootEntity.render(m_pointLightShader);
 	}
 
 	for (auto l : m_spotLights) {
 		m_spotLightShader.useShader();
-		m_spotLightShader.setCamera(*gameWorld.currentCamera);
+		m_spotLightShader.setCamera(*camera);
 		m_spotLightShader.setSpotLight(*l);
 		gameWorld.rootEntity.render(m_spotLightShader);
 	}
 
 	glBlendFunc(GL_DST_COLOR, GL_ZERO);
 	m_reflectionShader.useShader();
-	m_reflectionShader.setCamera(*gameWorld.currentCamera);
+	m_reflectionShader.setCamera(*camera);
 	gameWorld.rootEntity.render(m_reflectionShader);
-
 	glBlendFunc(GL_ONE, GL_ONE);
-	renderSkybox(gameWorld);
 
-	disableBlending();
-}
-
-void Renderer::renderSkybox(const GameWorld& gameWorld) {
 	if (gameWorld.currentSkyBox != nullptr) {
-		//glDepthMask(GL_FALSE);
 		glDepthFunc(GL_LEQUAL);
 		glFrontFace(GL_CW);
 		m_skyboxShader.useShader();
-		m_skyboxShader.setCamera(*gameWorld.currentCamera);
+		m_skyboxShader.setCamera(*camera);
 		m_skyboxShader.setAmbientLight(gameWorld.ambientLight);
 		gameWorld.currentSkyBox->render(m_skyboxShader);
-		//glDepthMask(GL_TRUE);
 		glDepthFunc(GL_LESS);
 		glFrontFace(GL_CCW);
 	}
+
+	disableBlending();
 }
 
 void Renderer::enableBlending() {

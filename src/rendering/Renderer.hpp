@@ -59,11 +59,9 @@ private:
 	std::vector<const PointLightComponent*> m_pointLights;
 	std::vector<const SpotLightComponent*> m_spotLights;
 
-	void renderScene(const GameWorld& gameWorld);
+	void renderScene(const GameWorld& gameWorld, const BaseCameraComponent* cameraComponent);
 
 	void renderShadows(const GameWorld& gameWorld, const BaseLightComponent* light, Shader& shader);
-
-	void renderSkybox(const GameWorld& gameWorld);
 
 	void enableBlending();
 
