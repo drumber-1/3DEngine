@@ -26,11 +26,14 @@ ReflectionTest::ReflectionTest(Engine* engine) : Game(engine) {
 
 	//Material mirror(nullptr, nullptr, nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
 	//Material mirror(Texture::textureManager.getPointer("test.png"), nullptr, nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
-	//Material mirror(Texture::textureManager.getPointer("bricks.jpg"), Texture::textureManager.getPointer("bricks_normal.jpg"), nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
-	Material mirror(Texture::textureManager.getPointer("snow_grass_d.jpg"),
-					Texture::textureManager.getPointer("snow_grass_n.jpg"),
-					Texture::textureManager.getPointer("snow_grass_s.jpg"),
-					glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
+	Material mirror(Texture::textureManager.getPointer("bricks.jpg"),
+					Texture::textureManager.getPointer("bricks_normal.jpg"),
+					nullptr,
+					glm::vec4(1.0, 1.0, 1.0, 1.0), 0.8f, 32.0f, true);
+	//Material mirror(Texture::textureManager.getPointer("snow_grass_d.jpg"),
+	//				Texture::textureManager.getPointer("snow_grass_n.jpg"),
+	//				Texture::textureManager.getPointer("snow_grass_s.jpg"),
+	//				glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
 	//Material mirror(nullptr, Texture::textureManager.getPointer("bricks_normal.jpg"), nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
 
 	Material brick(Texture::textureManager.getPointer("bricks.jpg"), Texture::textureManager.getPointer("bricks_normal.jpg"), nullptr,

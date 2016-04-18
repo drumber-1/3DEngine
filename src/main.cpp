@@ -16,8 +16,8 @@ int main() {
 	//CubeMapTest game(&engine);
 	//TextureTest game(&engine);
 	//NormalTest game(&engine);
-	//ShadowTest game(&engine);
-	ReflectionTest game(&engine);
+	ShadowTest game(&engine);
+	//ReflectionTest game(&engine);
 	engine.setGame(&game);
 
 	engine.start();

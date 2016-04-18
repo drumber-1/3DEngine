@@ -23,20 +23,40 @@ Renderer::Renderer(Window* window) : m_window(window) {
 }
 
 void Renderer::render(GameWorld& gameWorld) {
+	//Render shadowmaps first
+	for (auto l : m_directionalLights) {
+		if (!l->isXray()) {
+			renderShadows(gameWorld, l, m_shadowShader);
+		}
+	}
+
+	for (auto l : m_pointLights) {
+		if (!l->isXray()) {
+			renderShadows(gameWorld, l, m_shadowCubeShader);
+		}
+	}
+
+	for (auto l : m_spotLights) {
+		if (!l->isXray()) {
+			renderShadows(gameWorld, l, m_shadowShader);
+		}
+	}
+
+	m_window->bindAsRenderTarget();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderScene(gameWorld);
 }
 
-void Renderer::renderShadows(const GameWorld& gameWorld, const BaseCameraComponent& lightCamera, Shader& shader) {
+void Renderer::renderShadows(const GameWorld& gameWorld, const BaseLightComponent* light, Shader& shader) {
+	light->getShadowMapBuffer()->bind();
 	glClear(GL_DEPTH_BUFFER_BIT);
+	disableBlending();
 	shader.useShader();
-	shader.setCamera(lightCamera);
+	shader.setCamera(*(light->getCamera()));
 	gameWorld.rootEntity.render(shader);
 }
 
 void Renderer::renderScene(const GameWorld& gameWorld) {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	m_window->bindAsRenderTarget();
 	m_ambientLightShader.useShader();
 	m_ambientLightShader.setCamera(*gameWorld.currentCamera);
 	m_ambientLightShader.setAmbientLight(gameWorld.ambientLight);
@@ -47,13 +67,6 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 	glBlendFunc(GL_ONE, GL_ONE);
 
 	for (auto l : m_directionalLights) {
-		if (!l->isXray()) {
-			disableBlending();
-			l->getShadowMapBuffer()->bind();
-			renderShadows(gameWorld, *l->getCamera(), m_shadowShader);
-		}
-		enableBlending();
-		m_window->bindAsRenderTarget();
 		m_directionalLightShader.useShader();
 		m_directionalLightShader.setCamera(*gameWorld.currentCamera);
 		m_directionalLightShader.setDirectionalLight(*l);
@@ -61,13 +74,6 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 	}
 
 	for (auto l : m_pointLights) {
-		if (!l->isXray()) {
-			disableBlending();
-			l->getShadowMapBuffer()->bind();
-			renderShadows(gameWorld, *l->getCamera(), m_shadowCubeShader);
-		}
-		enableBlending();
-		m_window->bindAsRenderTarget();
 		m_pointLightShader.useShader();
 		m_pointLightShader.setCamera(*gameWorld.currentCamera);
 		m_pointLightShader.setPointLight(*l);
@@ -75,13 +81,6 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 	}
 
 	for (auto l : m_spotLights) {
-		if (!l->isXray()) {
-			disableBlending();
-			l->getShadowMapBuffer()->bind();
-			renderShadows(gameWorld, *l->getCamera(), m_shadowShader);
-		}
-		enableBlending();
-		m_window->bindAsRenderTarget();
 		m_spotLightShader.useShader();
 		m_spotLightShader.setCamera(*gameWorld.currentCamera);
 		m_spotLightShader.setSpotLight(*l);
@@ -94,7 +93,6 @@ void Renderer::renderScene(const GameWorld& gameWorld) {
 	gameWorld.rootEntity.render(m_reflectionShader);
 
 	glBlendFunc(GL_ONE, GL_ONE);
-	m_window->bindAsRenderTarget();
 	renderSkybox(gameWorld);
 
 	disableBlending();

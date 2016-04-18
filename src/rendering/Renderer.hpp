@@ -61,7 +61,7 @@ private:
 
 	void renderScene(const GameWorld& gameWorld);
 
-	void renderShadows(const GameWorld& gameWorld, const BaseCameraComponent& lightCamera, Shader& shader);
+	void renderShadows(const GameWorld& gameWorld, const BaseLightComponent* light, Shader& shader);
 
 	void renderSkybox(const GameWorld& gameWorld);
 
