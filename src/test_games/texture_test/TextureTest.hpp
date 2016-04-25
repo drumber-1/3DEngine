@@ -4,7 +4,7 @@
 
 class TextureTest : public Game {
 public:
-	TextureTest(Engine* engine);
+	TextureTest();
 
 	std::unique_ptr<RenderComponent> m_skybox;
 };

@@ -114,7 +114,7 @@ std::vector<Material> loadMaterials() {
 	return materials;
 }
 
-TextureTest::TextureTest(Engine* engine) : Game(engine) {
+TextureTest::TextureTest() {
 
 	std::vector<std::string> models = loadModels();
 	std::vector<Material> materials = loadMaterials();

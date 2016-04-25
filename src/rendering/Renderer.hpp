@@ -21,6 +21,7 @@
 #include "framebuffer/ShadowFramebuffer.hpp"
 #include "shader/ShadowDepthCubeShader.hpp"
 #include "shader/ReflectionShader.hpp"
+#include "framebuffer/FrameBuffer.hpp"
 
 class DirectionalLightComponent;
 
@@ -36,12 +37,6 @@ public:
 
 	void render(GameWorld& gameWorld);
 
-	inline void addDirectionalLight(const DirectionalLightComponent* light) { m_directionalLights.push_back(light); }
-
-	inline void addPointLight(const PointLightComponent* light) { m_pointLights.push_back(light); }
-
-	inline void addSpotLight(const SpotLightComponent* light) { m_spotLights.push_back(light); }
-
 private:
 	const Window* m_window;
 
@@ -55,9 +50,7 @@ private:
 	ShadowDepthShader m_shadowShader;
 	ShadowDepthCubeShader m_shadowCubeShader;
 
-	std::vector<const DirectionalLightComponent*> m_directionalLights;
-	std::vector<const PointLightComponent*> m_pointLights;
-	std::vector<const SpotLightComponent*> m_spotLights;
+	std::vector<const FrameBuffer*> m_renderTargets;
 
 	void renderScene(const GameWorld& gameWorld, const BaseCameraComponent* cameraComponent);
 

@@ -4,7 +4,7 @@
 
 class NormalTest : public Game {
 public:
-	NormalTest(Engine* engine);
+	NormalTest();
 
 	void addCube(Entity& root, const Material& material, const glm::vec3& position);
 };

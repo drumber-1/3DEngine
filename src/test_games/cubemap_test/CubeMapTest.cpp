@@ -2,7 +2,7 @@
 
 #include "../../components/camera/FPCameraComponent.hpp"
 
-CubeMapTest::CubeMapTest(Engine* engine) : Game(engine) {
+CubeMapTest::CubeMapTest() {
 
 	Mesh::meshManager.emplace("cube.obj");
 	Mesh::meshManager.emplace("monkey3.obj");

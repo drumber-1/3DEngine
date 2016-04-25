@@ -12,6 +12,3 @@ public:
 
 	virtual float getFarPlane() const = 0;
 };
-
-
-

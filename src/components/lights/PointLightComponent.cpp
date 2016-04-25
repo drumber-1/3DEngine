@@ -3,8 +3,8 @@
 #include "../../rendering/Renderer.hpp"
 #include "../camera/PerspectiveCameraComponent.hpp"
 
-void PointLightComponent::addToEngine(Engine* engine) const {
-	engine->getRenderer()->addPointLight(this);
+void PointLightComponent::addToWorld(GameWorld* world) const {
+	world->addPointLight(this);
 }
 
 ShadowFramebuffer* PointLightComponent::generateFrameBuffer() {

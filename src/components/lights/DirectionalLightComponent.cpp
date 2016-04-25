@@ -3,8 +3,8 @@
 #include "../../rendering/Renderer.hpp"
 #include "../camera/OrthographicCameraComponent.hpp"
 
-void DirectionalLightComponent::addToEngine(Engine* engine) const {
-	engine->getRenderer()->addDirectionalLight(this);
+void DirectionalLightComponent::addToWorld(GameWorld* world) const {
+	world->addDirectionalLight(this);
 }
 
 ShadowFramebuffer* DirectionalLightComponent::generateFrameBuffer() {

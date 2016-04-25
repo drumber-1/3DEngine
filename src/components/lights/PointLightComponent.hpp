@@ -23,7 +23,7 @@ public:
 
 	inline const Attenuation& getAttenuation() const { return m_attenuation; }
 
-	virtual void addToEngine(Engine* engine) const;
+	virtual void addToWorld(GameWorld* world) const override;
 
 protected:
 	virtual ShadowFramebuffer* generateFrameBuffer() override;

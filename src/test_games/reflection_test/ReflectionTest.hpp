@@ -4,7 +4,7 @@
 
 class ReflectionTest : public Game {
 public:
-	ReflectionTest(Engine* engine);
+	ReflectionTest();
 
 private:
 	std::unique_ptr<RenderComponent> m_skybox;

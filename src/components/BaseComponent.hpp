@@ -5,7 +5,6 @@
 
 class BaseComponent {
 	friend class Entity;
-
 public:
 	BaseComponent() : m_parentEntity(nullptr) { }
 
@@ -13,7 +12,7 @@ public:
 
 	virtual void render(Shader& shader) const { }
 
-	virtual void addToEngine(Engine* engine) const { }
+	virtual void addToWorld(GameWorld* world) const { }
 
 	inline const glm::mat4 getTransformationMatrix() const { return m_parentEntity->getTransformationMatrix(); }
 

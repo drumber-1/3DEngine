@@ -3,8 +3,8 @@
 #include "../../rendering/Renderer.hpp"
 #include "../camera/PerspectiveCameraComponent.hpp"
 
-void SpotLightComponent::addToEngine(Engine* engine) const {
-	engine->getRenderer()->addSpotLight(this);
+void SpotLightComponent::addToWorld(GameWorld* world) const {
+	world->addSpotLight(this);
 }
 
 ShadowFramebuffer* SpotLightComponent::generateFrameBuffer() {

@@ -11,8 +11,7 @@ public:
 							  float luminosity,
 							  bool xray = false) : BaseLightComponent(colour, luminosity, xray) { }
 
-	virtual void addToEngine(Engine* engine) const;
-
+	virtual void addToWorld(GameWorld* world) const override;
 protected:
 	virtual ShadowFramebuffer* generateFrameBuffer() override;
 

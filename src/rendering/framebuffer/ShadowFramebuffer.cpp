@@ -10,7 +10,6 @@ ShadowFramebuffer::ShadowFramebuffer(int width, int height, float borderIntensit
 
 	if (useCubeMap) {
 		m_shadowMap.reset(TextureCubeData::generateShadowCube(width, height, borderIntensity));
-		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_CUBE_MAP, m_shadowMap.get()->getID(), 0);
 		glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, m_shadowMap.get()->getID(), 0);
 	} else {
 		m_shadowMap.reset(Texture2DData::generateShadowMap(width, height, borderIntensity));

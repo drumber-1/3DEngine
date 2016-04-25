@@ -8,7 +8,7 @@
 
 class BaseComponent;
 
-class Engine;
+class GameWorld;
 
 class Shader;
 
@@ -43,16 +43,16 @@ public:
 	const glm::quat getRotation() const;
 
 protected:
-	Entity(Engine* engine) : m_engine(engine) { }
+	Entity(GameWorld* world) : m_world(world) { }
 
 private:
 	std::vector<std::unique_ptr<Entity>> m_children;
 	Entity* m_parent = nullptr;
 	std::vector<std::unique_ptr<BaseComponent>> m_components;
 	ModelToWorldTransform transform;
-	Engine* m_engine;
+	GameWorld* m_world;
 
-	void setEngine(Engine* engine);
+	void setWorld(GameWorld* world);
 };
 
 

@@ -4,7 +4,7 @@
 
 class RootEntity : public Entity {
 public:
-	RootEntity(Engine* engine) : Entity(engine) { }
+	RootEntity(GameWorld* world) : Entity(world) { }
 };
 
 

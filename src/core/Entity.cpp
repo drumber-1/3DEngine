@@ -29,13 +29,13 @@ void Entity::render(Shader& shader) const {
 }
 
 void Entity::addChildEntity(std::unique_ptr<Entity>& entity) {
-	entity->setEngine(m_engine);
+	entity->setWorld(m_world);
 	entity->m_parent = this;
 	m_children.emplace_back(std::move(entity));
 }
 
 void Entity::addChildEntity(Entity* entity) {
-	entity->setEngine(m_engine);
+	entity->setWorld(m_world);
 	entity->m_parent = this;
 	m_children.emplace_back(entity);
 }
@@ -50,19 +50,19 @@ void Entity::addComponent(BaseComponent* baseComponent) {
 	m_components.emplace_back(baseComponent);
 }
 
-void Entity::setEngine(Engine* engine) {
-	if (engine == m_engine) {
+void Entity::setWorld(GameWorld* world) {
+	if (world == m_world) {
 		return;
 	}
 
-	m_engine = engine;
+	m_world = world;
 
 	for (auto& c : m_components) {
-		c->addToEngine(m_engine);
+		c->addToWorld(m_world);
 	}
 
 	for (auto& e : m_children) {
-		e->setEngine(m_engine);
+		e->setWorld(m_world);
 	}
 }
 

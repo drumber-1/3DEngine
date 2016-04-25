@@ -24,19 +24,19 @@ Renderer::Renderer(Window* window) : m_window(window) {
 
 void Renderer::render(GameWorld& gameWorld) {
 	//Render shadowmaps first
-	for (auto l : m_directionalLights) {
+	for (auto l : gameWorld.m_directionalLights) {
 		if (!l->isXray()) {
 			renderShadows(gameWorld, l, m_shadowShader);
 		}
 	}
 
-	for (auto l : m_pointLights) {
+	for (auto l : gameWorld.m_pointLights) {
 		if (!l->isXray()) {
 			renderShadows(gameWorld, l, m_shadowCubeShader);
 		}
 	}
 
-	for (auto l : m_spotLights) {
+	for (auto l : gameWorld.m_spotLights) {
 		if (!l->isXray()) {
 			renderShadows(gameWorld, l, m_shadowShader);
 		}
@@ -66,21 +66,21 @@ void Renderer::renderScene(const GameWorld& gameWorld, const BaseCameraComponent
 
 	glBlendFunc(GL_ONE, GL_ONE);
 
-	for (auto l : m_directionalLights) {
+	for (auto l : gameWorld.m_directionalLights) {
 		m_directionalLightShader.useShader();
 		m_directionalLightShader.setCamera(*camera);
 		m_directionalLightShader.setDirectionalLight(*l);
 		gameWorld.rootEntity.render(m_directionalLightShader);
 	}
 
-	for (auto l : m_pointLights) {
+	for (auto l : gameWorld.m_pointLights) {
 		m_pointLightShader.useShader();
 		m_pointLightShader.setCamera(*camera);
 		m_pointLightShader.setPointLight(*l);
 		gameWorld.rootEntity.render(m_pointLightShader);
 	}
 
-	for (auto l : m_spotLights) {
+	for (auto l : gameWorld.m_spotLights) {
 		m_spotLightShader.useShader();
 		m_spotLightShader.setCamera(*camera);
 		m_spotLightShader.setSpotLight(*l);

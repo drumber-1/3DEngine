@@ -3,7 +3,7 @@
 #include "../../components/camera/FPCameraComponent.hpp"
 #include "../../components/MovableComponent.hpp"
 
-ReflectionTest::ReflectionTest(Engine* engine) : Game(engine) {
+ReflectionTest::ReflectionTest() {
 
 	Mesh::meshManager.emplace("cube.obj");
 	Mesh::meshManager.emplace("monkey3.obj");
@@ -24,12 +24,12 @@ ReflectionTest::ReflectionTest(Engine* engine) : Game(engine) {
 
 	Material test(Texture::textureManager.getPointer("test.png"), nullptr, nullptr);
 
-	//Material mirror(nullptr, nullptr, nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
+	Material mirror(nullptr, nullptr, nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
 	//Material mirror(Texture::textureManager.getPointer("test.png"), nullptr, nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
-	Material mirror(Texture::textureManager.getPointer("bricks.jpg"),
-					Texture::textureManager.getPointer("bricks_normal.jpg"),
-					nullptr,
-					glm::vec4(1.0, 1.0, 1.0, 1.0), 0.8f, 32.0f, true);
+//	Material mirror(Texture::textureManager.getPointer("bricks.jpg"),
+//					Texture::textureManager.getPointer("bricks_normal.jpg"),
+//					nullptr,
+//					glm::vec4(1.0, 1.0, 1.0, 1.0), 0.8f, 32.0f, true);
 	//Material mirror(Texture::textureManager.getPointer("snow_grass_d.jpg"),
 	//				Texture::textureManager.getPointer("snow_grass_n.jpg"),
 	//				Texture::textureManager.getPointer("snow_grass_s.jpg"),
@@ -47,6 +47,13 @@ ReflectionTest::ReflectionTest(Engine* engine) : Game(engine) {
 	m_gameWorld.rootEntity.addChildEntity(camera);
 	m_gameWorld.currentCamera = cameraComponent;
 
+	Entity* playerModel = new Entity();
+	playerModel->addComponent(new RenderComponent(Mesh::meshManager.getPointer("monkey3.obj"), test));
+	playerModel->getLocalTransform().setScale(glm::vec3(0.1, 0.1, 0.1));
+	playerModel->getLocalTransform().translate(glm::vec3(0.0, 0.0, 0.1));
+	playerModel->getLocalTransform().rotate(glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	camera->addChildEntity(playerModel);
+
 	//Entity* plane = new Entity();
 	//plane->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), test));
 	//m_gameWorld.rootEntity.addChildEntity(plane);
@@ -60,7 +67,7 @@ ReflectionTest::ReflectionTest(Engine* engine) : Game(engine) {
 
 	Entity* object2 = new Entity();
 	object2->getLocalTransform().translate(glm::vec3(0.0, 1.0, 3.0));
-	object2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), mirror, Texture::textureManager.getPointer("cube_skybox")));
+	object2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), mirror, Texture::textureManager.getPointer("cube_skybox")->getData()));
 	object2->addComponent(new MovableComponent());
 	m_gameWorld.rootEntity.addChildEntity(object2);
 

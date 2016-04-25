@@ -20,7 +20,7 @@ public:
 
 	inline float getCosineFov() const { return m_cosineFov; }
 
-	virtual void addToEngine(Engine* engine) const;
+	virtual void addToWorld(GameWorld* world) const override;
 
 protected:
 	virtual ShadowFramebuffer* generateFrameBuffer() override;

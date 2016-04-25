@@ -13,7 +13,7 @@ void ShadowTest::addCube(Entity& root, const Material& material, const glm::vec3
 	root.addChildEntity(cube);
 }
 
-ShadowTest::ShadowTest(Engine* engine) : Game(engine) {
+ShadowTest::ShadowTest() {
 	Texture::textureManager.emplace("test.png");
 	Texture::textureManager.emplace("bricks.jpg");
 	Texture::textureManager.emplace("bricks_normal.jpg");

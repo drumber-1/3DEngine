@@ -10,7 +10,7 @@ class Engine;
 
 class Game {
 public:
-	Game(Engine* engine);
+	Game();
 
 	virtual ~Game() { }
 
@@ -20,7 +20,5 @@ public:
 
 protected:
 	GameWorld m_gameWorld;
-	//RootEntity m_rootEntity;
-	//const BaseCameraComponent* m_currentCamera;
 };
 

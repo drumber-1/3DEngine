@@ -13,11 +13,11 @@ int main() {
 	Window window(1280, 720, "Look, a window!");
 	Renderer renderer(&window);
 	Engine engine(240.0, &window, &renderer);
-	//CubeMapTest game(&engine);
-	//TextureTest game(&engine);
-	//NormalTest game(&engine);
-	ShadowTest game(&engine);
-	//ReflectionTest game(&engine);
+	//CubeMapTest game;
+	//TextureTest game;
+	//NormalTest game;
+	//ShadowTest game;
+	ReflectionTest game;
 	engine.setGame(&game);
 
 	engine.start();

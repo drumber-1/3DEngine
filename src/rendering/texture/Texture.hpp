@@ -18,6 +18,8 @@ public:
 
 	inline void unload() { textureData.reset(); }
 
+	inline const BaseTextureData* getData() { return textureData.get(); }
+
 	static ResourceManager<Texture> textureManager;
 private:
 	const std::string m_filename;

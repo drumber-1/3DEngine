@@ -10,7 +10,7 @@ class RenderComponent : public BaseComponent {
 public:
 	RenderComponent(const Mesh* mesh,
 					const Material& material,
-					const Texture* reflectionMap = nullptr)
+					const BaseTextureData* reflectionMap = nullptr)
 			        : mesh(mesh),
 					  material(material),
 					  reflectionMap(reflectionMap) { }
@@ -19,7 +19,7 @@ public:
 
 	const Mesh* mesh;
 	Material material;
-	const Texture* reflectionMap;
+	const BaseTextureData* reflectionMap;
 };
 
 

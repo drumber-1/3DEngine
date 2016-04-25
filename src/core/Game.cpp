@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game(Engine* engine) : m_gameWorld(engine) { }
+Game::Game() : m_gameWorld() { }
 
 void Game::update(const Input& input, float delta) {
 	m_gameWorld.rootEntity.update(input, delta);
