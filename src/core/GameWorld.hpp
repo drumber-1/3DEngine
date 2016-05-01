@@ -7,6 +7,7 @@
 #include "../components/lights/DirectionalLightComponent.hpp"
 #include "../components/lights/PointLightComponent.hpp"
 #include "../components/lights/SpotLightComponent.hpp"
+#include "../rendering/RenderTarget.hpp"
 
 class GameWorld {
 public:
@@ -23,6 +24,8 @@ public:
 	std::vector<const DirectionalLightComponent*> m_directionalLights;
 	std::vector<const PointLightComponent*> m_pointLights;
 	std::vector<const SpotLightComponent*> m_spotLights;
+
+	std::vector<RenderTarget> m_renderTargets;
 
 	inline void addDirectionalLight(const DirectionalLightComponent* light) { m_directionalLights.push_back(light); }
 	inline void addPointLight(const PointLightComponent* light) { m_pointLights.push_back(light); }

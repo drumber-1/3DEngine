@@ -50,8 +50,6 @@ private:
 	ShadowDepthShader m_shadowShader;
 	ShadowDepthCubeShader m_shadowCubeShader;
 
-	std::vector<const FrameBuffer*> m_renderTargets;
-
 	void renderScene(const GameWorld& gameWorld, const BaseCameraComponent* cameraComponent);
 
 	void renderShadows(const GameWorld& gameWorld, const BaseLightComponent* light, Shader& shader);

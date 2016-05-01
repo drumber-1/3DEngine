@@ -14,6 +14,7 @@ Renderer::Renderer(Window* window) : m_window(window) {
 	//glEnable(GL_MULTISAMPLE);
 	//glEnable(GL_FRAMEBUFFER_SRGB);
 
+
 	m_ambientLightShader.useShader();
 
 	//Load some default textures
@@ -24,21 +25,31 @@ Renderer::Renderer(Window* window) : m_window(window) {
 
 void Renderer::render(GameWorld& gameWorld) {
 	//Render shadowmaps first
-	for (auto l : gameWorld.m_directionalLights) {
+	for (auto& l : gameWorld.m_directionalLights) {
 		if (!l->isXray()) {
 			renderShadows(gameWorld, l, m_shadowShader);
 		}
 	}
 
-	for (auto l : gameWorld.m_pointLights) {
+	for (auto& l : gameWorld.m_pointLights) {
 		if (!l->isXray()) {
 			renderShadows(gameWorld, l, m_shadowCubeShader);
 		}
 	}
 
-	for (auto l : gameWorld.m_spotLights) {
+	for (auto& l : gameWorld.m_spotLights) {
 		if (!l->isXray()) {
 			renderShadows(gameWorld, l, m_shadowShader);
+		}
+	}
+
+	for (auto& rt : gameWorld.m_renderTargets) {
+		if (rt.shouldRender()) {
+			for (int i = 0; i < 6; ++i) {
+				rt.bindAsRenderTarget(i);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				renderScene(gameWorld, rt.getCamera());
+			}
 		}
 	}
 

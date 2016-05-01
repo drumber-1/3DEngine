@@ -6,6 +6,7 @@
 #include "test_games/cubemap_test/CubeMapTest.hpp"
 #include "test_games/shadow_test/ShadowTest.hpp"
 #include "test_games/reflection_test/ReflectionTest.hpp"
+#include "rendering/CheckGLError.hpp"
 
 int main() {
 	std::cout << "Let's go!\n";

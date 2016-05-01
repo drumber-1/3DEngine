@@ -9,7 +9,7 @@ public:
 															 m_height(height) {
 		glGenRenderbuffers(1, &m_bufferID);
 		glBindRenderbuffer(GL_RENDERBUFFER, m_bufferID);
-		glRenderbufferStorage(GL_RENDERBUFFER, bufferType, m_width, m_height);
+		glRenderbufferStorage(GL_RENDERBUFFER, m_bufferType, m_width, m_height);
 	}
 
 	~Renderbuffer() { glDeleteRenderbuffers(1, &m_bufferID); }

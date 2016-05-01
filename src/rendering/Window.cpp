@@ -1,4 +1,5 @@
 #include "Window.hpp"
+#include "CheckGLError.hpp"
 
 #include <GL/glew.h>
 #include <iostream>
@@ -23,6 +24,7 @@ Window::Window(int width, int height, const std::string& title) : m_width(width)
 	m_glContext = SDL_GL_CreateContext(m_window);
 
 	GLenum result = glewInit();
+	CheckGLError::checkError("glewInit (expect invalid enum)");
 	if (result != GLEW_OK) {
 		std::cerr << "Error: " << glewGetErrorString(result) << "\n";
 	}

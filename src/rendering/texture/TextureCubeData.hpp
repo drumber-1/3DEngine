@@ -10,6 +10,7 @@ public:
 	TextureCubeData(int width, int height, const std::array<GLvoid*, 6>& data);
 
 	static TextureCubeData* generateShadowCube(int width, int height, float borderIntensity);
+	static TextureCubeData* generateEmptyCube(int width, int height);
 };
 
 

@@ -2,10 +2,9 @@
 #include "Texture2DData.hpp"
 #include "TextureCubeData.hpp"
 
-#include <iostream>
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <iostream>
 
 ResourceManager<Texture> Texture::textureManager;
 std::array<std::string, 6> cubemapSuffixes = {"/right.jpg", "/left.jpg", "/top.jpg", "/bottom.jpg", "/back.jpg",

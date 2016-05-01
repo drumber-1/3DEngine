@@ -22,12 +22,18 @@ public:
 
 	void bind(GLenum textureUnit) const;
 
-	void load(const GLvoid* data, GLenum textureTarget);
+	void setParameters(GLint interpolation, GLint wrapping, float anisotropy);
 
-	void loadAsShadowMap(GLenum textureTarget, float borderIntensity);
+	void load(const GLvoid* data, GLenum textureTarget, GLenum format);
 
-	void load(const GLvoid* data, GLenum textureTarget, GLenum format, GLint interpolation, GLint wrapping,
-			  float anisotropy);
+	void generateMipmaps();
+
+	//void load(const GLvoid* data, GLenum textureTarget);
+
+	void setAsShadowMap(GLenum textureTarget, float borderIntensity);
+
+	//void load(const GLvoid* data, GLenum textureTarget, GLenum format, GLint interpolation, GLint wrapping,
+	//		  float anisotropy);
 
 	GLuint getID() const { return m_textureID; }
 

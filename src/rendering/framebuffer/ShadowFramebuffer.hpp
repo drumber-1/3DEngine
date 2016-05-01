@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "BaseFramebuffer.hpp"
 
 class ShadowFramebuffer : public BaseFramebuffer {

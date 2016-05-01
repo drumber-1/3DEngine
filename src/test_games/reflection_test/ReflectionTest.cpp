@@ -2,6 +2,7 @@
 
 #include "../../components/camera/FPCameraComponent.hpp"
 #include "../../components/MovableComponent.hpp"
+#include "../../rendering/CheckGLError.hpp"
 
 ReflectionTest::ReflectionTest() {
 
@@ -20,8 +21,6 @@ ReflectionTest::ReflectionTest() {
 	Texture::textureManager.emplace("cube_skybox");
 
 	Material snow_grass_ns(Texture::textureManager.getPointer("snow_grass_d.jpg"), Texture::textureManager.getPointer("snow_grass_n.jpg"), Texture::textureManager.getPointer("snow_grass_s.jpg"));
-
-
 	Material test(Texture::textureManager.getPointer("test.png"), nullptr, nullptr);
 
 	Material mirror(nullptr, nullptr, nullptr, glm::vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 32.0f, true);
@@ -67,8 +66,12 @@ ReflectionTest::ReflectionTest() {
 
 	Entity* object2 = new Entity();
 	object2->getLocalTransform().translate(glm::vec3(0.0, 1.0, 3.0));
-	object2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), mirror, Texture::textureManager.getPointer("cube_skybox")->getData()));
 	object2->addComponent(new MovableComponent());
+	CubeCameraComponent* reflectCam = new CubeCameraComponent(90, 1.0);
+	object2->addComponent(reflectCam);
+	m_gameWorld.m_renderTargets.emplace_back(512, 512, reflectCam, 1);
+	//object2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), mirror, Texture::textureManager.getPointer("cube_skybox")->getData()));
+	object2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), mirror, m_gameWorld.m_renderTargets[0].getTextureData()));
 	m_gameWorld.rootEntity.addChildEntity(object2);
 
 	/*Entity* skyLight1 = new Entity();
