@@ -7,11 +7,12 @@
 
 class CheckGLError {
 public:
-	static void checkError(std::string label) {
+	static bool checkError(std::string label) {
 		std::cout << label << ": ";
 		GLenum code = glGetError();
 		if (code == GL_NO_ERROR) {
 			std::cout << "No errors\n";
+			return false;
 		} else {
 			int i = 1;
 			std::stringstream ss;
@@ -21,6 +22,7 @@ public:
 				ss << "\t(" << i << ") " << codeToString(code) << "\n";
 			}
 			std::cout << i << " errors:\n" << ss.str();
+			return true;
 		}
 	}
 private:

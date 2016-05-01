@@ -59,19 +59,28 @@ ReflectionTest::ReflectionTest() {
 	m_skybox.reset(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), sky));
 	m_gameWorld.currentSkyBox = m_skybox.get();
 
+	//Entity* object = new Entity();
+	//object->getLocalTransform().translate(glm::vec3(0.0, 1.0, -3.0));
+	//object->addComponent(new RenderComponent(Mesh::meshManager.getPointer("monkey3.obj"), brick));
+	//m_gameWorld.rootEntity.addChildEntity(object);
+
+	m_gameWorld.m_renderTargets.reserve(2);
+
 	Entity* object = new Entity();
 	object->getLocalTransform().translate(glm::vec3(0.0, 1.0, -3.0));
-	object->addComponent(new RenderComponent(Mesh::meshManager.getPointer("monkey3.obj"), brick));
+	object->addComponent(new MovableComponent());
+	CubeCameraComponent* reflectCam = new CubeCameraComponent(90, 1.0);
+	object->addComponent(reflectCam);
+	m_gameWorld.m_renderTargets.emplace_back(512, 512, reflectCam, 1);
+	object->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), mirror, m_gameWorld.m_renderTargets[0].getTextureData()));
 	m_gameWorld.rootEntity.addChildEntity(object);
 
 	Entity* object2 = new Entity();
 	object2->getLocalTransform().translate(glm::vec3(0.0, 1.0, 3.0));
-	object2->addComponent(new MovableComponent());
-	CubeCameraComponent* reflectCam = new CubeCameraComponent(90, 1.0);
-	object2->addComponent(reflectCam);
-	m_gameWorld.m_renderTargets.emplace_back(512, 512, reflectCam, 1);
-	//object2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), mirror, Texture::textureManager.getPointer("cube_skybox")->getData()));
-	object2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), mirror, m_gameWorld.m_renderTargets[0].getTextureData()));
+	CubeCameraComponent* reflectCam2 = new CubeCameraComponent(90, 1.0);
+	object2->addComponent(reflectCam2);
+	m_gameWorld.m_renderTargets.emplace_back(512, 512, reflectCam2, 1);
+	object2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), mirror, m_gameWorld.m_renderTargets[1].getTextureData()));
 	m_gameWorld.rootEntity.addChildEntity(object2);
 
 	/*Entity* skyLight1 = new Entity();

@@ -4,15 +4,20 @@
 #include <GL/glew.h>
 #include "../texture/BaseTextureData.hpp"
 #include "../Renderbuffer.hpp"
+#include "../CheckGLError.hpp"
 
 class BaseFramebuffer {
 public:
 	BaseFramebuffer(int width, int height) : m_width(width), m_height(height) {
 		glGenFramebuffers(1, &m_framebufferID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_framebufferID);
+		std::cout << "Creating framebuffer " << m_framebufferID << "\n";
 	}
 
-	~BaseFramebuffer() { glDeleteFramebuffers(1, &m_framebufferID); }
+	~BaseFramebuffer() {
+		glDeleteFramebuffers(1, &m_framebufferID);
+		std::cout << "Destroying framebuffer " << m_framebufferID << "\n";
+	}
 
 	BaseFramebuffer(const BaseFramebuffer& other) = delete;
 
@@ -26,6 +31,9 @@ public:
 
 	void bind() const {
 		glBindFramebuffer(GL_FRAMEBUFFER, m_framebufferID);
+		if (CheckGLError::checkError("bind bf")) {
+			printStatus();
+		}
 		glViewport(0, 0, m_width, m_height);
 	}
 

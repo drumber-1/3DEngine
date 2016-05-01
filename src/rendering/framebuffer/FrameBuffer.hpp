@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "BaseFramebuffer.hpp"
+#include "../CheckGLError.hpp"
 
 class FrameBuffer : public BaseFramebuffer {
 public:
