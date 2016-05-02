@@ -13,6 +13,17 @@ public:
 
 	virtual ~ShaderData();
 
+	ShaderData(const ShaderData& other) = delete;
+
+	ShaderData& operator=(const ShaderData& other) = delete;
+
+	ShaderData(ShaderData&& other) {
+			m_programID = other.m_programID;
+			other.m_programID = 0;
+	};
+
+	ShaderData& operator=(ShaderData&& other) = delete;
+
 	inline void useProgram() const { glUseProgram(m_programID); }
 
 	inline GLuint getProgramID() const { return m_programID; }

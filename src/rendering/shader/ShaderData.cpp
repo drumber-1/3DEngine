@@ -38,7 +38,9 @@ ShaderData::ShaderData(const std::string& vertexShader, const std::string& fragm
 }
 
 ShaderData::~ShaderData() {
-	glDeleteProgram(m_programID);
+	if (m_programID != 0) {
+		glDeleteProgram(m_programID);
+	}
 }
 
 std::string ShaderData::readShaderCode(const std::string& fileName) {

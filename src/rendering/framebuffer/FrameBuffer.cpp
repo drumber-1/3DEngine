@@ -13,7 +13,5 @@ FrameBuffer::FrameBuffer(int width, int height, bool useCubeMap) : BaseFramebuff
 
 	m_depthData.reset(new Renderbuffer(GL_DEPTH_COMPONENT, width, height));
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depthData.get()->getID());
-
-	printStatus();
 }
 

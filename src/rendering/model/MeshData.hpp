@@ -10,8 +10,10 @@ public:
 	MeshData(const Model& model);
 
 	~MeshData() {
-		glDeleteVertexArrays(1, &m_vertexArrayObjectID);
-		glDeleteBuffers(NUM_BUFFERS, m_BufferObjectIDs._M_elems);
+		if (m_vertexArrayObjectID != 0) {
+			glDeleteVertexArrays(1, &m_vertexArrayObjectID);
+			glDeleteBuffers(NUM_BUFFERS, m_BufferObjectIDs._M_elems);
+		}
 	}
 
 	MeshData(const MeshData& other) = delete;
@@ -21,7 +23,10 @@ public:
 	MeshData(MeshData&& other) {
 		m_vertexArrayObjectID = other.m_vertexArrayObjectID;
 		m_BufferObjectIDs = other.m_BufferObjectIDs;
-
+		other.m_vertexArrayObjectID = 0;
+		for (int i = 0; i < NUM_BUFFERS; ++i) {
+			other.m_BufferObjectIDs[i] = 0;
+		}
 	};
 
 	MeshData& operator=(MeshData&& other) = delete;

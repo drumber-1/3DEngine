@@ -6,7 +6,11 @@ class BaseTextureData {
 public:
 	BaseTextureData(GLenum textureType, int width, int height);
 
-	~BaseTextureData() { glDeleteTextures(1, &m_textureID); }
+	~BaseTextureData() {
+		if (m_textureID != 0) {
+			glDeleteTextures(1, &m_textureID);
+		}
+	}
 
 	BaseTextureData(const BaseTextureData& other) = delete;
 
@@ -16,6 +20,7 @@ public:
 											   m_width(other.m_width),
 											   m_height(other.m_height) {
 		m_textureID = other.m_textureID;
+		other.m_textureID = 0;
 	};
 
 	BaseTextureData& operator=(BaseTextureData&& other) = delete;
@@ -28,12 +33,7 @@ public:
 
 	void generateMipmaps();
 
-	//void load(const GLvoid* data, GLenum textureTarget);
-
 	void setAsShadowMap(GLenum textureTarget, float borderIntensity);
-
-	//void load(const GLvoid* data, GLenum textureTarget, GLenum format, GLint interpolation, GLint wrapping,
-	//		  float anisotropy);
 
 	GLuint getID() const { return m_textureID; }
 

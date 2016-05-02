@@ -7,8 +7,8 @@
 class RenderTarget {
 public:
 	RenderTarget(int width, int height, CubeCameraComponent* camera, int renderFreq) : m_framebuffer(width, height, true),
-																			                 m_camera(camera),
-																							 m_renderFreq(renderFreq) {
+																			           m_camera(camera),
+																					   m_renderFreq(renderFreq) {
 		if (m_renderFreq <= 0) {
 			m_renderFreq = 0;
 		}

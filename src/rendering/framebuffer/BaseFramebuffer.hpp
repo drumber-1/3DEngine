@@ -11,12 +11,12 @@ public:
 	BaseFramebuffer(int width, int height) : m_width(width), m_height(height) {
 		glGenFramebuffers(1, &m_framebufferID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_framebufferID);
-		std::cout << "Creating framebuffer " << m_framebufferID << "\n";
 	}
 
 	~BaseFramebuffer() {
-		glDeleteFramebuffers(1, &m_framebufferID);
-		std::cout << "Destroying framebuffer " << m_framebufferID << "\n";
+		if (m_framebufferID != 0) {
+			glDeleteFramebuffers(1, &m_framebufferID);
+		}
 	}
 
 	BaseFramebuffer(const BaseFramebuffer& other) = delete;
@@ -25,15 +25,13 @@ public:
 
 	BaseFramebuffer(BaseFramebuffer&& other) : m_width(other.m_width), m_height(other.m_height) {
 		m_framebufferID = other.m_framebufferID;
+		other.m_framebufferID = 0;
 	};
 
 	BaseFramebuffer& operator=(BaseFramebuffer&& other) = delete;
 
 	void bind() const {
 		glBindFramebuffer(GL_FRAMEBUFFER, m_framebufferID);
-		if (CheckGLError::checkError("bind bf")) {
-			printStatus();
-		}
 		glViewport(0, 0, m_width, m_height);
 	}
 

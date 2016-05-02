@@ -2,7 +2,6 @@
 
 #include "../../components/camera/FPCameraComponent.hpp"
 #include "../../components/MovableComponent.hpp"
-#include "../../rendering/CheckGLError.hpp"
 
 ReflectionTest::ReflectionTest() {
 
@@ -64,7 +63,6 @@ ReflectionTest::ReflectionTest() {
 	//object->addComponent(new RenderComponent(Mesh::meshManager.getPointer("monkey3.obj"), brick));
 	//m_gameWorld.rootEntity.addChildEntity(object);
 
-	m_gameWorld.m_renderTargets.reserve(2);
 
 	Entity* object = new Entity();
 	object->getLocalTransform().translate(glm::vec3(0.0, 1.0, -3.0));

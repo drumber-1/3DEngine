@@ -12,7 +12,11 @@ public:
 		glRenderbufferStorage(GL_RENDERBUFFER, m_bufferType, m_width, m_height);
 	}
 
-	~Renderbuffer() { glDeleteRenderbuffers(1, &m_bufferID); }
+	~Renderbuffer() {
+		if (m_bufferID != 0) {
+			glDeleteRenderbuffers(1, &m_bufferID);
+		}
+	}
 
 	Renderbuffer(const Renderbuffer& other) = delete;
 
@@ -22,6 +26,7 @@ public:
 										 m_width(other.m_width),
 										 m_height(other.m_height) {
 		m_bufferID = other.m_bufferID;
+		other.m_bufferID = 0;
 	};
 
 	Renderbuffer& operator=(Renderbuffer&& other) = delete;
