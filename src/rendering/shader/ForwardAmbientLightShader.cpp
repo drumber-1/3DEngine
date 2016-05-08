@@ -24,6 +24,9 @@ void ForwardAmbientLightShader::setMaterial(const Material& material) {
 }
 
 void ForwardAmbientLightShader::draw(const RenderComponent& renderComponent) {
+	if (!renderComponent.material.hasDiffuse()) {
+		return;
+	}
 	setMaterial(renderComponent.material);
 	setUniform("modelToWorldMatrix", renderComponent.getTransformationMatrix());
 	renderComponent.mesh->draw();

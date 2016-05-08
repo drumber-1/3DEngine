@@ -34,8 +34,18 @@ void ReflectionShader::draw(const RenderComponent& renderComponent) {
 	if (!renderComponent.material.hasReflections()) {
 		return;
 	}
+	if (!renderComponent.material.hasDiffuse()) {
+		glDisable(GL_BLEND);
+		glDepthMask(GL_TRUE);
+		glDepthFunc(GL_LESS);
+	}
 	setMaterial(renderComponent.material);
 	setUniform("modelToWorldMatrix", renderComponent.getTransformationMatrix());
 	setUniform("reflectionMap", renderComponent.reflectionMap);
 	renderComponent.mesh->draw();
+	if (!renderComponent.material.hasDiffuse()) {
+		glEnable(GL_BLEND);
+		glDepthMask(GL_FALSE);
+		glDepthFunc(GL_EQUAL);
+	}
 }
