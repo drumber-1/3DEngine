@@ -7,6 +7,7 @@ ReflectionTest::ReflectionTest() {
 
 	Mesh::meshManager.emplace("cube.obj");
 	Mesh::meshManager.emplace("monkey3.obj");
+	Mesh::meshManager.emplace("sphere.obj");
 	Model modelPlane;
 	modelPlane.makePlane(10, 10, 1);
 	modelPlane.finalize();
@@ -78,7 +79,8 @@ ReflectionTest::ReflectionTest() {
 	CubeCameraComponent* reflectCam2 = new CubeCameraComponent(90, 1.0);
 	object2->addComponent(reflectCam2);
 	m_gameWorld.m_renderTargets.emplace_back(512, 512, reflectCam2, 1);
-	object2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), mirror, m_gameWorld.m_renderTargets[1].getTextureData()));
+	//object2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("cube.obj"), mirror, m_gameWorld.m_renderTargets[1].getTextureData()));
+	object2->addComponent(new RenderComponent(Mesh::meshManager.getPointer("sphere.obj"), mirror, m_gameWorld.m_renderTargets[1].getTextureData()));
 	m_gameWorld.rootEntity.addChildEntity(object2);
 
 	/*Entity* skyLight1 = new Entity();
