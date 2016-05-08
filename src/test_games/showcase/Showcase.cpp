@@ -3,6 +3,7 @@
 #include "../../components/camera/FPCameraComponent.hpp"
 #include "../../components/MovableComponent.hpp"
 #include "../../components/RotationComponent.hpp"
+#include "../../components/OrbitComponent.hpp"
 
 void Showcase::addCube(Entity& root, const Material& material, const glm::vec3& position, const glm::vec3& scale) {
 	Entity* cube = new Entity();
@@ -101,11 +102,10 @@ Showcase::Showcase() {
 	addCube(m_gameWorld.rootEntity, bricks, glm::vec3(ROOM_WIDTH / 4.0f, ROOM_HEIGHT / 2.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 
 	Entity* sphere = new Entity();
-	sphere->getLocalTransform().translate(glm::vec3(0.0, 1.0, 1.0));
 	sphere->getLocalTransform().scale(glm::vec3(0.3, 0.3, 0.3));
 	CubeCameraComponent* reflectCam = new CubeCameraComponent(90, 1.0);
 	sphere->addComponent(reflectCam);
-	sphere->addComponent(new MovableComponent());
+	sphere->addComponent(new OrbitComponent(glm::vec3(0.0, 4.0, 0.0), glm::vec3(0.0, 1.0, 0.0), 1.0f, 2.0f));
 	sphere->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 10.0f));
 	m_gameWorld.m_renderTargets.emplace_back(512, 512, reflectCam, 1);
 	sphere->addComponent(new RenderComponent(Mesh::meshManager.getPointer("sphere.obj"), mirror, m_gameWorld.m_renderTargets[0].getTextureData()));
