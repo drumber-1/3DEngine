@@ -10,5 +10,7 @@ public:
 
 private:
 	const int ROOM_WIDTH = 5;
-	const int ROOM_HEIGHT = 5;
+	const int ROOM_HEIGHT = 4;
+
+	std::unique_ptr<RenderComponent> m_skybox;
 };
