@@ -4,6 +4,7 @@
 #include "../../components/MovableComponent.hpp"
 #include "../../components/RotationComponent.hpp"
 #include "../../components/OrbitComponent.hpp"
+#include "../../components/PendulumComponent.hpp"
 
 void Showcase::addCube(Entity& root, const Material& material, const glm::vec3& position, const glm::vec3& scale) {
 	Entity* cube = new Entity();
@@ -35,6 +36,7 @@ Showcase::Showcase() {
 	Mesh::meshManager.emplace("cube.obj");
 	Mesh::meshManager.emplace("sphere.obj");
 	Mesh::meshManager.emplace("monkey3.obj");
+	Mesh::meshManager.emplace("lampshade.obj");
 
 	Entity* camera = new Entity();
 	BaseCameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
@@ -92,24 +94,28 @@ Showcase::Showcase() {
 	//skyLight1->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.6f, false));
 	//m_gameWorld.rootEntity.addChildEntity(skyLight1);
 
-	Entity* spotLight = new Entity();
-	spotLight->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, 0.0f));
-	spotLight->addComponent(new SpotLightComponent(glm::vec3(1.0, 1.0, 1.0), 1.5f, 10.0f, 0.6f, Attenuation(0.44, 0.35, 1.0), false));
-	//pointLight->addComponent(new MovableComponent());
-	spotLight->addComponent(new RotationComponent(-0.8f, glm::vec3(0.0, 1.0, 0.0)));
-	m_gameWorld.rootEntity.addChildEntity(spotLight);
+//	Entity* spotLight = new Entity();
+//	spotLight->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, 0.0f));
+//	spotLight->addComponent(new SpotLightComponent(glm::vec3(1.0, 1.0, 1.0), 1.5f, 10.0f, 0.6f, Attenuation(0.44, 0.35, 1.0), false));
+//	spotLight->addComponent(new RotationComponent(-0.8f, glm::vec3(0.0, 1.0, 0.0)));
+//	m_gameWorld.rootEntity.addChildEntity(spotLight);
 
 	addCube(m_gameWorld.rootEntity, bricks, glm::vec3(ROOM_WIDTH / 4.0f, ROOM_HEIGHT / 2.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 
+	Entity* lamp = new Entity();
+	lamp->getLocalTransform().scale(glm::vec3(0.4, 0.4, 0.4));
+	lamp->addComponent(new PendulumComponent(glm::vec3(0.0, ROOM_HEIGHT, 0.0), glm::vec3(0.0, ROOM_HEIGHT - 1.0, 0.0), glm::vec3(1.0, 0.0, 0.0), 10.0, glm::radians(60.0f)));
+	lamp->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 10.0f));
+	lamp->addComponent(new RenderComponent(Mesh::meshManager.getPointer("lampshade.obj"), checkers));
+	m_gameWorld.rootEntity.addChildEntity(lamp);
+
 	Entity* sphere = new Entity();
+	sphere->getLocalTransform().translate(glm::vec3(ROOM_WIDTH / 4.0f, ROOM_HEIGHT / 4.0f, ROOM_WIDTH / 4.0f));
 	sphere->getLocalTransform().scale(glm::vec3(0.3, 0.3, 0.3));
 	CubeCameraComponent* reflectCam = new CubeCameraComponent(90, 1.0);
 	sphere->addComponent(reflectCam);
-	sphere->addComponent(new OrbitComponent(glm::vec3(0.0, 4.0, 0.0), glm::vec3(0.0, 1.0, 0.0), 1.0f, 2.0f));
-	sphere->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 10.0f));
 	m_gameWorld.m_renderTargets.emplace_back(512, 512, reflectCam, 1);
 	sphere->addComponent(new RenderComponent(Mesh::meshManager.getPointer("sphere.obj"), mirror, m_gameWorld.m_renderTargets[0].getTextureData()));
-	//sphere->addComponent(new RenderComponent(Mesh::meshManager.getPointer("sphere.obj"), mirror, Texture::textureManager.getPointer("cube_skybox")->getData()));
 	m_gameWorld.rootEntity.addChildEntity(sphere);
 
 	m_gameWorld.ambientLight = glm::vec3(0.1, 0.1, 0.1);
