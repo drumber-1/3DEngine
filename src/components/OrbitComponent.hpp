@@ -1,7 +1,6 @@
 #pragma once
 
 #include <glm/vec3.hpp>
-#include <iostream>
 #include "BaseComponent.hpp"
 
 class OrbitComponent : public BaseComponent {
