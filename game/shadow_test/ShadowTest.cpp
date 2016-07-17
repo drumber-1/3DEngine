@@ -1,8 +1,8 @@
 #include "ShadowTest.hpp"
 
-#include "../../components/camera/FPCameraComponent.hpp"
-#include "../../components/MovableComponent.hpp"
-#include "../../components/RotationComponent.hpp"
+#include "../../src/components/camera/FPCameraComponent.hpp"
+#include "../../src/components/MovableComponent.hpp"
+#include "../../src/components/RotationComponent.hpp"
 
 void ShadowTest::addCube(Entity& root, const Material& material, const glm::vec3& position, const glm::vec3& scale) {
 	Entity* cube = new Entity();
@@ -37,7 +37,7 @@ ShadowTest::ShadowTest() {
 	BaseCameraComponent* cameraComponent = new FPCameraComponent(70, 1.0);
 	camera->addComponent(cameraComponent);
 	camera->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 10.0f));
-	camera->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, ROOM_WIDTH));
+	camera->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, ROOM_WIDTH / 2.0f));
 	m_gameWorld.rootEntity.addChildEntity(camera);
 	m_gameWorld.currentCamera = cameraComponent;
 	Entity* playerModel = new Entity();
@@ -82,12 +82,6 @@ ShadowTest::ShadowTest() {
 	wall4->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, -ROOM_WIDTH / 2.0f));
 	wall4->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	m_gameWorld.rootEntity.addChildEntity(wall4);
-
-	//Entity* skyLight1 = new Entity();
-	//skyLight1->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-	//skyLight1->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
-	//skyLight1->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.6f, false));
-	//m_gameWorld.rootEntity.addChildEntity(skyLight1);
 
 	Entity* spotLight = new Entity();
 	spotLight->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, 0.0f));

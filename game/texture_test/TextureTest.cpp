@@ -1,7 +1,6 @@
 #include "TextureTest.hpp"
 
-#include "../../components/camera/FPCameraComponent.hpp"
-#include "../../components/MovableComponent.hpp"
+#include "../../src/components/camera/FPCameraComponent.hpp"
 
 #include <ctime>
 
@@ -15,7 +14,7 @@ std::vector<std::string> loadModels() {
 	models.push_back("monkey3.obj");
 
 	Model modelPlane;
-	modelPlane.makePlane(100, 100, 1);
+	modelPlane.makePlane(25, 25, 1);
 	modelPlane.finalize();
 	Mesh::meshManager.emplace("plane", modelPlane);
 	models.push_back("plane");
@@ -131,27 +130,9 @@ TextureTest::TextureTest() {
 	m_gameWorld.rootEntity.addChildEntity(camera);
 	m_gameWorld.currentCamera = cameraComponent;
 
-	Entity* cameraLight = new Entity();
-	cameraLight->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 100));
-	camera->addChildEntity(cameraLight);
-
-	//Entity* plane = new Entity();
-	//plane->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), materials[0]));
-	//m_gameWorld.rootEntity.addChildEntity(plane);
-
-	Entity* skyLight = new Entity();
-	skyLight->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-	skyLight->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
-	skyLight->addComponent(new DirectionalLightComponent(glm::vec3(0.2, 0.4, 0.6), 0.4f, false));
-	m_gameWorld.rootEntity.addChildEntity(skyLight);
-
-	Entity* probe = new Entity();
-	probe->getLocalTransform().translate(glm::vec3(0.0f, 1.0f, -0.5f));
-	probe->getLocalTransform().scale(glm::vec3(0.1f, 0.1f, 0.1f));
-	probe->addComponent(new RenderComponent(Mesh::meshManager.getPointer(models[0]), materials[1]));
-	probe->addComponent(new PointLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.8f, 100));
-	probe->addComponent(new MovableComponent());
-	m_gameWorld.rootEntity.addChildEntity(probe);
+	Entity* plane = new Entity();
+	plane->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), materials[0]));
+	m_gameWorld.rootEntity.addChildEntity(plane);
 
 	std::srand((unsigned int) std::time(0));
 	for (int i = 0; i <= 10; i++) {
@@ -169,5 +150,5 @@ TextureTest::TextureTest() {
 		}
 	}
 
-	m_gameWorld.ambientLight = glm::vec3(0.2, 0.2, 0.2);
+	m_gameWorld.ambientLight = glm::vec3(0.5, 0.5, 0.5);
 }

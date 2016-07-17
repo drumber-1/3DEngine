@@ -14,10 +14,13 @@ if (NOT 3DEngine_SOURCE_DIR STREQUAL CMAKE_CURRENT_BINARY_DIR)
 	endforeach()
 endif()
 
+set(GAME "showcase" CACHE STRING "Name of game folder")
 
 file(GLOB_RECURSE HDRS ${3DEngine_SOURCE_DIR}/src/*.hpp)
 file(GLOB_RECURSE SRCS ${3DEngine_SOURCE_DIR}/src/*.cpp)
-add_executable(3DEngine ${HDRS} ${SRCS})
+file(GLOB_RECURSE HDRS_GAME ${3DEngine_SOURCE_DIR}/game/${GAME}/*.hpp)
+file(GLOB_RECURSE SRCS_GAME ${3DEngine_SOURCE_DIR}/game/${GAME}/*.cpp)
+add_executable(3DEngine ${HDRS} ${SRCS} ${HDRS_GAME} ${SRCS_GAME})
 
 SET(3DEngine_CMAKE_DIR "${3DEngine_SOURCE_DIR}/cmake")
 

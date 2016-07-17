@@ -1,6 +1,6 @@
 #include "CubeMapTest.hpp"
 
-#include "../../components/camera/FPCameraComponent.hpp"
+#include "../../src/components/camera/FPCameraComponent.hpp"
 
 CubeMapTest::CubeMapTest() {
 

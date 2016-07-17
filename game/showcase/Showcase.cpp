@@ -1,10 +1,8 @@
 #include "Showcase.hpp"
 
-#include "../../components/camera/FPCameraComponent.hpp"
-#include "../../components/MovableComponent.hpp"
-#include "../../components/RotationComponent.hpp"
-#include "../../components/OrbitComponent.hpp"
-#include "../../components/PendulumComponent.hpp"
+#include "../../src/components/camera/FPCameraComponent.hpp"
+#include "../../src/components/MovableComponent.hpp"
+#include "../../src/components/PendulumComponent.hpp"
 
 void Showcase::addCube(Entity& root, const Material& material, const glm::vec3& position, const glm::vec3& scale) {
 	Entity* cube = new Entity();
@@ -48,22 +46,10 @@ Showcase::Showcase() {
 	camera->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, ROOM_WIDTH));
 	m_gameWorld.rootEntity.addChildEntity(camera);
 	m_gameWorld.currentCamera = cameraComponent;
-//	Entity* playerModel = new Entity();
-//	playerModel->addComponent(new RenderComponent(Mesh::meshManager.getPointer("monkey3.obj"), checkers));
-//	playerModel->getLocalTransform().setScale(glm::vec3(0.1, 0.1, 0.1));
-//	playerModel->getLocalTransform().translate(glm::vec3(0.0, 0.0, 0.1));
-//	playerModel->getLocalTransform().rotate(glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-//	camera->addChildEntity(playerModel);
 
 	Entity* floor = new Entity();
 	floor->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), checkers));
 	m_gameWorld.rootEntity.addChildEntity(floor);
-
-//	Entity* ceiling = new Entity();
-//	ceiling->addComponent(new RenderComponent(Mesh::meshManager.getPointer("plane"), checkers));
-//	ceiling->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT, 0.0f));
-//	ceiling->getLocalTransform().rotate(glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-//	m_gameWorld.rootEntity.addChildEntity(ceiling);
 
 	Entity* wall1 = new Entity();
 	wall1->addComponent(new RenderComponent(Mesh::meshManager.getPointer("planeSmall"), bricks));
@@ -90,20 +76,6 @@ Showcase::Showcase() {
 	wall4->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, -ROOM_WIDTH / 2.0f));
 	wall4->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	m_gameWorld.rootEntity.addChildEntity(wall4);
-
-	//Entity* skyLight1 = new Entity();
-	//skyLight1->getLocalTransform().rotate(glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-	//skyLight1->getLocalTransform().rotate(glm::radians(-20.0f), glm::vec3(1.0, 0.0, 0.0));
-	//skyLight1->addComponent(new DirectionalLightComponent(glm::vec3(1.0, 1.0, 1.0), 0.6f, false));
-	//m_gameWorld.rootEntity.addChildEntity(skyLight1);
-
-//	Entity* spotLight = new Entity();
-//	spotLight->getLocalTransform().translate(glm::vec3(0.0f, ROOM_HEIGHT / 2.0f, 0.0f));
-//	spotLight->addComponent(new SpotLightComponent(glm::vec3(1.0, 1.0, 1.0), 1.5f, 10.0f, 0.6f, Attenuation(0.44, 0.35, 1.0), false));
-//	spotLight->addComponent(new RotationComponent(-0.8f, glm::vec3(0.0, 1.0, 0.0)));
-//	m_gameWorld.rootEntity.addChildEntity(spotLight);
-
-	addCube(m_gameWorld.rootEntity, bricks, glm::vec3(ROOM_WIDTH / 4.0f, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 
 	Entity* lamp = new Entity();
 	lamp->getLocalTransform().scale(glm::vec3(0.4, 0.4, 0.4));

@@ -1,7 +1,7 @@
 #include "NormalTest.hpp"
 
-#include "../../components/camera/FPCameraComponent.hpp"
-#include "../../components/MovableComponent.hpp"
+#include "../../src/components/camera/FPCameraComponent.hpp"
+#include "../../src/components/MovableComponent.hpp"
 
 void NormalTest::addCube(Entity& root, const Material& material, const glm::vec3& position) {
 	Entity* cube = new Entity();
