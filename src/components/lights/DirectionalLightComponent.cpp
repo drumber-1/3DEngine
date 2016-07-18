@@ -12,7 +12,7 @@ ShadowFramebuffer* DirectionalLightComponent::generateFrameBuffer() {
 }
 
 BaseCameraComponent* DirectionalLightComponent::generateCamera() {
-	return new OrthographicCameraComponent(-5, 5, -5, 5);
+	return new OrthographicCameraComponent(-2.5f, 2.5f, -2.5f, 2.5f);
 }
 
 

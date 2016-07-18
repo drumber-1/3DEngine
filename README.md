@@ -36,5 +36,6 @@ All scenes render in a 1280x720 window, with a frame cap of 240fps. Frame rate i
 | ```cubemap_test```    | Testing of the skybox via cubemaps. |
 | ```normal_test```     | Testing of normal mapping. Cubes on the left have no normal maps whereas the ones on the right do. Small cube can be moved to position light. |
 | ```reflection_test``` | Testing of realtime recursive reflection. Cube mirror can be moved. |
-| ```shadow_test```     | Testing of realtime shadows. Cube can be moved. (Note player has a model that also casts a shadow.) |
+| ```shadow_test```     | Testing of realtime directionallight shadows. |
+| ```shadow_test2```     | Testing of realtime spotlight shadows. Light can be moved/rotated. (Note player has a model that also casts a shadow.) |
 | ```texture_test```    | Test of various textures wrapped on a cube and on the "Suzanne" monkey head model. |
