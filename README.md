@@ -24,7 +24,7 @@ cmake -DGAME=<game> ..
 make
 ```
 
-where <game> is one of the test scenes in the ```game``` folder (see below). Then rendering can be started by running the created ```3dengine``` binary.
+where ```<game>``` is one of the test scenes in the ```game``` folder (see below). Then rendering can be started by running the created ```3dengine``` binary.
 
 ####Example scenes
 
