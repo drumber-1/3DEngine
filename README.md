@@ -7,8 +7,10 @@ A 3D renderering engine, written as a tool to drive my understanding of OpenGL a
 ####Requirements
 * C++11
 * cmake - build tool
-* OpenGL
+* OpenGL, glew
 * SDL2 - Window creation, input handling
+* SDL2Image - Reading png/jpeg textures
+* glm - vector maths
 * Assimp - Loading models
 
 ####Building
